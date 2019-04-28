@@ -1,0 +1,6 @@
+{
+  "appId": "esrichina.wh.onemap",
+  "appName": "onemap",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

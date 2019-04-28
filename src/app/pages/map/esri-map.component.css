@@ -1,0 +1,20 @@
+/* import the required JSAPI css */
+@import url('https://js.arcgis.com/4.11/esri/css/main.css');
+
+.esri-view {
+  height: 50%;
+}
+
+
+
+.esri-view .esri-view-surface--inset-outline:focus::after{
+  outline: none
+}
+
+
+.map-container{
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}

@@ -29,7 +29,11 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
-              }
+              },
+              { "glob": "**/*", "input": "./assets/", "output": "./assets/" },
+              { "glob": "favicon.ico", "input": "./", "output": "./" },
+              { "glob": "mdi.svg", "input": "../node_modules/@mdi/angular-material", "output": "./assets" }
+           
             ],
             "styles": [
               {
@@ -37,6 +41,9 @@
               },
               {
                 "input": "src/global.scss"
+              },
+              {
+                "input": "src/assets/css/main.scss"
               }
             ],
             "scripts": [],

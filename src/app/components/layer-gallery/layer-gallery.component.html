@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <!-- <ion-button (click)="dissModal($event)" color="dark">返回</ion-button> -->
+    </ion-buttons>
+    <ion-title class="title">
+        <ion-select interface="popover" (ionChange)="onCategoryChange($event)" class="cate-select" value="all" okText="确定" cancelText="取消">
+          <ion-select-option value="all">全部</ion-select-option>
+          <ion-select-option value="1">专题数据1</ion-select-option>
+          <ion-select-option value="2">专题数据2</ion-select-option>
+          <ion-select-option value="3">专题数据3</ion-select-option>
+        </ion-select>
+    </ion-title>
+    <ion-buttons slot="end"> </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="transparent" class="widget-search-modal">
+  <div class="layer-container">
+    <div
+      [ngClass]="{ active: isLayerExists(layer) }"
+      class="item"
+      *ngFor="let layer of layers"
+    >
+      <img
+        class="thumbnail"
+        (click)="onThumbnailClick(layer, $event)"
+        src="{{ getThumbnailUrl(layer) }}"
+      />
+      <!-- <ion-icon name="checkmark-circle-outline"></ion-icon> -->
+
+      <span class="title">{{ layer.title }}</span>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" (click)="dissModal($event)" color="dark"
+      >完成</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>

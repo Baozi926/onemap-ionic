@@ -1,6 +1,9 @@
 {
   "name": "onemap",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
   "type": "angular",
   "id": "efceba1a"
 }
