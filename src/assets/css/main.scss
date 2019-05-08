@@ -5,8 +5,8 @@
   }
 }
 
-.ion-color-transparent {
-  --ion-color-base: rgba(255, 255, 255, 0.4) !important;
+.ion-color-half-transparent {
+  --ion-color-base: rgba(255, 255, 255, 0.7) !important;
   --ion-color-base-rgb: var(--ion-color-primary-rgb, 56, 128, 255) !important;
   --ion-color-contrast: #222428 !important;
   --ion-color-contrast-rgb: var(
@@ -19,25 +19,20 @@
   --ion-color-tint: var(--ion-color-primary-tint, #4c8dff) !important;
 }
 
-.slide-in-right {
-  -webkit-transform: translateX(100%);
-  transform: translateX(100%);
+.ion-color-transparent {
+  --ion-color-base: rgba(255, 255, 255, 0) !important;
+  --ion-color-base-rgb: var(--ion-color-primary-rgb, 56, 128, 255) !important;
+  --ion-color-contrast: #222428 !important;
+  --ion-color-contrast-rgb: var(
+    --ion-color-primary-contrast-rgb,
+    255,
+    255,
+    255
+  ) !important;
+  --ion-color-shade: var(--ion-color-primary-shade, #3171e0) !important;
+  --ion-color-tint: var(--ion-color-primary-tint, #4c8dff) !important;
 }
 
-.slide-in-right.ng-enter,
-.slide-in-right > .ng-enter {
-  -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
-  transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 400ms;
-}
-
-.slide-in-right.ng-enter-active,
-.slide-in-right > .ng-enter-active {
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
-}
-
-.slide-in-right.ng-leave,
-.slide-in-right > .ng-leave {
-  -webkit-transition: all ease-in-out 250ms;
-  transition: all ease-in-out 250ms;
+.esri-component.esri-attribution.esri-widget{
+  display: none;
 }

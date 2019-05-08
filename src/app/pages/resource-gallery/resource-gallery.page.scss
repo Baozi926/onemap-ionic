@@ -1,0 +1,104 @@
+
+.container {
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  display: flex;
+  // height: 100%;
+  flex: 1;
+  flex-direction: row;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  .sub-cate {
+    flex-basis: 80px;
+    background-color: var(--ion-color-light);
+    // height: 100%;
+    border-radius: 0 10px 0 0;
+    padding:10px 0;
+    .item{
+      padding: 10px 10px;
+      &.active{
+        background-color: var(--ion-color-light-shade);
+      }
+    }
+  }
+  .resource {
+    overflow-y: auto;
+    flex: 1;
+    // background-color: green;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    // height: 100%;
+    .item {
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      & > .thumbnail {
+        // transition
+        min-height: 20px;
+        margin: 0 10px 10px 15px;
+        border-radius: 5px;
+        -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+      }
+      .title {
+        text-align: center;
+        // text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
+      }
+    }
+  }
+}
+.card {
+  background-color: #fff;
+  flex-wrap: nowrap;
+  min-width: 100%;
+  height: 70px;
+  display: flex;
+  overflow-x: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  .card--content {
+    .text{
+      text-align: center;
+      margin: 5px 10px;
+      display: block;
+      font-size: 18px;
+    }
+    color:var(--ion-color-dark);
+    // transition: background-color  cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s;
+    
+    background-color:var(--ion-color-primary-contrast);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+    min-width: 70px;
+    margin: 5px;
+    border-radius: 5px;
+    font-size: 18px;
+    &.active{
+      
+    color:var(--ion-color-primary-contrast);
+      background-color: var(--ion-color-primary-shade);
+      // background-color: var(  --ion-color-primary-tint);
+    }
+  }
+}
+
+.full{
+  // user-select: none;
+  // height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  overflow: hidden;
+  touch-action: manipulation;
+}

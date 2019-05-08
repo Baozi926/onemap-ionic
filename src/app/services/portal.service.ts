@@ -50,6 +50,16 @@ export class PortalService {
   getToken() {
     return this.config.token;
   }
+  // 获取webmap的里的layer信息
+  async getWebMapLayerInfoById({ id, token }) {
+    const res = await axios.get(`${appConfig.portal.baseUrl}/sharing/rest/content/items/${id}/data?f=json&&token=${token || ''}`);
+    return res.data;
+  }
+
+   async  getItemDetailById({ id, token }) {
+    const res = await axios.get(`${appConfig.portal.baseUrl}/sharing/rest/content/items/${id}?f=json&&token=${token || ''}`);
+    return res.data;
+  }
 
   async search(params) {
     const url = appConfig.portal.portalSearchUrl;

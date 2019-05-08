@@ -1,0 +1,571 @@
+[
+  {
+    "id": 1147,
+    "parentId": 1068,
+    "name": "基础数据",
+    "description": "",
+    "sort": 1,
+    "remarks": "",
+    "code": "1147",
+    "pcode": "1068",
+    "children": [
+      {
+        "id": 1172,
+        "parentId": 1147,
+        "name": "基础数据",
+        "description": "",
+        "sort": 1,
+        "remarks": "",
+        "code": "1172",
+        "pcode": "1147",
+        "children": [
+          {
+            "id": 1180,
+            "parentId": 1172,
+            "name": "影像数据",
+            "description": "",
+            "sort": 1,
+            "remarks": "",
+            "code": "1180",
+            "pcode": "1172",
+            "children": [],
+            "count": 1
+          },
+          {
+            "id": 1181,
+            "parentId": 1172,
+            "name": "⾏政区划",
+            "description": "",
+            "sort": 2,
+            "remarks": "",
+            "code": "1181",
+            "pcode": "1172",
+            "children": [],
+            "count": 1
+          },
+          {
+            "id": 1182,
+            "parentId": 1172,
+            "name": "交通路⽹",
+            "description": "",
+            "sort": 3,
+            "remarks": "",
+            "code": "1182",
+            "pcode": "1172",
+            "children": []
+          },
+          {
+            "id": 1183,
+            "parentId": 1172,
+            "name": "河流⽔系",
+            "description": "",
+            "sort": 4,
+            "remarks": "",
+            "code": "1183",
+            "pcode": "1172",
+            "children": [],
+            "count": 2
+          }
+        ],
+        "count": 4
+      }
+    ],
+    "count": 4
+  },
+  {
+    "id": 1177,
+    "parentId": 1068,
+    "name": "工程数据",
+    "description": "",
+    "sort": 2,
+    "remarks": "",
+    "code": "1177",
+    "pcode": "1068",
+    "children": [
+      {
+        "id": 1178,
+        "parentId": 1177,
+        "name": "渠道",
+        "description": "",
+        "sort": 1,
+        "remarks": "",
+        "code": "1178",
+        "pcode": "1177",
+        "children": [
+          {
+            "id": 1179,
+            "parentId": 1178,
+            "name": "渠道要素",
+            "description": "",
+            "sort": 1,
+            "remarks": "",
+            "code": "1179",
+            "pcode": "1178",
+            "children": [],
+            "count": 5
+          },
+          {
+            "id": 1184,
+            "parentId": 1178,
+            "name": "渠道结构",
+            "description": "",
+            "sort": 2,
+            "remarks": "",
+            "code": "1184",
+            "pcode": "1178",
+            "children": [],
+            "count": 8
+          },
+          {
+            "id": 1185,
+            "parentId": 1178,
+            "name": "特殊地质段",
+            "description": "",
+            "sort": 3,
+            "remarks": "",
+            "code": "1185",
+            "pcode": "1178",
+            "children": [],
+            "count": 14
+          }
+        ],
+        "count": 27
+      },
+      {
+        "id": 1186,
+        "parentId": 1177,
+        "name": "建筑物",
+        "description": "",
+        "sort": 2,
+        "remarks": "",
+        "code": "1186",
+        "pcode": "1177",
+        "children": [
+          {
+            "id": 1187,
+            "parentId": 1186,
+            "name": "河渠交叉",
+            "description": "",
+            "sort": 1,
+            "remarks": "",
+            "code": "1187",
+            "pcode": "1186",
+            "children": [],
+            "count": 10
+          },
+          {
+            "id": 1188,
+            "parentId": 1186,
+            "name": "左岸排⽔",
+            "description": "",
+            "sort": 2,
+            "remarks": "",
+            "code": "1188",
+            "pcode": "1186",
+            "children": [],
+            "count": 6
+          },
+          {
+            "id": 1189,
+            "parentId": 1186,
+            "name": "渠渠交叉",
+            "description": "",
+            "sort": 3,
+            "remarks": "",
+            "code": "1189",
+            "pcode": "1186",
+            "children": [],
+            "count": 6
+          },
+          {
+            "id": 1190,
+            "parentId": 1186,
+            "name": "路渠交叉",
+            "description": "",
+            "sort": 4,
+            "remarks": "",
+            "code": "1190",
+            "pcode": "1186",
+            "children": [],
+            "count": 2
+          },
+          {
+            "id": 1191,
+            "parentId": 1186,
+            "name": "控制⼯程",
+            "description": "",
+            "sort": 5,
+            "remarks": "",
+            "code": "1191",
+            "pcode": "1186",
+            "children": [],
+            "count": 4
+          },
+          {
+            "id": 1192,
+            "parentId": 1186,
+            "name": "渠⾸电站",
+            "description": "",
+            "sort": 6,
+            "remarks": "",
+            "code": "1192",
+            "pcode": "1186",
+            "children": []
+          },
+          {
+            "id": 1193,
+            "parentId": 1186,
+            "name": "惠南庄泵站",
+            "description": "",
+            "sort": 7,
+            "remarks": "",
+            "code": "1193",
+            "pcode": "1186",
+            "children": [],
+            "count": 2
+          },
+          {
+            "id": 1194,
+            "parentId": 1186,
+            "name": "天津⼲线",
+            "description": "",
+            "sort": 8,
+            "remarks": "",
+            "code": "1194",
+            "pcode": "1186",
+            "children": [],
+            "count": 9
+          },
+          {
+            "id": 1195,
+            "parentId": 1186,
+            "name": "保护范围",
+            "description": "",
+            "sort": 9,
+            "remarks": "",
+            "code": "1195",
+            "pcode": "1186",
+            "children": [],
+            "count": 6
+          }
+        ],
+        "count": 44
+      }
+    ],
+    "count": 71
+  },
+  {
+    "id": 1148,
+    "parentId": 1068,
+    "name": "运行数据",
+    "description": "",
+    "sort": 3,
+    "remarks": "",
+    "code": "1148",
+    "pcode": "1068",
+    "children": [
+      {
+        "id": 1196,
+        "parentId": 1148,
+        "name": "监测数据",
+        "description": "",
+        "sort": 1,
+        "remarks": "",
+        "code": "1196",
+        "pcode": "1148",
+        "children": []
+      },
+      {
+        "id": 1197,
+        "parentId": 1148,
+        "name": "业务数据",
+        "description": "",
+        "sort": 2,
+        "remarks": "",
+        "code": "1197",
+        "pcode": "1148",
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": 1150,
+    "parentId": 1068,
+    "name": "专题数据",
+    "description": "",
+    "sort": 4,
+    "remarks": "",
+    "code": "1150",
+    "pcode": "1068",
+    "children": [
+      {
+        "id": 1170,
+        "parentId": 1150,
+        "name": "专题数据",
+        "description": "",
+        "sort": 1,
+        "remarks": "",
+        "code": "1170",
+        "pcode": "1150",
+        "children": [
+          {
+            "id": 1198,
+            "parentId": 1170,
+            "name": "穿越⼯程",
+            "description": "",
+            "sort": 1,
+            "remarks": "",
+            "code": "1198",
+            "pcode": "1170",
+            "children": []
+          },
+          {
+            "id": 1199,
+            "parentId": 1170,
+            "name": "防洪⻛险",
+            "description": "",
+            "sort": 2,
+            "remarks": "",
+            "code": "1199",
+            "pcode": "1170",
+            "children": []
+          },
+          {
+            "id": 1200,
+            "parentId": 1170,
+            "name": "污染源",
+            "description": "",
+            "sort": 3,
+            "remarks": "",
+            "code": "1200",
+            "pcode": "1170",
+            "children": []
+          },
+          {
+            "id": 1201,
+            "parentId": 1170,
+            "name": "通讯管线",
+            "description": "",
+            "sort": 4,
+            "remarks": "",
+            "code": "1201",
+            "pcode": "1170",
+            "children": []
+          },
+          {
+            "id": 1202,
+            "parentId": 1170,
+            "name": "除险加固",
+            "description": "",
+            "sort": 5,
+            "remarks": "",
+            "code": "1202",
+            "pcode": "1170",
+            "children": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 1166,
+    "parentId": 1068,
+    "name": "管理数据",
+    "description": "",
+    "sort": 5,
+    "remarks": "",
+    "code": "1166",
+    "pcode": "1068",
+    "children": [
+      {
+        "id": 1203,
+        "parentId": 1166,
+        "name": "管理数据",
+        "description": "",
+        "sort": 1,
+        "remarks": "",
+        "code": "1203",
+        "pcode": "1166",
+        "children": [
+          {
+            "id": 1204,
+            "parentId": 1203,
+            "name": "管理局",
+            "description": "",
+            "sort": 1,
+            "remarks": "",
+            "code": "1204",
+            "pcode": "1203",
+            "children": [],
+            "count": 2
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "count": 2
+  },
+  {
+    "id": 1205,
+    "parentId": 1068,
+    "name": "三维数据",
+    "description": "",
+    "sort": 6,
+    "remarks": "",
+    "code": "1205",
+    "pcode": "1068",
+    "children": [
+      {
+        "id": 1206,
+        "parentId": 1205,
+        "name": "实景模型",
+        "description": "",
+        "sort": 1,
+        "remarks": "",
+        "code": "1206",
+        "pcode": "1205",
+        "children": [
+          {
+            "id": 1208,
+            "parentId": 1206,
+            "name": "渠⾸分局",
+            "description": "",
+            "sort": 1,
+            "remarks": "",
+            "code": "1208",
+            "pcode": "1206",
+            "children": [],
+            "count": 14
+          },
+          {
+            "id": 1210,
+            "parentId": 1206,
+            "name": "河南分局",
+            "description": "",
+            "sort": 2,
+            "remarks": "",
+            "code": "1210",
+            "pcode": "1206",
+            "children": []
+          },
+          {
+            "id": 1213,
+            "parentId": 1206,
+            "name": "河北分局",
+            "description": "",
+            "sort": 3,
+            "remarks": "",
+            "code": "1213",
+            "pcode": "1206",
+            "children": []
+          },
+          {
+            "id": 1214,
+            "parentId": 1206,
+            "name": "天津分局",
+            "description": "",
+            "sort": 4,
+            "remarks": "",
+            "code": "1214",
+            "pcode": "1206",
+            "children": []
+          },
+          {
+            "id": 1217,
+            "parentId": 1206,
+            "name": "北京分局",
+            "description": "",
+            "sort": 5,
+            "remarks": "",
+            "code": "1217",
+            "pcode": "1206",
+            "children": [],
+            "count": 1
+          }
+        ],
+        "count": 15
+      },
+      {
+        "id": 1207,
+        "parentId": 1205,
+        "name": "BIM模型",
+        "description": "",
+        "sort": 2,
+        "remarks": "",
+        "code": "1207",
+        "pcode": "1205",
+        "children": [
+          {
+            "id": 1209,
+            "parentId": 1207,
+            "name": "渠⾸分局",
+            "description": "",
+            "sort": 1,
+            "remarks": "",
+            "code": "1209",
+            "pcode": "1207",
+            "children": []
+          },
+          {
+            "id": 1211,
+            "parentId": 1207,
+            "name": "河南分局",
+            "description": "",
+            "sort": 2,
+            "remarks": "",
+            "code": "1211",
+            "pcode": "1207",
+            "children": [],
+            "count": 2
+          },
+          {
+            "id": 1212,
+            "parentId": 1207,
+            "name": "河北分局",
+            "description": "",
+            "sort": 3,
+            "remarks": "",
+            "code": "1212",
+            "pcode": "1207",
+            "children": []
+          },
+          {
+            "id": 1215,
+            "parentId": 1207,
+            "name": "天津分局",
+            "description": "",
+            "sort": 4,
+            "remarks": "",
+            "code": "1215",
+            "pcode": "1207",
+            "children": []
+          },
+          {
+            "id": 1216,
+            "parentId": 1207,
+            "name": "北京分局",
+            "description": "",
+            "sort": 5,
+            "remarks": "",
+            "code": "1216",
+            "pcode": "1207",
+            "children": []
+          }
+        ],
+        "count": 2
+      }
+    ],
+    "count": 17
+  },
+  {
+    "id": 1218,
+    "parentId": 1068,
+    "name": "专业地图",
+    "description": "",
+    "sort": 7,
+    "remarks": "",
+    "code": "1218",
+    "pcode": "1068",
+    "children": []
+  }
+]

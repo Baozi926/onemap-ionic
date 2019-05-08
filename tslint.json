@@ -3,6 +3,9 @@
   "rulesDirectory": [
     "codelyzer"
   ],
+  "linterOptions": {
+    "exclude": ["src/assets"]
+  },
   "rules": {
     "array-type": false,
     "arrow-parens": false,

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { PortalService } from '../../services/portal.service';
+import { MapService } from '../../services/map.service';
 import { Storage } from '@ionic/storage';
 import esri = __esri; // Esri TypeScript Types
 import { loadModules } from 'esri-loader';
@@ -15,12 +16,13 @@ export class LayerGalleryComponent implements OnInit {
   constructor(
     public modalCtrl: ModalController,
     public portalService: PortalService,
-    public storage: Storage
+    public storage: Storage,
+    private mapService: MapService
   ) {}
 
 
 
-  @Input() view?: any;
+  // @Input() view?: any;
   private layers = [];
   dissModal() {
     this.modalCtrl.dismiss();
@@ -32,8 +34,8 @@ export class LayerGalleryComponent implements OnInit {
 
   }
   isLayerExists(layer) {
-    if (this.view) {
-      return !!this.view.map.findLayerById(layer.id);
+    if (this.mapService.view) {
+      return !!this.mapService.view.map.findLayerById(layer.id);
     }
 
 
@@ -44,7 +46,7 @@ export class LayerGalleryComponent implements OnInit {
   async onThumbnailClick(data, evt) {
     // 如果存在，删除图层
     if (this.isLayerExists(data)) {
-      this.view.map.remove(this.view.map.findLayerById(data.id));
+      this.mapService.view.map.remove(this.mapService.view.map.findLayerById(data.id));
       return;
     }
 
@@ -73,9 +75,9 @@ export class LayerGalleryComponent implements OnInit {
           alert('not implement');
       }
       if (layer) {
-        this.view.map.add(layer);
+        this.mapService.view.map.add(layer);
         layer.when(() => {
-          this.view.goTo(layer.fullExtent);
+          this.mapService.view.goTo(layer.fullExtent);
         }, (err) => {
 
           console.log('加载图层失败', err);

@@ -1,0 +1,71 @@
+<!-- <div
+  #listContainer
+  class="search-result"
+  (tap)="onTap($event)"
+  (panstart)="onPanStart($event)"
+  (panend)="onPanEnd($event)"
+  (pan)="onPan($event)"
+> -->
+<div class="header">
+  <div class="content">
+    <!-- <div class="item" *ngFor="let item of facet" ><p class="text">{{item.name}}</p><p class="count">{{item.count}}</p></div> -->
+    <ion-select
+      [interfaceOptions]="cateInterfaceOptions"
+      [ngModel]="subCateValue"
+      interface="popover"
+      (ionChange)="onCategoryChange($event)"
+      class="cate-select"
+      cancelText="取消"
+      okText="筛选"
+    >
+      <ion-select-option class="item" value="*"
+        >全部:{{ total }}</ion-select-option
+      >
+
+      <ion-select-option
+        *ngFor="let item of facet"
+        class="item"
+        [value]="item.layer"
+        >{{ item.name }}:{{ item.count }}</ion-select-option
+      >
+    </ion-select>
+  </div>
+  <div (click)="hide($event)" class="right">完成</div>
+</div>
+<ion-content class="content">
+  <ion-slides #resultSlides class="slides" pager="false">
+    <ion-slide>
+      <ion-content #listContent>
+        <ion-list #listEle class="list">
+          <ion-item button="true" (click)="locateItem(item)" lines="full" *ngFor="let item of results" class="item">
+            <span class="navi btn"  slot="start">
+              <ion-icon name="locate"></ion-icon>
+            </span>
+            <p class="cagte">{{ getItemCategory(item) }}</p>-
+            <p class="name">{{ getItemName(item) }}</p>
+            <span class="detail btn" (click)="onDetailClick($event,item)" slot="end">
+              <ion-icon name="list"></ion-icon>
+            </span>
+          </ion-item>
+        </ion-list>
+        <ion-infinite-scroll
+          #infiniteScroll
+          threshold="100px"
+          (ionInfinite)="loadMoreData($event)"
+        >
+          <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="加载更多数据"
+          >
+          </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+      </ion-content>
+    </ion-slide>
+    <ion-slide>
+      <!-- [(data)]="detailData" -->
+      <app-search-result-detail  [data]="detailData" ></app-search-result-detail>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
+
+<!-- </div> -->

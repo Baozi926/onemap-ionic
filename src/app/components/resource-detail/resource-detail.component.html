@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dissModal($event)" color="dark">返回</ion-button>
+    </ion-buttons>
+    <ion-title class="title">
+      详情
+    </ion-title>
+    <ion-buttons slot="end"> </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <img class="thumbnail" src="{{ getThumbnailUrl() }}" />
+    <ion-card-header>
+      <ion-card-subtitle>{{ item.type }}</ion-card-subtitle>
+      <ion-card-title>{{ item.title }}</ion-card-title>
+    </ion-card-header>
+    <!-- todo 用pipe 防止xxs 注入 -->
+    <ion-card-content >
+        <div class="owner" >所有者：{{item.owner}}</div>
+      <div class="description" [innerHTML]="item.description" ></div>
+     
+    </ion-card-content>
+  </ion-card>
+  <ion-button (click)="onAdd2MapClick($event)" class="load2map btn" button="true" expand="block">在地图上加载</ion-button>
+  
+</ion-content>

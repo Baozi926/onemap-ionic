@@ -8,40 +8,24 @@ const viewCache = null;
   providedIn: 'root'
 })
 export class MapService {
- private view = null;
+ private view_: any;
   constructor() {}
-  async createMap({ container, basemap, center, zoom }) {
-    try {
-      // Load the modules for the ArcGIS API for JavaScript
-      const [EsriMap, EsriMapView, EsriSceneView] = await loadModules([
-        'esri/Map',
-        'esri/views/MapView',
-        'esri/views/SceneView'
-      ]);
-
-      // Configure the Map
-      const mapProperties: esri.MapProperties = {
-        basemap
-      };
-
-      const map: esri.Map = new EsriMap(mapProperties);
-
-      // Initialize the MapView
-      const mapViewProperties: esri.MapViewProperties = {
-        container,
-        center,
-        zoom,
-        map
-      };
-
-      const view = new EsriSceneView(mapViewProperties);
-      this.view = view;
-
-      view.ui.remove('zoom');
-      view.ui.remove('navigation');
-      return view;
-    } catch (error) {
-      console.log('EsriLoader: ', error);
-    }
+  initialExtent: any;
+  get view() {
+    return this.view_;
   }
+  set view(view) {
+    this.view_ = view;
+  }
+
+
+  getInitialExtent() {
+    return this.initialExtent;
+  }
+  setInitialExtent(extent) {
+    this.initialExtent = extent;
+
+  }
+
+
 }

@@ -4,8 +4,8 @@
     <ion-buttons (click)="dissModal($event)" slot="end">返回</ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content color="transparent" >
   <div class="widget-search-modal">
-    <ion-searchbar animated=“true”  cancelButtonText="Custom Cancel" autocomplete="on"></ion-searchbar>
+    <ion-searchbar #searchbar (keyup.enter)="onPressEnter($event)"  animated=“true”  cancelButtonText="Custom Cancel" autocomplete="on"></ion-searchbar>
   </div>
 </ion-content>

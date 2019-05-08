@@ -1,0 +1,4085 @@
+{
+    "conditionModel": [
+      {
+        "layer": [
+          "River",
+          "River_Polygon"
+        ],
+        "name": "河流",
+        "model": [
+          {
+            "name": "流域面积(km²)",
+            "field": "CEN_BAS_AR",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "50-100",
+                "value": [
+                  50,
+                  100
+                ]
+              },
+              {
+                "name": "100-200",
+                "value": [
+                  100,
+                  200
+                ]
+              },
+              {
+                "name": "200-1000",
+                "value": [
+                  200,
+                  1000
+                ]
+              },
+              {
+                "name": "1000-10000",
+                "value": [
+                  1000,
+                  100000
+                ]
+              },
+              {
+                "name": "100000以上",
+                "value": [
+                  100000,
+                  "*"
+                ]
+              },
+              {
+                "name": "自定义",
+                "type": "range,number",
+                "min": 0,
+                "max": 200000,
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "跨界类型",
+            "field": "CROS_BOUN_",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "跨省",
+                "value": "跨省"
+              },
+              {
+                "name": "跨市",
+                "value": "跨市"
+              },
+              {
+                "name": "跨县",
+                "value": "跨县"
+              },
+              {
+                "name": "县界内",
+                "value": "县界内"
+              },
+              {
+                "name": "未知",
+                "value": "未知"
+              }
+            ]
+          },
+          {
+            "name": "河流类型",
+            "field": "RV_TYPE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自然流域河流",
+                "value": "自然流域河流"
+              },
+              {
+                "name": "区间流域河流",
+                "value": "区间流域河流"
+              },
+              {
+                "name": "平原水网区河流",
+                "value": "平原水网区河流"
+              }
+            ]
+          },
+          {
+            "name": "有无水位测站",
+            "field": "IF_OBS",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "有",
+                "value": "有"
+              },
+              {
+                "name": "无",
+                "value": "无"
+              }
+            ]
+          },
+          {
+            "name": "河流长度（Km）",
+            "field": "RV_LEN",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "value": "",
+                "max": 500,
+                "min": 0,
+                "custom": true,
+                "type": "range,number"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": "LAKE",
+        "name": "湖泊",
+        "model": [
+          {
+            "name": "流域面积（KM2）",
+            "field": "LAKE_AREA",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "小于1",
+                "value": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "name": "1-10",
+                "value": [
+                  1,
+                  10
+                ]
+              },
+              {
+                "name": "10-100",
+                "value": [
+                  10,
+                  100
+                ]
+              },
+              {
+                "name": "100-500",
+                "value": [
+                  100,
+                  500
+                ]
+              },
+              {
+                "name": "500-1000",
+                "value": [
+                  500,
+                  1000
+                ]
+              },
+              {
+                "name": "大于1000",
+                "value": [
+                  1000,
+                  "*"
+                ]
+              },
+              {
+                "name": "自定义",
+                "type": "range,number",
+                "max": 2000,
+                "min": 0,
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "跨界类型",
+            "field": "CROS_BOUN_",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "跨省",
+                "value": "跨省"
+              },
+              {
+                "name": "跨市",
+                "value": "跨市"
+              },
+              {
+                "name": "跨县",
+                "value": "跨县"
+              },
+              {
+                "name": "县界内",
+                "value": "县界内"
+              }
+            ]
+          },
+          {
+            "name": "工程规模",
+            "field": "ASL_FRE_AT",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "淡水湖",
+                "value": "淡水湖"
+              },
+              {
+                "name": "咸水湖",
+                "value": "咸水湖"
+              },
+              {
+                "name": "盐湖",
+                "value": "盐湖"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "观测站",
+        "layer": "ST_STBPRP_B_ALL",
+        "model": [
+          {
+            "name": "观测站名称",
+            "field": "STNM",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "观测站编码",
+            "field": "STCD",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "所在河流名称",
+            "field": "RVNM",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "测站类型",
+            "field": "STTP",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "水文站",
+                "value": [
+                  "RR",
+                  "ZQ"
+                ],
+                "type": "enum"
+              },
+              {
+                "name": "水位站",
+                "value": [
+                  "ZZ",
+                  "TT",
+                  "ZB"
+                ],
+                "type": "enum"
+              },
+              {
+                "name": "雨量站",
+                "value": "PP"
+              },
+              {
+                "name": "墒情站",
+                "value": "ss"
+              },
+              {
+                "name": "水质监测站",
+                "value": "?"
+              },
+              {
+                "name": "取用水测站",
+                "value": "?"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "水库工程",
+        "layer": "RSWB",
+        "model": [
+          {
+            "name": "水库名称",
+            "field": "RS_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "水库名称",
+                "value": "",
+                "custom": true,
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "工程规模",
+            "field": "ENG_SCAL",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "大（1）型",
+                "value": "大（1）型"
+              },
+              {
+                "name": "大（2）型",
+                "value": "大（2）型"
+              },
+              {
+                "name": "中型",
+                "value": "中型"
+              },
+              {
+                "name": "小（1）型",
+                "value": "小（1）型"
+              },
+              {
+                "name": "小（2）型",
+                "value": "小（2）型"
+              },
+              {
+                "name": "规模以下",
+                "value": "规模以下"
+              }
+            ]
+          },
+          {
+            "name": "所在河流名称",
+            "field": "LOC_RV_NAM",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "value": "",
+                "custom": true,
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "总库容(万m³)",
+            "field": "TOT_CAP",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "value": "",
+                "custom": true,
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "防洪库容(万m³)",
+            "field": "FL_PRE_STO",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "value": "",
+                "custom": true,
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "水库类型",
+            "field": "RS_TYPE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "山丘水库",
+                "value": "山丘水库"
+              },
+              {
+                "name": "平原水库",
+                "value": "平原水库"
+              }
+            ]
+          },
+          {
+            "name": "建成时间",
+            "field": "BUID_TIME_",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "value": "",
+                "custom": true,
+                "type": "range,time"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "水电站工程",
+        "layer": "HYPO",
+        "model": [
+          {
+            "name": "水电站名称",
+            "field": "HYPO_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "所在河流名称",
+            "field": "LOC_RV_NAM",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "工程规模",
+            "field": "ENG_SCAL",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "大（1）型",
+                "value": "大（1）型"
+              },
+              {
+                "name": "大（2）型",
+                "value": "大（2）型"
+              },
+              {
+                "name": "中型",
+                "value": "中型"
+              },
+              {
+                "name": "小（1）型",
+                "value": "小（1）型"
+              },
+              {
+                "name": "小（2）型",
+                "value": "小（2）型"
+              }
+            ]
+          },
+          {
+            "name": "装机容量（KW）",
+            "field": "INS_CAP",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "range,number",
+                "max": 1000,
+                "min": 0,
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "水电站类型",
+            "field": "HYPO_TYPE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "闸坝式水电站",
+                "value": "闸坝式水电站"
+              },
+              {
+                "name": "引水式水电站",
+                "value": "引水式水电站"
+              },
+              {
+                "name": "混合式水电站",
+                "value": "混合式水电站"
+              },
+              {
+                "name": "抽水蓄能电站",
+                "value": "抽水蓄能电站"
+              }
+            ]
+          },
+          {
+            "name": "是否利用水库发电",
+            "field": "IF_RS_POW",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "是"
+              }
+            ]
+          },
+          {
+            "name": "主要建筑物级别",
+            "field": "MAIN_CON_G",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "1级",
+                "value": "1级"
+              },
+              {
+                "name": "2级",
+                "value": "2级"
+              },
+              {
+                "name": "3级",
+                "value": "3级"
+              },
+              {
+                "name": "4级",
+                "value": "4级"
+              },
+              {
+                "name": "5级",
+                "value": "5级"
+              }
+            ]
+          },
+          {
+            "name": "建成时间",
+            "field": "BUID_TIME_",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "",
+                "custom": true,
+                "type": "range,time"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "UNORTOWN"
+        ],
+        "name": "乡镇水利管理单位",
+        "model": [
+          {
+            "name": "机构类型",
+            "field": "EST_CLAS",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "机关法人",
+                "value": "机关法人"
+              },
+              {
+                "name": "事业单位法人",
+                "value": "事业单位法人"
+              },
+              {
+                "name": "企业法人",
+                "value": "企业法人"
+              },
+              {
+                "name": "社会团体法人",
+                "value": "社会团体法人"
+              },
+              {
+                "name": "其他法人单位",
+                "value": "其他法人单位"
+              },
+              {
+                "name": "非法人单位",
+                "value": "非法人单位"
+              }
+            ]
+          },
+          {
+            "name": "主管部门",
+            "field": "CHAR_DEP",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "县（市）水利局",
+                "value": "县（市）水利局"
+              },
+              {
+                "name": "乡镇政府（街道办）",
+                "value": "乡镇政府（街道办）"
+              },
+              {
+                "name": "其他",
+                "value": "其他"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "水闸工程",
+        "layer": "GATE",
+        "model": [
+          {
+            "name": "名称",
+            "field": "GATE_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "所在河流名称",
+            "field": "LOC_RV_NAM",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "工程规模",
+            "field": "ENG_SCAL",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "大型",
+                "value": "大型"
+              },
+              {
+                "name": "中型",
+                "value": "中型"
+              },
+              {
+                "name": "小型",
+                "value": "小型"
+              },
+              {
+                "name": "规模以下",
+                "value": "规模以下"
+              }
+            ]
+          },
+          {
+            "name": "过闸流量（m3/s）",
+            "field": "GATE_FLOW",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "number,range",
+                "custom": true,
+                "max": 10000
+              }
+            ]
+          },
+          {
+            "name": "水闸类型",
+            "field": "GATE_TYPE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "分（泄）洪闸",
+                "value": "分(泄)洪闸"
+              },
+              {
+                "name": "节制闸",
+                "value": "节制闸"
+              },
+              {
+                "name": "排(退)水闸",
+                "value": "排（退）水闸"
+              },
+              {
+                "name": "引（进）水闸",
+                "value": "引(进)水闸"
+              }
+            ]
+          },
+          {
+            "name": "建成时间",
+            "field": "BUID_TIME_",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "time,range",
+                "custom": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "橡胶坝",
+        "layer": "RUB",
+        "model": [
+          {
+            "name": "橡胶坝名称",
+            "field": "RUB_DAM_NA",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "坝高（m）",
+            "field": "RUB_DAM_HI",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "坝顶高程（m）",
+            "field": "RUB_DAM_CR",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "建成时间",
+            "field": "BUID_TIME_",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "range,time",
+                "custom": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "泵站工程",
+        "layer": "PUMP",
+        "model": [
+          {
+            "name": "泵站名称",
+            "field": "PUMP_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "所在河流名称",
+            "field": "LOC_RV_NAM",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "所在灌区",
+            "field": "LOC_IRR_NA",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "工程规模",
+            "field": "ENG_SCAL",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "大型",
+                "value": "大型"
+              },
+              {
+                "name": "中型",
+                "value": "中型"
+              },
+              {
+                "name": "小型",
+                "value": "小型"
+              },
+              {
+                "name": "规模以下",
+                "value": "规模以下"
+              }
+            ]
+          },
+          {
+            "name": "装机流量(m³/s)",
+            "field": "INS_FLOW",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "range,number",
+                "custom": true,
+                "max": 10
+              }
+            ]
+          },
+          {
+            "name": "装机功率（kw）",
+            "field": "INS_POW",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "range,number",
+                "custom": true,
+                "max": 1000
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "引调水工程",
+        "layer": "DITR",
+        "model": [
+          {
+            "name": "名称",
+            "field": "DITR_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "工程等级",
+            "field": "ENG_GRAD",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "Ⅰ",
+                "value": "Ⅰ"
+              },
+              {
+                "name": "Ⅱ",
+                "value": "Ⅱ"
+              },
+              {
+                "name": "Ⅲ",
+                "value": "Ⅲ"
+              },
+              {
+                "name": "Ⅳ",
+                "value": "Ⅳ"
+              },
+              {
+                "name": "Ⅴ",
+                "value": "Ⅴ"
+              }
+            ]
+          },
+          {
+            "name": "工程任务",
+            "field": "ENG_TASK",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "生活供水",
+                "value": "生活供水"
+              },
+              {
+                "name": "工业供水",
+                "value": "工业供水"
+              },
+              {
+                "name": "灌溉用水",
+                "value": "灌溉用水"
+              },
+              {
+                "name": "生态供水",
+                "value": "生态供水"
+              }
+            ]
+          },
+          {
+            "name": "取水水源类型",
+            "field": "WINT_WS_TY",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "河流",
+                "value": "河流"
+              },
+              {
+                "name": "湖泊",
+                "value": "湖泊"
+              },
+              {
+                "name": "水库",
+                "value": "水库"
+              }
+            ]
+          },
+          {
+            "name": "建成时间",
+            "field": "BUID_TIME_",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "跨省",
+                "value": "",
+                "type": "range,time",
+                "custom": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "堤防工程",
+        "layer": "DIKE",
+        "model": [
+          {
+            "name": "堤防名称",
+            "field": "DIKE_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "所在河流名称",
+            "field": "LOC_RV_NAM",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "堤防级别",
+            "field": "DIKE_GRAD",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "1级",
+                "value": "1级"
+              },
+              {
+                "name": "2级",
+                "value": "2级"
+              },
+              {
+                "name": "3级",
+                "value": "3级"
+              },
+              {
+                "name": "4级",
+                "value": "4级"
+              },
+              {
+                "name": "5级",
+                "value": "5级"
+              }
+            ]
+          },
+          {
+            "name": "河流岸别",
+            "field": "",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "左岸",
+                "value": "左岸"
+              },
+              {
+                "name": "右岸",
+                "value": "右岸"
+              }
+            ]
+          },
+          {
+            "name": "工程任务",
+            "field": "ENG_TASK",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "生活供水",
+                "value": "生活供水"
+              },
+              {
+                "name": "工业供水",
+                "value": "工业供水"
+              },
+              {
+                "name": "灌溉用水",
+                "value": "灌溉用水"
+              },
+              {
+                "name": "生态供水",
+                "value": "生态供水"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "农村供水工程",
+        "layer": "CWS",
+        "model": [
+          {
+            "name": "农村供水名称",
+            "field": "",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "取水水源类型",
+            "field": "WINT_WS_TY",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "地表水",
+                "value": "地表水"
+              },
+              {
+                "name": "地下水",
+                "value": "地下水"
+              }
+            ]
+          },
+          {
+            "name": "净水方式",
+            "field": "WPUR_MODE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "常规处理",
+                "value": "常规处理"
+              },
+              {
+                "name": "仅过滤",
+                "value": "仅过滤"
+              },
+              {
+                "name": "仅消毒",
+                "value": "仅消毒"
+              },
+              {
+                "name": "特殊水处理",
+                "value": "特殊水处理"
+              },
+              {
+                "name": "未处理",
+                "value": "未处理"
+              }
+            ]
+          },
+          {
+            "name": "是否有取水许可",
+            "field": "IF_TAKE_LI",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "是否有卫生许可证",
+            "field": "IF_SAN_LIC",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "进厂水水质特征",
+            "field": "WQUA_CHA",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "苦咸水",
+                "value": "苦咸水"
+              },
+              {
+                "name": "砷超标",
+                "value": "砷超标"
+              },
+              {
+                "name": "氟超标",
+                "value": "氟超标"
+              },
+              {
+                "name": "其他",
+                "value": "其他"
+              },
+              {
+                "name": "污染水",
+                "value": "污染水"
+              },
+              {
+                "name": "血吸虫",
+                "value": "血吸虫"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "灌区",
+        "layer": [
+          "IRR"
+        ],
+        "model": [
+          {
+            "name": "灌区名称",
+            "field": "IRR_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "主要水源工程",
+            "field": "MAIN_WS",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "水库",
+                "value": "水库"
+              },
+              {
+                "name": "塘坝",
+                "value": "塘坝"
+              },
+              {
+                "name": "河湖泵站",
+                "value": "河湖泵站"
+              },
+              {
+                "name": "河湖引水闸",
+                "value": "河湖引水闸"
+              },
+              {
+                "name": "机电井",
+                "value": "机电井"
+              },
+              {
+                "name": "其他",
+                "value": "其他"
+              }
+            ]
+          },
+          {
+            "name": "补充水源工程",
+            "field": "ADD_WS",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "水库",
+                "value": "水库"
+              },
+              {
+                "name": "塘坝",
+                "value": "塘坝"
+              },
+              {
+                "name": "河湖泵站",
+                "value": "河湖泵站"
+              },
+              {
+                "name": "河湖引水闸",
+                "value": "河湖引水闸"
+              },
+              {
+                "name": "机电井",
+                "value": "机电井"
+              },
+              {
+                "name": "其他",
+                "value": "其他"
+              }
+            ]
+          },
+          {
+            "name": "总灌溉面积（亩）",
+            "field": "IRR_AREA_T",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "custom": true,
+                "type": "number,range",
+                "max": 10000
+              }
+            ]
+          },
+          {
+            "name": "是否跨县灌区",
+            "field": "IF_CROS_CO",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "隶属关系",
+            "field": "ADM_ATT_RE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "省",
+                "value": "省"
+              },
+              {
+                "name": "市",
+                "value": "市"
+              },
+              {
+                "name": "县",
+                "value": "县"
+              },
+              {
+                "name": "乡",
+                "value": "乡"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "渠道",
+        "layer": [
+          "CH"
+        ],
+        "model": [
+          {
+            "name": "渠道名称",
+            "field": "CH_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "渠道类型",
+            "field": "CH_CAT",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "灌溉",
+                "value": "灌排结合"
+              }
+            ]
+          },
+          {
+            "name": "灌区名称",
+            "field": "IRR_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "设计灌溉面积（亩）",
+            "field": "?",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "大型灌区（>30万亩）",
+                "value": "大型灌区（>30万亩）"
+              },
+              {
+                "name": "中型灌区（>1万亩，<30万亩）",
+                "value": "中型灌区（>1万亩，<30万亩）"
+              },
+              {
+                "name": "小型灌区（<1万亩）",
+                "value": "小型灌区（<1万亩）"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "水井",
+        "layer": [
+          "WELL"
+        ],
+        "model": [
+          {
+            "name": "名称",
+            "field": "WELL_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "井管内径（m）",
+            "field": "WELL_IN_DI",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "number,range",
+                "custom": true,
+                "max": 1000
+              }
+            ]
+          },
+          {
+            "name": "是否为单位自备",
+            "field": "IF_SELF_WE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "应用状况",
+            "field": "APP_SITU",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "日常使用",
+                "value": "日常使用"
+              },
+              {
+                "name": "应急备用",
+                "value": "应急备用"
+              }
+            ]
+          },
+          {
+            "name": "是否安装水量计量设施",
+            "field": "IF_MEA_FAC",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "地表水水源地",
+        "layer": [
+          "SUWS"
+        ],
+        "model": [
+          {
+            "name": "名称",
+            "field": "WS_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          },
+          {
+            "name": "所在地貌类型区",
+            "field": "WELL_IN_DI",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "山丘",
+                "value": "山丘"
+              },
+              {
+                "name": "平原",
+                "value": "平原"
+              }
+            ]
+          },
+          {
+            "name": "水源类型",
+            "field": "WINT_WS_TY",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "地下水",
+                "value": "地下水"
+              },
+              {
+                "name": "矿泉水",
+                "value": "矿泉水"
+              },
+              {
+                "name": "地热水",
+                "value": "地热水"
+              }
+            ]
+          },
+          {
+            "name": "水质类别",
+            "field": "WQUA_CAT",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "Ⅰ",
+                "value": "Ⅰ"
+              },
+              {
+                "name": "Ⅱ",
+                "value": "Ⅱ"
+              },
+              {
+                "name": "Ⅲ",
+                "value": "Ⅲ"
+              },
+              {
+                "name": "Ⅳ",
+                "value": "Ⅳ"
+              },
+              {
+                "name": "Ⅴ",
+                "value": "Ⅴ"
+              }
+            ]
+          },
+          {
+            "name": "是否划分水源保护区",
+            "field": "IF_WS_PROT",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "主要供水用途",
+            "field": "MAIN_WUSE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "城镇生活",
+                "value": "城镇生活"
+              },
+              {
+                "name": "乡村生活",
+                "value": "乡村生活"
+              },
+              {
+                "name": "工业",
+                "value": "工业"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "FARM"
+        ],
+        "name": "规模化畜禽养殖场",
+        "model": [
+          {
+            "name": "大牲畜年用水量（m3）",
+            "field": "LAR_LIVE_1",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "max": 200000,
+                "custom": true,
+                "type": "range,number"
+              }
+            ]
+          },
+          {
+            "name": "小牲畜年用水量（m3）",
+            "field": "FSMA_LIVE1",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "value": "",
+                "custom": true,
+                "type": "range,number",
+                "max": 10000
+              }
+            ]
+          },
+          {
+            "name": "家禽年用水量（m3）",
+            "field": "POUL_WUSE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "value": "",
+                "custom": true,
+                "type": "range,number",
+                "max": 10000
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "UT"
+        ],
+        "name": "公共用水企业",
+        "model": [
+          {
+            "name": "供水管网水厂组成",
+            "field": "WSUP_NET",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "value": "",
+                "custom": true,
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "供水人口（万人）",
+            "field": "WSUP_POP",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "max": 10,
+                "custom": true,
+                "type": "range,number"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "INEN"
+        ],
+        "name": "工业企业",
+        "model": [
+          {
+            "name": "是否用水大户",
+            "field": "IF_BIG_USE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "工业总产值（万元）",
+            "field": "IND_TOT_VA",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "max": 10000,
+                "custom": true,
+                "type": "range,number"
+              }
+            ]
+          },
+          {
+            "name": "排放去向",
+            "field": "DIS_DES",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "管网",
+                "value": "管网"
+              },
+              {
+                "name": "入河排污口",
+                "value": "入河排污口"
+              },
+              {
+                "name": "其他",
+                "value": "其他"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "COTI"
+        ],
+        "name": "建筑业与第三产业用水户",
+        "model": [
+          {
+            "name": "名称",
+            "field": "NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "value": "",
+                "custom": true,
+                "type": "string"
+              }
+            ]
+          },
+          {
+            "name": "是否为第三产业用水大户",
+            "field": "IF_BIG_USE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "用水级别",
+            "field": "",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "1.0",
+                "value": "1"
+              },
+              {
+                "name": "2.0",
+                "value": "2"
+              },
+              {
+                "name": "3.0",
+                "value": "3"
+              },
+              {
+                "name": "4.0",
+                "value": "4"
+              },
+              {
+                "name": "5.0",
+                "value": "5"
+              },
+              {
+                "name": "6.0",
+                "value": "6"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "WINT"
+        ],
+        "name": "河湖取水口",
+        "model": [
+          {
+            "name": "取水方式",
+            "field": "WINT_TYPE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自流",
+                "value": "自流"
+              },
+              {
+                "name": "抽提",
+                "value": "抽提"
+              }
+            ]
+          },
+          {
+            "name": "水源类型",
+            "field": "WS_TYPE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "河流",
+                "value": "河流"
+              },
+              {
+                "name": "湖泊",
+                "value": "湖泊"
+              },
+              {
+                "name": "水库",
+                "value": "水库"
+              }
+            ]
+          },
+          {
+            "name": "是否为引调水取水工程",
+            "field": "IF_INT",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "是否位于地表水源地",
+            "field": "IF_WS_SUR",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "取水口规模",
+            "field": "",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "规模以上",
+                "value": "规模以上"
+              },
+              {
+                "name": "规模以下",
+                "value": "规模以下"
+              }
+            ]
+          },
+          {
+            "name": "主要取水用途",
+            "field": "",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "城乡供水",
+                "value": "城乡供水"
+              },
+              {
+                "name": "一般供水",
+                "value": "一般供水"
+              },
+              {
+                "name": "火（核）电",
+                "value": "火（核）电"
+              },
+              {
+                "name": "农业",
+                "value": "农业"
+              },
+              {
+                "name": "生态环境",
+                "value": "生态环境"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "SUWS"
+        ],
+        "name": "地表水水源地",
+        "model": [
+          {
+            "name": "取水水源类型",
+            "field": "WINT_WS_TY",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "河流",
+                "value": "河流"
+              },
+              {
+                "name": "湖泊",
+                "value": "湖泊"
+              },
+              {
+                "name": "水库",
+                "value": "水库"
+              }
+            ]
+          },
+          {
+            "name": "水质目标",
+            "field": "WQUA_TARG",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "Ⅰ类",
+                "value": "Ⅰ类"
+              },
+              {
+                "name": "Ⅱ类",
+                "value": "Ⅱ类"
+              },
+              {
+                "name": "Ⅲ类",
+                "value": "Ⅲ类"
+              },
+              {
+                "name": "其他",
+                "value": ""
+              }
+            ]
+          },
+          {
+            "name": "水源地水质现状类别",
+            "field": "WQUA_CAT",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "Ⅰ类",
+                "value": "Ⅰ类"
+              },
+              {
+                "name": "Ⅱ类",
+                "value": "Ⅱ类"
+              },
+              {
+                "name": "Ⅲ类",
+                "value": "Ⅲ类"
+              },
+              {
+                "name": "Ⅳ类",
+                "value": "Ⅳ类"
+              },
+              {
+                "name": "Ⅴ类",
+                "value": "Ⅴ类"
+              },
+              {
+                "name": "劣Ⅴ类",
+                "value": "劣Ⅴ类"
+              },
+              {
+                "name": "其他",
+                "value": ""
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "PDO"
+        ],
+        "name": "入河排污口",
+        "model": [
+          {
+            "name": "排入水域类别",
+            "field": "DIS_AREA_C",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "河流",
+                "value": "河流"
+              },
+              {
+                "name": "湖泊",
+                "value": "湖泊"
+              },
+              {
+                "name": "水库",
+                "value": "水库"
+              }
+            ]
+          },
+          {
+            "name": "污水主要来源",
+            "field": "WAST_SOU",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "工业企业直排",
+                "value": "工业企业直排"
+              },
+              {
+                "name": "生活直排",
+                "value": "生活直排"
+              },
+              {
+                "name": "城镇污水处理厂",
+                "value": "城镇污水处理厂"
+              },
+              {
+                "name": "市政直排",
+                "value": "市政直排"
+              },
+              {
+                "name": "其他",
+                "value": "其他"
+              }
+            ]
+          },
+          {
+            "name": "污水分类",
+            "field": "WAST_CLAS",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "工业废水",
+                "value": "工业废水"
+              },
+              {
+                "name": "生活污水",
+                "value": "生活污水"
+              },
+              {
+                "name": "混合废污水",
+                "value": "混合废污水"
+              }
+            ]
+          },
+          {
+            "name": "排放规律",
+            "field": "DIS_LAW",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "连续排放",
+                "value": "连续排放"
+              },
+              {
+                "name": "间断排放",
+                "value": "间断排放"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "OFLP"
+        ],
+        "name": "水利行政机关",
+        "model": [
+          {
+            "name": "机构规格",
+            "field": "AGE_SPE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "正厅级",
+                "value": "正厅级"
+              },
+              {
+                "name": "副厅级",
+                "value": "副厅级"
+              },
+              {
+                "name": "正处级",
+                "value": "正处级"
+              },
+              {
+                "name": "副处级",
+                "value": "副处级"
+              },
+              {
+                "name": "正科级",
+                "value": "正科级"
+              },
+              {
+                "name": "副科级",
+                "value": "副科级"
+              },
+              {
+                "name": "其他",
+                "value": "其他"
+              }
+            ]
+          },
+          {
+            "name": "隶属关系",
+            "field": "ADM_ATT_RE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "中央",
+                "value": "中央"
+              },
+              {
+                "name": "省",
+                "value": "省（自治区、直辖市）"
+              },
+              {
+                "name": "地市",
+                "value": "地（区、市、州、盟）"
+              },
+              {
+                "name": "县区",
+                "value": "县(区、市、旗)"
+              },
+              {
+                "name": "乡",
+                "value": "乡"
+              },
+              {
+                "name": "镇",
+                "value": "镇"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "水利行业单位",
+        "layer": [
+          "CORP"
+        ],
+        "model": [
+          {
+            "name": "名称",
+            "field": "INS_NAME",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "custom": true,
+                "type": "string"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "INLP"
+        ],
+        "name": "水利事业单位",
+        "model": [
+          {
+            "name": "机构规格",
+            "field": "AGE_SPE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "正厅级",
+                "value": "正厅级"
+              },
+              {
+                "name": "副厅级",
+                "value": "副厅级"
+              },
+              {
+                "name": "正处级",
+                "value": "正处级"
+              },
+              {
+                "name": "副处级",
+                "value": "副处级"
+              },
+              {
+                "name": "正科级",
+                "value": "正科级"
+              },
+              {
+                "name": "副科级",
+                "value": "副科级"
+              },
+              {
+                "name": "其他",
+                "value": "其他"
+              }
+            ]
+          },
+          {
+            "name": "隶属关系",
+            "field": "ATT_REL_ADM",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "中央",
+                "value": "中央"
+              },
+              {
+                "name": "省",
+                "value": "省（自治区、直辖市）"
+              },
+              {
+                "name": "地市",
+                "value": "地（区、市、州、盟）"
+              },
+              {
+                "name": "县区",
+                "value": "县(区、市、旗)"
+              },
+              {
+                "name": "乡",
+                "value": "乡"
+              },
+              {
+                "name": "镇",
+                "value": "镇"
+              }
+            ]
+          },
+          {
+            "name": "是否为乡镇水利管理单位",
+            "field": "IF_TOWN_ADM",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "工程设计行业资质（水电）",
+            "field": "DES_QUAL_HY",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "甲",
+                "value": "甲"
+              },
+              {
+                "name": "乙",
+                "value": "乙"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "layer": [
+          "ENLP"
+        ],
+        "name": "水利企业",
+        "model": [
+          {
+            "name": "隶属关系",
+            "field": "ADM_ATT_RE",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "中央",
+                "value": "中央"
+              },
+              {
+                "name": "省",
+                "value": "省（自治区、直辖市）"
+              },
+              {
+                "name": "地市",
+                "value": "地（区、市、州、盟）"
+              },
+              {
+                "name": "县区",
+                "value": "县（区、市、旗）"
+              },
+              {
+                "name": "乡",
+                "value": "乡"
+              },
+              {
+                "name": "镇",
+                "value": "镇"
+              }
+            ]
+          },
+          {
+            "name": "是否为乡镇水利管理单位",
+            "field": "",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "是",
+                "value": "是"
+              },
+              {
+                "name": "否",
+                "value": "否"
+              }
+            ]
+          },
+          {
+            "name": "工程设计行业资质（水电）",
+            "field": "DES_QUAL_W",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "甲",
+                "value": "甲"
+              },
+              {
+                "name": "乙",
+                "value": "乙"
+              },
+              {
+                "name": "丙",
+                "value": "丙"
+              }
+            ]
+          },
+          {
+            "name": "计量认证资质",
+            "field": "",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "国家",
+                "value": "国家"
+              },
+              {
+                "name": "省",
+                "value": "省"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "水利社会团体",
+        "layer": [
+          "COLP"
+        ],
+        "model": [
+          {
+            "name": "名称",
+            "field": "LEG_ENT_NA",
+            "values": [
+              {
+                "name": "全部",
+                "value": "all",
+                "active": true
+              },
+              {
+                "name": "自定义",
+                "custom": true,
+                "type": "string"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "模板",
+        "layer": "模板图层",
+        "model": [
+          {
+            "name": "",
+            "field": "",
+            "values": [
+              {
+                "name": "",
+                "value": [
+                  0,
+                  1
+                ]
+              },
+              {
+                "name": "",
+                "value": ""
+              },
+              {
+                "name": "自定义",
+                "type": "range,number",
+                "custom": true
+              },
+              {
+                "name": "请输入",
+                "type": "string",
+                "custom": true
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "category": [
+      {
+        "id": 1,
+        "pId": 0,
+        "name": "渠道",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 2,
+        "pId": 0,
+        "name": "渠渠交叉建筑物",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 3,
+        "pId": 0,
+        "name": "河渠交叉建筑物",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 4,
+        "pId": 0,
+        "name": "左排建筑物",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 5,
+        "pId": 0,
+        "name": "路渠交叉",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 6,
+        "pId": 0,
+        "name": "控制工程",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 7,
+        "pId": 0,
+        "name": "惠南庄泵站",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 8,
+        "pId": 0,
+        "name": "抽排泵站",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 9,
+        "pId": 0,
+        "name": "后穿越",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 10,
+        "pId": 0,
+        "name": "应急抢险",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 11,
+        "pId": 0,
+        "name": "信息机电",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 12,
+        "pId": 0,
+        "name": "监测站点",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "id": 13,
+        "pId": 0,
+        "name": "交叉河流",
+        "isParent": true,
+        "open": false
+      },
+      {
+        "layer": "zx_channel_irrigationditch",
+        "name": "水力要素",
+        "pId": 1
+      },
+      {
+        "layer": "zx_channel_process_swellingrock_0314",
+        "name": "特殊地质",
+        "pId": 1
+      },
+      {
+        "layer": "zx_channel_fill_excavation",
+        "name": "填挖方",
+        "pId": 1
+      },
+      {
+        "layer": "zx_channel_profile",
+        "name": "纵剖面",
+        "pId": 1
+      },
+      {
+        "layer": "zx_channel_drainage",
+        "name": "排水",
+        "pId": 1
+      },
+      {
+        "layer": "zx_channel_lining",
+        "name": "衬砌",
+        "pId": 1
+      },
+      {
+        "layer": "zx_channel_milestone",
+        "name": "公里桩",
+        "pId": 1
+      },
+      {
+        "layer": "zx_channel_frostprevention",
+        "name": "防冻胀",
+        "pId": 1
+      },
+      {
+        "layer": "zx_channel_embangkment_0314",
+        "name": "防护堤",
+        "pId": 1
+      },
+      {
+        "layer": "zx_channel_drainageditch_0314",
+        "name": "截流沟",
+        "pId": 1
+      },
+      {
+        "layer": "zx_bd_cc_invertedsiphon",
+        "name": "倒虹吸",
+        "pId": 2
+      },
+      {
+        "layer": "zx_bd_cc_aqueduct",
+        "name": "渡槽",
+        "pId": 2
+      },
+      {
+        "layer": "zx_bd_cc_culvert",
+        "name": "暗涵",
+        "pId": 2
+      },
+      {
+        "layer": "zx_bd_rc_invertedsiphon_p",
+        "name": "倒虹吸",
+        "pId": 3
+      },
+      {
+        "layer": "zx_bd_rc_aqueduct_p",
+        "name": "渡槽",
+        "pId": 3
+      },
+      {
+        "layer": "zx_bd_rc_culvert_l",
+        "name": "暗涵",
+        "pId": 3
+      },
+      {
+        "layer": "zx_bd_rc_tunnel_l",
+        "name": "隧洞",
+        "pId": 3
+      },
+      {
+        "layer": "zx_bd_lbd_invertedsiphon",
+        "name": "倒虹吸",
+        "pId": 4
+      },
+      {
+        "layer": "zx_bd_lbd_aqueduct",
+        "name": "渡槽",
+        "pId": 4
+      },
+      {
+        "layer": "zx_bd_lbd_culvert",
+        "name": "涵洞",
+        "pId": 4
+      },
+      {
+        "layer": "zx_bd_bridge_l",
+        "name": "公路桥",
+        "pId": 5
+      },
+      {
+        "layer": "zx_bd_releasesluice",
+        "name": "退水闸",
+        "pId": 6
+      },
+      {
+        "layer": "zx_bd_operatingsluice",
+        "name": "节制闸",
+        "pId": 6
+      },
+      {
+        "layer": "zx_bd_bleede",
+        "name": "分水口门",
+        "pId": 6
+      },
+      {
+        "layer": "zx_bd_cross_pro_0302",
+        "name": "后穿越",
+        "pId": 9
+      },
+      {
+        "layer": "zx_stock",
+        "name": "备料点",
+        "pId": 10
+      },
+      {
+        "layer": "zx_supplyhouse_0301",
+        "name": "物资仓库",
+        "pId": 10
+      }
+    ],
+    "searchFieldDict":{
+      "default":[
+        {
+          "name": "标题:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "子标题:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "描述:",
+          "key": "E_DESC"
+        },
+        {
+          "name": "备注:",
+          "key": "E_REMARK"
+        }
+      ],
+      "zx_channel_irrigationditch":[
+        {
+          "name": "编号:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_channel_drainage":[
+        {
+          "name": "排水措施:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_channel_fill_excavation":[
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_channel_lining":[
+        {
+          "name": "衬砌材料:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_channel_process_swellingrock_0314":[
+        
+      ],
+      "zx_channel_frostprevention":[
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_channel_embangkment_0314":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_channel_drainageditch_0314":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "备注:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_bd_cc_invertedsiphon":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "类型:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_bd_cc_aqueduct":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "类型:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_bd_cc_culvert":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "类型:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        }
+      ],
+      "zx_bd_rc_invertedsiphon_p":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "类型:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "所在县市:",
+          "key": "E_DESC"
+        },
+        {
+          "name": "分局:",
+          "key": "E_REMARK"
+        }
+      ],
+      "zx_bd_rc_aqueduct_p":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "类型:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "所在县市:",
+          "key": "E_DESC"
+        },
+        {
+          "name": "分局:",
+          "key": "E_REMARK"
+        }
+      ],
+      "zx_bd_rc_culvert_l":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "设计单元:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "渠段:",
+          "key": "E_DESC"
+        },
+        {
+          "name": "位置:",
+          "key": "E_REMARK"
+        }
+      ],
+      "zx_bd_lbd_invertedsiphon":[
+        {
+          "name": "建筑物名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "建筑物类型:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "渠道穿跨河流名称:",
+          "key": "E_DESC"
+        }
+      ],
+      "zx_bd_lbd_aqueduct":[
+        {
+          "name": "建筑物名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "建筑物类型:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "渠道穿跨河流名称:",
+          "key": "E_DESC"
+        }
+      ],
+      "zx_bd_lbd_culvert":[
+        {
+          "name": "建筑物名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "建筑物类型:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "渠道穿跨河流名称:",
+          "key": "E_DESC"
+        }
+      ],
+      "zx_bd_bridge_l":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "桥梁分类:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "所在道路情况:",
+          "key": "E_DESC"
+        },
+        {
+          "name": "荷载等级:",
+          "key": "E_REMARK"
+        }
+      ],
+      "zx_bd_releasesluice":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "所在渠道:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "工程分段:",
+          "key": "E_DESC"
+        },
+        {
+          "name": "类型:",
+          "key": "E_REMARK"
+        }
+      ],
+      "zx_bd_operatingsluice":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "工程分段:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "位置:",
+          "key": "E_DESC"
+        },
+        {
+          "name": "类型:",
+          "key": "E_REMARK"
+        }
+      ],
+      "zx_bd_bleede":[
+        {
+          "name": "名称:",
+          "key": "E_TITLE"
+        },
+        {
+          "name": "地址:",
+          "key": "E_SUBTITLE"
+        },
+        {
+          "name": "管理处:",
+          "key": "E_MANAGER"
+        },
+        {
+          "name": "闸门形式:",
+          "key": "E_DESC"
+        },
+        {
+          "name": "供水范围:",
+          "key": "E_REMARK"
+        }
+      ]
+    },
+    "dict": {
+      "buildingLayers":[
+        "zx_bd_lbd_invertedsiphon",
+        "zx_bd_lbd_aqueduct",
+        "zx_bd_rc_invertedsiphon_p",
+        "zx_bd_rc_aqueduct_p",
+        "zx_bd_cc_invertedsiphon",
+        "zx_bd_cc_aqueduct",
+        "zx_bd_cc_culvert",
+        "zx_bd_rc_culvert_l",
+        "zx_bd_rc_tunnel_l",
+        "zx_bd_lbd_culvert",
+        "zx_bd_bridge_l",
+        "zx_bd_bleede",
+        "zx_bd_operatingsluice",
+        "zx_bd_releasesluice"
+      ],
+      "zx_bd_releasesluice":[
+        {
+          "name": "名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "设计分水流量",
+          "key": "DESIGNFLOW",
+          "basic": true
+        },
+        {
+          "name": "孔数",
+          "key": "HOLES",
+          "basic": true
+        },
+        {
+          "name": "孔尺寸",
+          "key": "HOLESIZE",
+          "basic": true
+        },
+        {
+          "name": "ZHMXSH",
+          "key": "GATATYPE",
+          "basic": true
+        },
+        {
+          "name": "启闭机类型",
+          "key": "HOISTTYPE",
+          "basic": true
+        }
+      ],
+      "zx_bd_operatingsluice":[
+        {
+          "name": "名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "孔数",
+          "key": "HOLES",
+          "basic": true
+        },
+        {
+          "name": "单孔尺寸",
+          "key": "HOLESIZE",
+          "basic": true
+        },
+        {
+          "name": "GateType",
+          "key": "GATETYPE",
+          "basic": true
+        },
+        {
+          "name": "启闭机类型",
+          "key": "HOISTTYPE",
+          "basic": true
+        }
+      ],
+      "zx_bd_bleede":[
+        {
+          "name": "名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "设计流量",
+          "key": "DESIGNFLOW",
+          "basic": true
+        },
+        {
+          "name": "设计水位",
+          "key": "DESIGNFLOW",
+          "basic": true
+        },
+        {
+          "name": "分水流量",
+          "key": "BLEEDESFLOW",
+          "basic": true
+        },
+        {
+          "name": "启闭机类型",
+          "key": "HOSITTYPE",
+          "basic": true
+        },
+        {
+          "name": "孔数",
+          "key": "HOLES",
+          "basic": true
+        },
+        {
+          "name": "孔口尺寸",
+          "key": "HOLESIZE",
+          "basic": true
+        }
+      ],
+      "zx_bd_bridge_l":[
+        {
+          "name": "桥梁名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "桥梁分类",
+          "key": "TYPE",
+          "basic": true
+        },
+        {
+          "name": "荷载等级",
+          "key": "LOADLEVEL",
+          "basic": true
+        },
+        {
+          "name": "桥宽",
+          "key": "WIDTH",
+          "basic": true
+        }
+      ],
+      "zx_bd_lbd_culvert":[
+        {
+          "name": "建筑物名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "建筑物类型",
+          "key": "TYPE",
+          "basic": true
+        },
+        {
+          "name": "排洪断面尺寸",
+          "key": "SECTIONSIZE",
+          "basic": true
+        },
+        {
+          "name": "五十年一遇设计洪峰流",
+          "key": "FDPEAKFLOW",
+          "basic": true
+        },
+        {
+          "name": "五十年一遇校核洪峰流",
+          "key": "FCPEAKFLOW",
+          "basic": true
+        }
+      ],
+      "zx_bd_rc_tunnel_l":[
+        {
+          "name": "名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "长度",
+          "key": "LENGTH",
+          "basic": true
+        },
+        {
+          "name": "洞身段孔数",
+          "key": "PIPEHOLES",
+          "basic": true
+        },
+        {
+          "name": "洞身段单孔尺寸",
+          "key": "PIPEHOLESIZE",
+          "basic": true
+        },
+        {
+          "name": "洞身段设计流量",
+          "key": "PIPEDESIGNFLOW",
+          "basic": true
+        },
+        {
+          "name": "洞身段加大流量",
+          "key": "PIPEINCREASEFLOW",
+          "basic": true
+        }
+      ],
+      "zx_bd_rc_culvert_l":[
+        {
+          "name": "名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "长度",
+          "key": "LENGTH",
+          "basic": true
+        },
+        {
+          "name": "孔数",
+          "key": "HOLES",
+          "basic": true
+        },
+        {
+          "name": "单孔尺寸",
+          "key": "HOLESIZE",
+          "basic": true
+        },
+        {
+          "name": "设计流量",
+          "key": "DESIGNFLOW",
+          "basic": true
+        },
+        {
+          "name": "加大流量",
+          "key": "INCREASEFLOW",
+          "basic": true
+        }
+      ],
+      "zx_bd_rc_aqueduct_p":[
+        {
+          "name": "名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "类型",
+          "key": "TYPE",
+          "basic": true
+        },
+        {
+          "name": "设计流量",
+          "key": "DESIGHFLOW",
+          "basic": true
+        },
+        {
+          "name": "总长度",
+          "key": "LENGTH",
+          "basic": true
+        },
+        {
+          "name": "孔数",
+          "key": "HOLES",
+          "basic": true
+        },
+        {
+          "name": "断面尺寸",
+          "key": "HOLESIZE",
+          "basic": true
+        }, {
+          "name": "设计水位",
+          "key": "STARTDESIGNLEVEL",
+          "basic": true
+        }
+      ],
+      "zx_bd_rc_invertedsiphon_p":[
+        {
+          "name": "名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "类型",
+          "key": "TYPE",
+          "basic": true
+        },
+        {
+          "name": "设计流量",
+          "key": "PIPEDESIGNFLOW",
+          "basic": true
+        },
+        {
+          "name": "总长度",
+          "key": "LENGTH",
+          "basic": true
+        },
+        {
+          "name": "孔数",
+          "key": "HOLES",
+          "basic": true
+        },
+        {
+          "name": "断面尺寸",
+          "key": "HOLESIZE",
+          "basic": true
+        }, {
+          "name": "设计水位",
+          "key": "ENTRANCEDESIGNLEVEL",
+          "basic": true
+        }
+      ],
+      "zx_bd_cc_aqueduct":[
+        {
+          "name": "名称",
+          "key": "ACROSSNAME",
+          "basic": true
+        },
+        {
+          "name": "类型",
+          "key": "TYPE",
+          "basic": true
+        },
+        {
+          "name": "断面尺寸",
+          "key": "SECTIONSIZE",
+          "basic": true
+        },
+        {
+          "name": "长度",
+          "key": "LENGTH",
+          "basic": true
+        },
+        {
+          "name": "交叉渠道设计流量",
+          "key": "ACROSSDESIGNFLOW",
+          "basic": true
+        }
+      ],
+      "zx_bd_cc_invertedsiphon":[
+        {
+          "name": "名称",
+          "key": "ACROSSNAME",
+          "basic": true
+        },
+        {
+          "name": "类型",
+          "key": "TYPE",
+          "basic": true
+        },
+        {
+          "name": "断面尺寸",
+          "key": "SECTIONSIZE",
+          "basic": true
+        },
+        {
+          "name": "长度",
+          "key": "LENGTH",
+          "basic": true
+        },
+        {
+          "name": "交叉渠道设计流量",
+          "key": "ACROSSDESIGNFLOW",
+          "basic": true
+        }
+      ],
+      "zx_bd_lbd_aqueduct":[
+        {
+          "name": "名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "类型",
+          "key": "TYPE",
+          "basic": true
+        },
+        {
+          "name": "断面尺寸",
+          "key": "SECTIONSIZE",
+          "basic": true
+        },
+        {
+          "name": "五十年一遇设计洪峰流",
+          "key": "FDPEAKFLOW",
+          "basic": true
+        },
+        {
+          "name": "五十年一遇校核洪峰流",
+          "key": "FCPEAKFLOW",
+          "basic": true
+        }
+      ],
+      "zx_bd_lbd_invertedsiphon":[
+        {
+          "name": "名称",
+          "key": "NAME",
+          "basic": true
+        },
+        {
+          "name": "类型",
+          "key": "TYPE",
+          "basic": true
+        },
+        {
+          "name": "断面尺寸",
+          "key": "SECTIONSIZE",
+          "basic": true
+        },
+        {
+          "name": "五十年一遇设计洪峰流",
+          "key": "FDPEAKFLOW",
+          "basic": true
+        },
+        {
+          "name": "五十年一遇校核洪峰流",
+          "key": "FCPEAKFLOW",
+          "basic": true
+        }
+      ],
+      "zx_channel_irrigationditch": [
+       {
+          "name": "渠底宽(m)",
+          "key": "BOTTOMWIDTH",
+          "basic": true
+        },{
+          "name": "设计流量(m3/s)",
+          "key": "DESIGNFLOW",
+          "basic": true
+        },{
+          "name": "加大流量(m3/s)",
+          "key": "INCREASEFLOW",
+          "basic": true
+        },{
+          "name": "一级内坡边坡系数",
+          "key": "INNERSLOPEROTIO",
+          "basic": true
+        },{
+          "name": "起点渠底高程(m)",
+          "key": "STARTBOTTOMELEVATION",
+          "basic": true
+        },{
+          "name": "起点设计水位(m)",
+          "key": "STARTDESIGNLEVEL",
+          "basic": true
+        },{
+          "name": "起点加大水位(m)",
+          "key": "STARTINCREASELEVEL",
+          "basic": true
+        },{
+          "name": "起点左岸一级马道高程(m)",
+          "key": "STARTLEFTHORSEROADELEVATION",
+          "basic": true
+        },{
+          "name": "设计长度(m)",
+          "key": "DESIGNLENGTH"
+        },{
+          "name": "设计流水深(m)",
+          "key": "DESIGNWATERDEPTH"
+        },{
+          "name": "终点渠底高程(m)",
+          "key": "ENDBOTTOMELEVATION"
+        },{
+          "name": "终点设计水位(m)",
+          "key": "ENDDESIGNLEVEL"
+        },{
+          "name": "终点加大水位(m)",
+          "key": "ENDINCREASELEVEL"
+        },{
+          "name": "起点加大流水深(m)",
+          "key": "ENDINCREASEWATERDEPTH"
+        },{
+          "name": "终点左岸一级马道高程(m)",
+          "key": "ENDLEFTHORSEROADELEVATION"
+        },{
+          "name": "终点右岸一级马道高程(m)",
+          "key": "ENDRIGHTHORSEROADELEVATION"
+        },{
+          "name": "终点桩号",
+          "key": "ENDSTAKENUMBER"
+        },{
+          "name": "一级外坡边坡系数",
+          "key": "EXTERMALSLOPEROTIO"
+        },{
+          "name": "管理处",
+          "key": "OFFICE"
+        },{
+          "name": "起点加大流水深(m)",
+          "key": "STARTINCREASEWATERDEPTH"
+        },{
+          "name": "起点右岸一级马道高程(m)",
+          "key": "STARTRIGHTHORSEROADELEVATION"
+        },{
+          "name": "起点桩号",
+          "key": "STARTSTAKENUMBER"
+        }
+      ],
+      "zx_channel_process_swellingrock_0221":[
+        {
+          "name": "编号",
+          "key": "CODE",
+          "basic": true
+        },{
+          "name": "管理处",
+          "key": "OFFICE",
+          "basic": true
+        },{
+          "name": "位置",
+          "key": "POS",
+          "basic": true
+        },{
+          "name": "处理形式1",
+          "key": "PROCESS1",
+          "basic": true
+        },{
+          "name": "处理形式2",
+          "key": "PROCESS2",
+          "basic": true
+        },{
+          "name": "处理形式3",
+          "key": "PROCESS3",
+          "basic": true
+        },{
+          "name": "处理形式4",
+          "key": "PROCESS4",
+          "basic": true
+        },{
+          "name": "起点桩号",
+          "key": "STARTPOINT",
+          "basic": true
+        },{
+          "name": "终点桩号",
+          "key": "ENDPOINT",
+          "basic": true
+        }
+      ],
+      "zx_channel_fill_excavation_hn_0221":[
+        {
+          "name": "管理处",
+          "key": "OFFICE",
+          "basic": true
+        },{
+          "name": "起点桩号",
+          "key": "STARTSTAKENUMBER",
+          "basic": true
+        },{
+          "name": "终点桩号",
+          "key": "ENDSTAKENUMBER",
+          "basic": true
+        }
+      ],
+      "zx_channel_profile":[
+        {
+          "name": "OBJECTID",
+          "key": "OBJECTID",
+          "basic": true
+        },{
+          "name": "长度",
+          "key": "LEN",
+          "basic": true
+        }
+      ],
+      "zx_channel_drainage":[
+        {
+          "name": "OBJECTID",
+          "key": "OBJECTID",
+          "basic": true
+        },{
+          "name": "编号",
+          "key": "CODE",
+          "basic": true
+        },{
+          "name": "排水措施",
+          "key": "DRAINAGEMEASURES",
+          "basic": true
+        },{
+          "name": "管理处",
+          "key": "OFFICE",
+          "basic": true
+        },{
+          "name": "起点桩号",
+          "key": "STARTSTAGENUMBER",
+          "basic": true
+        },{
+          "name": "终点桩号",
+          "key": "ENDSTAGENUMBER",
+          "basic": true
+        }
+      ],
+      "zx_channel_lining":[
+        {
+          "name": "OBJECTID",
+          "key": "OBJECTID",
+          "basic": true
+        },{
+          "name": "编号",
+          "key": "CODE",
+          "basic": true
+        },{
+          "name": "管理处",
+          "key": "OFFICE",
+          "basic": true
+        },{
+          "name": "起点桩号",
+          "key": "STARTSTAGENUMBER",
+          "basic": true
+        },{
+          "name": "终点桩号",
+          "key": "ENDSTAGENUMBER",
+          "basic": true
+        }
+      ],
+      "zx_bd_cc_culvert":[
+        {
+          "name": "断面尺寸",
+          "key": "SECTIONSIZE",
+          "basic": true
+        },{
+          "name": "交叉渠道设计流量",
+          "key": "ACROSSDESIGNFLOW",
+          "basic": true
+        },{
+          "name": "名称",
+          "key": "ACROSSNAME",
+          "basic": true
+        }
+      ]
+    }
+  }

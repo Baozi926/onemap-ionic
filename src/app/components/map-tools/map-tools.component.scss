@@ -1,0 +1,65 @@
+:host {
+  position: absolute;
+  top: 31px;
+  right: 3vw;
+  // height: 100px;
+  // width: 10vw;
+  // background-color: red;
+  // border-radius: 5px;
+  margin-top: var(--ion-safe-area-top, 0);
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    // transform: scale(1.5);
+    line-height: 1;
+    width: 30px;
+    height: 30px;
+    // contain: strict;
+    // -webkit-box-sizing: content-box !important;
+    // box-sizing: content-box !important;
+  }
+  &.text {
+    line-height: 30px;
+    font-size: 20px;
+   
+  }
+  justify-content: center;
+  align-content: center;
+  overflow: hidden;
+  display: flex;
+  transition: background-color, opacity 100ms linear;
+  font-weight: bold;
+//   font-size: 16px;
+  background-color: #fff;
+  color: black;
+  border-radius: 50%;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 10px;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+  -webkit-font-kerning: none;
+  font-kerning: none;
+  // -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    background-color: azure;
+  }
+}

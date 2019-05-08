@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="title">
+      我的资源
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content forceOverscroll="true" class="content">
+  <div   slot="fixed" (scroll.elasticity)="stopElasticity($event)" class="full">
+    <section class="card category">
+      <div
+        [ngClass]="{ active: item && item.code === firstCateFilter }"
+        (click)="onFirstCategoryClick($event, item)"
+        *ngFor="let item of category"
+        class="card--content item"
+      >
+
+       <span class="text"> {{ item.name }}</span>
+      </div>
+    </section>
+    <div class="container">
+      <div class="sub-cate">
+        <div
+          [ngClass]="{ active: item && item.code === secondeCateFilter }"
+          class="item"
+          (click)="onSecondeCategoryClick($event, item)"
+          *ngFor="let item of subCate"
+        >
+          {{ item.name }}
+        </div>
+      </div>
+      <div class="resource">
+        <div
+          @items
+          class="item"
+          (click)="onItemClick($event, item)"
+          *ngFor="let item of data"
+        >
+          <img class="thumbnail" [src]="getThumbnailUrl(item)" (load)="imgLoaded($event)"  />
+          <!-- <ion-icon name="checkmark-circle-outline"></ion-icon> -->
+          <!-- <ion-img class="thumbnail"  [src]="getThumbnailUrl(item)"></ion-img> -->
+          <span class="title">{{ item.title }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

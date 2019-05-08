@@ -1,9 +1,9 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu>
+    <ion-menu menuId="main" (ionDidOpen)="onMenuDidOpen($event)" (ionDidClose)="onMenuDidClose($event)">
       <ion-header>
         <ion-toolbar>
-          <ion-title>我的菜单</ion-title>
+          <ion-title>菜单</ion-title>
         </ion-toolbar>
       </ion-header>
       <ion-content>

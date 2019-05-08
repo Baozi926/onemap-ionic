@@ -19,11 +19,14 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Events, MenuController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
 import { SearchComponent } from '../../components/search/search.component';
 import { LayerGalleryComponent } from '../../components/layer-gallery/layer-gallery.component';
 import { myEnterAnimation } from '../../animations/my-enter. animations';
-import { myLeaveAnimation } from '../../animations/my-leave. animations n';
+import { myLeaveAnimation } from '../../animations/my-leave. animations';
+import { MapService } from '../../services/map.service';
+import { PortalService } from '../../services/portal.service';
 import { loadModules } from 'esri-loader';
 import esri = __esri; // Esri TypeScript Types
 
@@ -33,6 +36,15 @@ import esri = __esri; // Esri TypeScript Types
   styleUrls: ['./esri-map.component.css']
 })
 export class EsriMapComponent implements OnInit {
+  constructor(
+    private menuController: MenuController,
+    public modalController: ModalController,
+    private mapService: MapService,
+    private events: Events,
+    private activatedRoute: ActivatedRoute,
+    private portalService: PortalService
+  ) {}
+
   @Output() mapLoadedEvent = new EventEmitter<boolean>();
 
   // The <div> where we will place the map
@@ -44,8 +56,9 @@ export class EsriMapComponent implements OnInit {
    * _basemap sets type of map
    * _loaded provides map loaded status
    */
-  private _zoom = 10;
-  private _center: Array<number> = [0.1278, 51.5074];
+
+  private _zoom = 7;
+  private _center: Array<number> = [114.4015617529981, 36.1730084611679];
   private _basemap = 'streets';
   private _loaded = false;
   private view: any;
@@ -81,11 +94,22 @@ export class EsriMapComponent implements OnInit {
     return this._basemap;
   }
 
-  constructor(public modalController: ModalController) {}
+  ionViewDidEnter() {
+    console.log('enter map page');
+    // this.menuController.get('main').then((menu: HTMLIonMenuElement) => {
+    //   menu.swipeGesture = false;
+    // });
+  }
 
- async onSearchBtnClick() {
-   console.log('search btn click');
-   const modal = await this.modalController.create({
+  ionViewWillLeave() {
+    console.log('leave map page');
+    // this.menuController.get('main').then((menu: HTMLIonMenuElement) => {
+    //   menu.swipeGesture = true;
+    // });
+  }
+  async onSearchBtnClick() {
+    console.log('search btn click');
+    const modal = await this.modalController.create({
       component: SearchComponent,
       cssClass: 'search-modal',
       keyboardClose: false,
@@ -94,10 +118,10 @@ export class EsriMapComponent implements OnInit {
       // animation: 'slide-in-right',
       showBackdrop: false,
       componentProps: {
-        view: this.view
+        view: this.mapService.view
       }
     });
-   return await modal.present();
+    return await modal.present();
   }
 
   async onAddResourceClick() {
@@ -108,7 +132,7 @@ export class EsriMapComponent implements OnInit {
       cssClass: 'layer-gallery-modal',
       showBackdrop: false,
       componentProps: {
-        view: this.view
+        view: this.mapService.view
       }
     });
     return await modal.present();
@@ -141,9 +165,10 @@ export class EsriMapComponent implements OnInit {
       const view = new EsriSceneView(mapViewProperties);
 
       view.ui.remove('zoom');
-      this.view = view;
-      this.view.ui.remove('navigation-toggle');
-      this.view.ui.remove('compass');
+
+      this.mapService.view = view;
+      this.mapService.view.ui.remove('navigation-toggle');
+      this.mapService.view.ui.remove('compass');
       // window.view = view;
 
       return view;
@@ -158,13 +183,63 @@ export class EsriMapComponent implements OnInit {
       console.log('mapView ready: ', mapView.ready);
       this._loaded = mapView.ready;
       this.mapLoadedEvent.emit(true);
+      this.events.publish('esriView:loaded', mapView);
+      const itemId = this.activatedRoute.snapshot.queryParams.itemId;
+      this.mapService.setInitialExtent(mapView.extent.clone());
+      if (itemId) {
+        this.loadPortalItem({ id: itemId });
+      }
     });
   }
 
+  async loadPortalItem({ id }) {
+    const data = await this.portalService.getItemDetailById({
+      id,
+      token: this.portalService.getToken()
+    });
+
+    const [FeatureLayer, MapImageLayer] = await loadModules([
+      'esri/layers/FeatureLayer',
+      'esri/layers/MapImageLayer'
+    ]);
+    let layer;
+
+    switch (data.type) {
+      case 'Feature Service':
+        layer = new FeatureLayer({
+          url: data.url
+        });
+        this.mapService.view.map.add(layer);
+        layer.when(() => {
+         this.whenLayerLoaded(layer);
+        });
+        break;
+      case 'Map Service':
+        layer = new MapImageLayer({
+          url: data.url
+        });
+        this.mapService.view.map.add(layer);
+        layer.when(() => {
+          this.whenLayerLoaded(layer);
+
+        });
+        break;
+
+
+
+    }
+
+    console.log('地图加载item', data);
+  }
+
+  whenLayerLoaded(layer) {
+    const extent = layer.fullExtent.clone().expand(1.5);
+    this.mapService.view.goTo(extent);
+    this.mapService.setInitialExtent(extent);
+  }
   ngOnInit() {
     // Initialize MapView and return an instance of MapView
     this.initializeMap().then(mapView => {
-
       this.houseKeeping(mapView);
     });
   }
