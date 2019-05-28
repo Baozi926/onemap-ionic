@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core'
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router'
 
 const routes: Routes = [
   {
@@ -22,9 +22,26 @@ const routes: Routes = [
   { path: 'test', loadChildren: './pages/test/test.module#TestPageModule' },
   {
     path: 'resource',
-    loadChildren: './pages/resource-gallery/resource-gallery.module#ResourceGalleryPageModule'
+    loadChildren:
+      './pages/resource-gallery/resource-gallery.module#ResourceGalleryPageModule'
+  },
+  {
+    path: 'my-approval',
+    loadChildren: './pages/my-approval/my-approval.module#MyApprovalPageModule'
+  },
+  {
+    path: 'my-request',
+    loadChildren: './pages/my-request/my-request.module#MyRequestPageModule'
+  },
+  {
+    path: 'app-config',
+    loadChildren: './pages/app-config/app-config.module#AppConfigPageModule'
+  },
+  {
+    path: 'my-profile',
+    loadChildren: './pages/my-profile/my-profile.module#MyProfilePageModule'
   }
-];
+]
 
 @NgModule({
   imports: [

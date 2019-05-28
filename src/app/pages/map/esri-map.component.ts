@@ -23,6 +23,7 @@ import { ModalController, Events, MenuController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { SearchComponent } from '../../components/search/search.component';
 import { LayerGalleryComponent } from '../../components/layer-gallery/layer-gallery.component';
+
 import { myEnterAnimation } from '../../animations/my-enter. animations';
 import { myLeaveAnimation } from '../../animations/my-leave. animations';
 import { MapService } from '../../services/map.service';
@@ -56,6 +57,8 @@ export class EsriMapComponent implements OnInit {
    * _basemap sets type of map
    * _loaded provides map loaded status
    */
+
+  // private layerGalleryModal: any;
 
   private _zoom = 7;
   private _center: Array<number> = [114.4015617529981, 36.1730084611679];
@@ -126,16 +129,21 @@ export class EsriMapComponent implements OnInit {
 
   async onAddResourceClick() {
     console.log('add click');
+    // if (this.layerGalleryModal) {
+    //   this.layerGalleryModal.present();
+    // } else {
     // Create a modal using MyModalComponent with some initial data
     const modal = await this.modalController.create({
       component: LayerGalleryComponent,
-      cssClass: 'layer-gallery-modal',
+      cssClass: 'transparent-modal',
       showBackdrop: false,
       componentProps: {
         view: this.mapService.view
       }
     });
+    // this.layerGalleryModal = modal;
     return await modal.present();
+    // }
   }
 
   async initializeMap() {
@@ -169,7 +177,9 @@ export class EsriMapComponent implements OnInit {
       this.mapService.view = view;
       this.mapService.view.ui.remove('navigation-toggle');
       this.mapService.view.ui.remove('compass');
-      // window.view = view;
+
+      // @ts-ignore
+      window.view = view;
 
       return view;
     } catch (error) {
@@ -211,7 +221,7 @@ export class EsriMapComponent implements OnInit {
         });
         this.mapService.view.map.add(layer);
         layer.when(() => {
-         this.whenLayerLoaded(layer);
+          this.whenLayerLoaded(layer);
         });
         break;
       case 'Map Service':
@@ -221,12 +231,8 @@ export class EsriMapComponent implements OnInit {
         this.mapService.view.map.add(layer);
         layer.when(() => {
           this.whenLayerLoaded(layer);
-
         });
         break;
-
-
-
     }
 
     console.log('地图加载item', data);

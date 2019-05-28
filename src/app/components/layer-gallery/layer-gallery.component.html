@@ -4,32 +4,39 @@
       <!-- <ion-button (click)="dissModal($event)" color="dark">返回</ion-button> -->
     </ion-buttons>
     <ion-title class="title">
-        <ion-select interface="popover" (ionChange)="onCategoryChange($event)" class="cate-select" value="all" okText="确定" cancelText="取消">
-          <ion-select-option value="all">全部</ion-select-option>
-          <ion-select-option value="1">专题数据1</ion-select-option>
-          <ion-select-option value="2">专题数据2</ion-select-option>
-          <ion-select-option value="3">专题数据3</ion-select-option>
-        </ion-select>
+      <ion-select
+        interface="popover"
+        (ionChange)="onCategoryChange($event)"
+        class="cate-select"
+        value=""
+        okText="确定"
+        cancelText="取消"
+      >
+      <ion-select-option  value="">全部</ion-select-option>
+        <ion-select-option *ngFor="let v of category" [value]="v.code">{{v.name}}</ion-select-option>
+      </ion-select>
     </ion-title>
     <ion-buttons slot="end"> </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content color="half-transparent" class="widget-search-modal">
+<ion-content #content color="half-transparent" class="widget-search-modal">
   <div class="layer-container">
-    <div
-      [ngClass]="{ active: isLayerExists(layer) }"
-      class="item"
-      *ngFor="let layer of layers"
-    >
-      <img
-        class="thumbnail"
-        (click)="onThumbnailClick(layer, $event)"
-        src="{{ getThumbnailUrl(layer) }}"
-      />
-      <!-- <ion-icon name="checkmark-circle-outline"></ion-icon> -->
+    <div class="cate" *ngFor="let v of category">
+      <div [id]="'title_' + v.code" class="title">{{ v.name }}</div>
+      <div class="layers">
+        <div class="item"  *ngFor="let layer of v.layers" [ngClass]="{ active: isLayerExists(layer) }">
+          <img
+            class="thumbnail"
+            (click)="onThumbnailClick(layer, $event)"
+            offset="100"
+            defaultImage="assets/images/thumbnail.png"
+            [lazyLoad]="getThumbnailUrl(layer)"
+          />
 
-      <span class="title">{{ layer.title }}</span>
+          <span class="title">{{ layer.title }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>

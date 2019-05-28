@@ -1,6 +1,10 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu menuId="main" (ionDidOpen)="onMenuDidOpen($event)" (ionDidClose)="onMenuDidClose($event)">
+    <ion-menu
+      menuId="main"
+      (ionDidOpen)="onMenuDidOpen($event)"
+      (ionDidClose)="onMenuDidClose($event)"
+    >
       <ion-header>
         <ion-toolbar>
           <ion-title>菜单</ion-title>
@@ -12,11 +16,17 @@
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
-                {{p.title}}
+                {{ p.title }}
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
+        <div class="config-area">
+            <ion-button (click)="onLogoutBtnClick($event)" class="logout btn" color="danger" expand="full" 
+            >注销</ion-button
+          >
+        </div>
+       
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>

@@ -1,43 +1,71 @@
 .layer-container {
-  display: grid;
   padding: 10px;
-  grid-template-columns: 25% 25% 25% 25%;
   height: 100%;
-  .item {
-    position: relative;
-    &::after {
-      content: "\f5e0";
-      font-family: "Material Design Icons";
-      position: absolute;
-      right: 2px;
-      top: -4px;
-      color: #2a8c02;
-      font-size: 19px;
-      transform: scale(0);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      background: white;
-      border-radius: 50%;
+  .cate {
+    & > .title {
+      font-size: 20px;
+      background: linear-gradient(
+        to right,
+        rgba(56, 128, 255, 0.3),
+        rgba(255, 255, 255, 0)
+      );
+      padding: 5px 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-top: 3px solid rgba(255, 255, 255, 0.7);
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
     }
-    &.active {
-      &::after {
-        transform: scale(1);
+
+    .layers {
+      display: grid;
+      min-height: 100px;
+      grid-template-columns: 25% 25% 25% 25%;
+      grid-auto-rows: max-content;
+      .item {
+        position: relative;
+        &::after {
+          content: '\f5e0';
+          font-family: 'Material Design Icons';
+          position: absolute;
+          right: 2px;
+          top: 5px;
+          color: #2a8c02;
+          font-size: 19px;
+          -webkit-transform: scale(0);
+          transform: scale(0);
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          background: white;
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+          line-height: 18px;
+        }
+        &.active {
+          &::after {
+            transform: scale(1);
+          }
+          // background-color: red;
+          // transform:scale(1.5);
+        }
+        display: flex;
+        flex-direction: column;
+
+        & > .thumbnail {
+          margin: 10px;
+          border-radius: 10px;
+          -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+          opacity: 0;
+          transition: opacity 1s;
+          &.ng-lazyloaded {
+            opacity: 1;
+          }
+        }
+
+        .title {
+          text-align: center;
+          text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
+        }
       }
-      // background-color: red;
-      // transform:scale(1.5);
-    }
-    display: flex;
-    flex-direction: column;
-
-    & > .thumbnail {
-      margin: 10px;
-      border-radius: 10px;
-      -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
-    }
-
-    .title {
-      text-align: center;
-      text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
     }
   }
 }
@@ -47,16 +75,13 @@
   background: transparent;
 }
 
-.title-btn-cnt{
-  .text{
+.title-btn-cnt {
+  .text {
     display: none;
-    
   }
-  .cate-select{
+  .cate-select {
     width: 100%;
     text-align: center;
     max-width: 100%;
   }
 }
-
-

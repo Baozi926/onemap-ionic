@@ -16,7 +16,6 @@ import { IonicStorageModule } from '@ionic/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { loadScript } from 'esri-loader';
 import 'hammerjs';
-import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 
 loadScript({
   url: 'assets/esri/4.10/init.js'
@@ -26,12 +25,13 @@ loadScript({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    // SafeHtmlPipe,
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({
+      mode: 'ios'
+    }),
     AppRoutingModule,
     IonicStorageModule.forRoot(),
-    BrowserAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     StatusBar,

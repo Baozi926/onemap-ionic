@@ -9,9 +9,9 @@
     <ion-buttons slot="end"> </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-card>
-    <img class="thumbnail" src="{{ getThumbnailUrl() }}" />
+<ion-content class="content">
+  <ion-card class="detail-card">
+    <img class="thumbnail" [src]="getThumbnailUrl()"   />
     <ion-card-header>
       <ion-card-subtitle>{{ item.type }}</ion-card-subtitle>
       <ion-card-title>{{ item.title }}</ion-card-title>
@@ -19,7 +19,7 @@
     <!-- todo 用pipe 防止xxs 注入 -->
     <ion-card-content >
         <div class="owner" >所有者：{{item.owner}}</div>
-      <div class="description" [innerHTML]="item.description" ></div>
+      <div class="description" [innerHTML]="item.description " ></div>
      
     </ion-card-content>
   </ion-card>

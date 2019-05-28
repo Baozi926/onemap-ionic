@@ -15,11 +15,7 @@ export class LoginPage implements OnInit {
     private portalService: PortalService
   ) {}
 
-  ngOnInit() {
-    if (this.username && this.password) {
-      this.logIn();
-    }
-  }
+  ngOnInit() {}
   onLoginBtnClick(
     usernameNode?: HTMLInputElement,
     passwordNode?: HTMLInputElement
@@ -28,16 +24,23 @@ export class LoginPage implements OnInit {
     this.password = passwordNode.value;
     this.logIn();
   }
-  async logIn() {
-    const res = await this.portalService.login({
-      username: this.username,
-      password: this.password
-    });
 
-    if (res.islogin()) {
+  async logIn() {
+    console.log('do login');
+    const res = await this.portalService
+      .setUser({
+        username: this.username,
+        password: this.password
+      })
+      .login();
+
+    if (res.success) {
       this.navCtrl.navigateForward('/map');
     } else {
       // todo show error
     }
+  }
+  onConfigBtnClick() {
+    this.navCtrl.navigateForward('/app-config');
   }
 }

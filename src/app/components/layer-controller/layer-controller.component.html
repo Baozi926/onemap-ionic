@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dissModal($event)" color="dark">返回</ion-button>
+    </ion-buttons>
+    <ion-title class="title">
+      地图设置
+    </ion-title>
+    <ion-buttons slot="end"> </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content color="half-transparent" class="widget-search-modal">
+  <ion-list class="pane">
+    <ion-list-header class="header">
+      <ion-label>底图切换</ion-label>
+    </ion-list-header>
+    <ion-item lines="full">
+        <section class="card basemap">
+            <div
+            [ngClass]="{ active: basemap && basemap.id === activeBasemapId }"
+            (click)="onBasemapClick($event, basemap)"
+            *ngFor="let basemap of basemaps"
+            class="card--content item"
+          >
+            <img [alt]="basemap.title" [src]="getBasemapThumbnail(basemap)" class="thumbnail"> 
+          </div>
+        </section>
+
+
+    </ion-item>
+  </ion-list>
+  <ion-list class="pane">
+    <ion-list-header class="header">
+      <ion-label>图层控制</ion-label>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let layer of layers">
+      <ion-item  lines="full">
+        <ion-label>
+          {{ layer.title }}
+        </ion-label>
+        <ion-icon name="information-circle" size="large" slot="end"></ion-icon>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option
+          (click)="onDeleteBtnClick($event, layer)"
+          color="danger"
+        >
+          <!-- <ion-icon slot="bottom" name="delete"></ion-icon> -->
+          删除
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item class="no-layers"  lines="full" *ngIf="layers.length === 0">
+      <ion-label>
+        未加载任何图层
+      </ion-label></ion-item
+    >
+  </ion-list>
+</ion-content>

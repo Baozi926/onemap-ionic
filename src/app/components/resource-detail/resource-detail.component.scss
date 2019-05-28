@@ -1,3 +1,10 @@
 .load2map.btn{
     margin: 20px
 }
+
+.thumbnail{
+    // opacity: 0.1;
+    transition: opacity 1s;
+    opacity: 1;
+    height: 200px;
+}

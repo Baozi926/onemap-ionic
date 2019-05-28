@@ -6,8 +6,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ResourceGalleryPage } from './resource-gallery.page';
-
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 import { ResourceDetailComponent } from '../../components/resource-detail/resource-detail.component';
+// import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 const routes: Routes = [
   {
     path: '',
@@ -17,10 +18,14 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
+    LazyLoadImageModule.forRoot({
+      preset: intersectionObserverPreset
+    }),
     CommonModule,
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes)
+    // SafeHtmlPipe
   ],
   declarations: [ResourceGalleryPage, ResourceDetailComponent],
   entryComponents: [ResourceDetailComponent]

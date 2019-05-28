@@ -1,4 +1,4 @@
-.layer-gallery-modal {
+.transparent-modal {
   background: transparent !important;
   & > .modal-wrapper {
     background: transparent !important;
@@ -20,8 +20,8 @@
 }
 
 .ion-color-transparent {
-  --ion-color-base: rgba(255, 255, 255, 0) !important;
-  --ion-color-base-rgb: var(--ion-color-primary-rgb, 56, 128, 255) !important;
+  --ion-color-base: transparent !important;
+  --ion-color-base-rgb: transparent !important;
   --ion-color-contrast: #222428 !important;
   --ion-color-contrast-rgb: var(
     --ion-color-primary-contrast-rgb,
@@ -29,10 +29,18 @@
     255,
     255
   ) !important;
-  --ion-color-shade: var(--ion-color-primary-shade, #3171e0) !important;
-  --ion-color-tint: var(--ion-color-primary-tint, #4c8dff) !important;
+  --ion-color-shade: transparent !important;
+  --ion-color-tint: transparent !important;
 }
 
-.esri-component.esri-attribution.esri-widget{
+.esri-component.esri-attribution.esri-widget {
   display: none;
+}
+
+.esri-view-surface.esri-view-surface--inset-outline:focus {
+  outline: none !important;
+}
+
+.esri-view.esri-view-surface--inset-outline::after{
+  display: none !important;
 }

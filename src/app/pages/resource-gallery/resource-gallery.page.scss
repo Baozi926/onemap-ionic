@@ -1,9 +1,6 @@
 
 .container {
-  
-  &::-webkit-scrollbar {
-    display: none;
-  }
+
   display: flex;
   // height: 100%;
   flex: 1;
@@ -15,10 +12,10 @@
     background-color: var(--ion-color-light);
     // height: 100%;
     border-radius: 0 10px 0 0;
-    padding:10px 0;
-    .item{
+    padding: 10px 0;
+    .item {
       padding: 10px 10px;
-      &.active{
+      &.active {
         background-color: var(--ion-color-light-shade);
       }
     }
@@ -30,6 +27,7 @@
     padding: 10px;
     display: grid;
     grid-template-columns: 33% 33% 33%;
+    grid-auto-rows: max-content;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -41,11 +39,16 @@
       position: relative;
       & > .thumbnail {
         // transition
-        min-height: 20px;
+        // min-height: 20px;
         margin: 0 10px 10px 15px;
         border-radius: 5px;
         -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+        opacity: 0.1;
+        transition: opacity 1s;
+        &.ng-lazyloaded {
+          opacity: 1;
+        }
       }
       .title {
         text-align: center;
@@ -54,6 +57,11 @@
     }
   }
 }
+
+.card::-webkit-scrollbar {
+  display: none;
+}
+
 .card {
   background-color: #fff;
   flex-wrap: nowrap;
@@ -61,35 +69,36 @@
   height: 70px;
   display: flex;
   overflow-x: auto;
+  /*解决ios上滑动不流畅*/
+  -webkit-overflow-scrolling: touch;
   &::-webkit-scrollbar {
     display: none;
   }
   .card--content {
-    .text{
+    .text {
       text-align: center;
       margin: 5px 10px;
       display: block;
       font-size: 18px;
     }
-    color:var(--ion-color-dark);
+    color: var(--ion-color-dark);
     // transition: background-color  cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s;
-    
-    background-color:var(--ion-color-primary-contrast);
+
+    background-color: var(--ion-color-primary-contrast);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
     min-width: 70px;
     margin: 5px;
     border-radius: 5px;
     font-size: 18px;
-    &.active{
-      
-    color:var(--ion-color-primary-contrast);
+    &.active {
+      color: var(--ion-color-primary-contrast);
       background-color: var(--ion-color-primary-shade);
       // background-color: var(  --ion-color-primary-tint);
     }
   }
 }
 
-.full{
+.full {
   // user-select: none;
   // height: 100%;
   display: flex;

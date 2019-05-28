@@ -7,12 +7,16 @@ import { RouterModule } from '@angular/router';
 import { EsriMapComponent } from './esri-map.component';
 import { SearchComponent } from '../../components/search/search.component';
 import { LayerGalleryComponent } from '../../components/layer-gallery/layer-gallery.component';
+import {LayerControllerComponent  } from '../../components/layer-controller/layer-controller.component';
 import { SearchResultComponent } from '../../components/search-result/search-result.component';
 import { SearchResultDetailComponent } from '../../components/search-result-detail/search-result-detail.component';
 import { MapToolsComponent } from '../../components/map-tools/map-tools.component';
-
+import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
 @NgModule({
   imports: [
+    LazyLoadImageModule.forRoot({
+      preset: intersectionObserverPreset
+    }),
     CommonModule,
     FormsModule,
     IonicModule,
@@ -27,10 +31,11 @@ import { MapToolsComponent } from '../../components/map-tools/map-tools.componen
     EsriMapComponent,
     SearchComponent,
     LayerGalleryComponent,
+    LayerControllerComponent,
     SearchResultComponent,
     SearchResultDetailComponent,
     MapToolsComponent
   ],
-  entryComponents: [SearchComponent, LayerGalleryComponent]
+  entryComponents: [SearchComponent, LayerGalleryComponent, LayerControllerComponent]
 })
 export class EsriMapModule {}

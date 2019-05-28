@@ -32,12 +32,19 @@ export class ResourceGalleryPage implements OnInit {
   category = [];
   data = [];
   subCate = [];
-  ionViewDidEnter() {
+  async ngOnInit() {
+    this.category = await this.searchService.fetchCategroy();
     if (this.category.length) {
       // this.subCate = this.category[0].children;
       this.onFirstCategoryClick(null, this.category[0]);
     }
-    console.log('subcate', this.subCate);
+  }
+  ionViewDidEnter() {
+    // if (this.category.length) {
+    //   // this.subCate = this.category[0].children;
+    //   this.onFirstCategoryClick(null, this.category[0]);
+    // }
+    // console.log('subcate', this.subCate);
   }
   stopElasticity(evt) {
     evt.preventDefault();
@@ -51,7 +58,7 @@ export class ResourceGalleryPage implements OnInit {
     this.refreshData();
   }
 
-  imgLoaded(evt) {
+  onImageLoaded(evt) {
     console.log('imgloaded', evt);
 
   }
@@ -107,7 +114,5 @@ export class ResourceGalleryPage implements OnInit {
     // this.searchService.search({});
   }
 
-  async ngOnInit() {
-    this.category = await this.searchService.fetchCategroy();
-  }
+
 }

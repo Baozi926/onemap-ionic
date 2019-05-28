@@ -3,9 +3,7 @@ const searchEngineUrl = 'http://nsbdgis.ysy.com.cn/proxy/geosearch';
 
 export default {
   portal: {
-    baseUrl: portalUrl,
-    generateTokenUrl: `${portalUrl}/sharing/rest/generateToken`,
-    portalSearchUrl: `${portalUrl}/sharing/rest/search`
+    baseUrl: portalUrl
   },
   search: {
     byKeywordUrl: `${searchEngineUrl}/dataQuery/textQuery/keywordQueryFacet`,
