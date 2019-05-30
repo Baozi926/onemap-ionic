@@ -12,8 +12,10 @@ import { SearchResultComponent } from '../../components/search-result/search-res
 import { SearchResultDetailComponent } from '../../components/search-result-detail/search-result-detail.component';
 import { MapToolsComponent } from '../../components/map-tools/map-tools.component';
 import { LazyLoadImageModule, intersectionObserverPreset } from 'ng-lazyload-image';
+import { IonicImageLoader } from 'ionic-image-loader';
 @NgModule({
   imports: [
+    IonicImageLoader,
     LazyLoadImageModule.forRoot({
       preset: intersectionObserverPreset
     }),

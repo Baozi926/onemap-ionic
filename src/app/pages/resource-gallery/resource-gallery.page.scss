@@ -15,6 +15,7 @@
     padding: 10px 0;
     .item {
       padding: 10px 10px;
+   
       &.active {
         background-color: var(--ion-color-light-shade);
       }
@@ -33,6 +34,7 @@
     }
     // height: 100%;
     .item {
+      min-height: 90px;
       margin-bottom: 8px;
       display: flex;
       flex-direction: column;
@@ -40,14 +42,22 @@
       & > .thumbnail {
         // transition
         // min-height: 20px;
+        display: flex;
+        max-height: 53px;
         margin: 0 10px 10px 15px;
         border-radius: 5px;
         -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
-        opacity: 0.1;
+        // opacity: 0.1;
+        overflow: hidden;
         transition: opacity 1s;
         &.ng-lazyloaded {
           opacity: 1;
+        }
+        img{
+          height: 100%;
+          width: 100%;
+          border: 0;
         }
       }
       .title {

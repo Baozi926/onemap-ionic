@@ -57,12 +57,20 @@ export class LayerGalleryComponent implements OnInit {
     }
   }
   async ngOnInit() {
-    await this.fetchCategory();
-    this.category.forEach(v => {
-      this.fetchLayers4Category(v);
-    });
     // await this.fetchLayers();
+    await this.fetchCategory();
+    this.category.forEach((v, k) => {
+      // setTimeout(() => {
+        this.fetchLayers4Category(v);
+      // }, 0);
+    });
   }
+
+  // async ngAfterContentInit() {
+
+  // }
+
+  // async onOn
   async fetchLayers4Category(param) {
     const q = `tags:${
       param.code
@@ -75,6 +83,10 @@ export class LayerGalleryComponent implements OnInit {
       token: this.portalService.getToken(),
       f: 'json'
     });
+    // .subscribe((val: any) => {
+    //   console.log('PUT call successful value returned in body', val);
+    //   param.layers = val.results;
+    // });
     param.layers = res.results;
     // this.layersMap[code] =  res.results;
   }

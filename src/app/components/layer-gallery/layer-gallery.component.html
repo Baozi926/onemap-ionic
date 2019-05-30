@@ -26,13 +26,15 @@
       <div [id]="'title_' + v.code" class="title">{{ v.name }}</div>
       <div class="layers">
         <div class="item"  *ngFor="let layer of v.layers" [ngClass]="{ active: isLayerExists(layer) }">
-          <img
+          <!-- <img
             class="thumbnail"
             (click)="onThumbnailClick(layer, $event)"
             offset="100"
             defaultImage="assets/images/thumbnail.png"
             [lazyLoad]="getThumbnailUrl(layer)"
-          />
+          /> -->
+
+          <img-loader class="thumbnail"  (click)="onThumbnailClick(layer, $event)" [src]="getThumbnailUrl(layer)" useImg></img-loader>
 
           <span class="title">{{ layer.title }}</span>
         </div>

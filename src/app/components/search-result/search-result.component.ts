@@ -68,14 +68,34 @@ export class SearchResultComponent implements OnInit {
   cateInterfaceOptions = {
     // showBackdrop: false
   };
-  ngOnInit() {
+ async ngOnInit() {
     this.total = 0;
     this.results = [];
     console.log('platform', this.platform);
     this.doSearch = this.doSearch.bind(this);
     this.viewLoaded = this.viewLoaded.bind(this);
+    // this.events.
     this.events.subscribe('search:doSearch', this.doSearch);
     this.events.subscribe('esriView:loaded', this.viewLoaded);
+    // const [watchUtils] = await loadModules([
+    //   'esri/core/watchUtils',
+    // ]);
+    // watchUtils.whenTrueOnce(
+    //   this.mapService.view,
+    //   'ready',
+    //   () => {
+    //     // this.tourConfig.spatialReference = this.view.spatialReference;
+    //     try {
+    //       debugger;
+    //       this.viewLoaded();
+    //       // _loadTour(this);
+    //     } catch (err) {
+    //       console.error(err);
+    //       // this.loadError = err;
+    //       return;
+    //     }
+    //   }
+    // );
 
     this.listHeight = this.platform.height() / 2;
     this.listHeightString = this.listHeight + 'px';
@@ -144,9 +164,11 @@ export class SearchResultComponent implements OnInit {
   }
 
   async onSearchEnd() {
+    console.log('onSearchEnd', this);
     if (this.loading) {
       this.loading.dismiss();
     }
+    // console.log('onSearchEnd', this);
     // console.log('onSearchEnd', data);
   }
   async renderMap() {

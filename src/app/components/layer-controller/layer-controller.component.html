@@ -56,4 +56,19 @@
       </ion-label></ion-item
     >
   </ion-list>
+
+  <ion-list>
+
+    <ion-list-header class="header">
+      <ion-label>地图渲染质量</ion-label>
+    </ion-list-header>
+    <ion-item lines="full">
+      <ion-range [value]="mapQuality" (ionChange)="onMapQualityChange($event)" snaps="true" min="0" max="2" step="1">
+        <ion-label slot="start">低</ion-label>
+        <ion-label slot="end">高</ion-label>
+      </ion-range>
+
+
+    </ion-item>
+  </ion-list>
 </ion-content>

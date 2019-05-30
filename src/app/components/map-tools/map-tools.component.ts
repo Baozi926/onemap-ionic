@@ -50,7 +50,7 @@ export class MapToolsComponent implements OnInit {
     return await modal.present();
   }
   async ngOnDestroy() {
-    console.log('销毁时销毁监听事件');
+    console.log('[map-tools]销毁时销毁监听事件');
     // this.events.unsubscribe('search:doSearch', this.doSearch);
     this.events.unsubscribe('esriView:loaded', this.viewLoaded);
   }
@@ -58,9 +58,11 @@ export class MapToolsComponent implements OnInit {
     console.log('map goback ');
     this.mapService.view.goTo(this.mapService.getInitialExtent());
   }
+
   viewLoaded() {
     this.checkMapType();
   }
+
   checkMapType() {
     if (this.mapService.view.type === '3d') {
       this.mapTypeBtnText = '2D';

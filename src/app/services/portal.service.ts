@@ -5,12 +5,13 @@ import qs from 'qs';
 import { Storage } from '@ionic/storage';
 import esriLoader from 'esri-loader';
 import app from '../configs/app';
-
+import { Cacheable } from 'ngx-cacheable';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class PortalService {
-  constructor(private storage: Storage) {
+  constructor(private storage: Storage, private http: HttpClient) {
     this.initPortalUrl();
   }
 
@@ -211,12 +212,15 @@ export class PortalService {
     return res.data;
   }
 
+  // @Cacheable()
   async search(params) {
     const url = `${this.portalUrl}/sharing/rest/search`;
-    const res = await axios.get(url, {
-      params
-    });
-    return res.data;
+    const data: any = await this.http
+      .get(url, {
+        params
+      })
+      .toPromise();
+    return data;
   }
   async fetchServersForPortal({ token, orgId }) {
     const url = `${
@@ -245,22 +249,28 @@ export class PortalService {
   }
 
   getThumbnailUrl(item, token?, noAuthCheck?) {
-    if (item.access === 'public') {
-      if (item.thumbnail) {
+    if (item.thumbnail) {
+      if (item.access === 'public') {
         return `${this.portalUrl}/sharing/rest/content/items/${item.id}/info/${
           item.thumbnail
         }`;
       } else {
-        return 'images/map/basemaps/彩色中文.jpg';
+        if (item._hasAuth || noAuthCheck) {
+          return `${this.portalUrl}/sharing/rest/content/items/${
+            item.id
+          }/info/${item.thumbnail}?token=${token}`;
+        } else {
+          if (item.owner && item.owner === this.config.username) {
+            return `${this.portalUrl}/sharing/rest/content/items/${
+              item.id
+            }/info/${item.thumbnail}?token=${token}`;
+          }
+
+          return 'assets/images/lock.png';
+        }
       }
     } else {
-      if (item._hasAuth || noAuthCheck) {
-        return `${this.portalUrl}/sharing/rest/content/items/${item.id}/info/${
-          item.thumbnail
-        }?token=${token}`;
-      } else {
-        return 'images/lock.png';
-      }
+      return 'images/map/basemaps/彩色中文.jpg';
     }
   }
 }

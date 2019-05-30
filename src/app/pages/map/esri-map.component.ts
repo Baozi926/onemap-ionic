@@ -44,7 +44,9 @@ export class EsriMapComponent implements OnInit {
     private events: Events,
     private activatedRoute: ActivatedRoute,
     private portalService: PortalService
-  ) {}
+  ) {
+
+  }
 
   @Output() mapLoadedEvent = new EventEmitter<boolean>();
 
@@ -179,7 +181,7 @@ export class EsriMapComponent implements OnInit {
       this.mapService.view.ui.remove('compass');
 
       // @ts-ignore
-      window.view = view;
+      window.mapService =  this.mapService;
 
       return view;
     } catch (error) {
