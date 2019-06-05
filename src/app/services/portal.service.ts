@@ -222,6 +222,34 @@ export class PortalService {
       .toPromise();
     return data;
   }
+
+  async fetchItemServiceInfo(param) {
+    const token = '';
+
+
+    const [esriId] = await esriLoader.loadModules([
+      'esri/identity/IdentityManager'
+    ]);
+
+    console.log('get service info', param);
+    const url = param.url;
+    debugger;
+    if (url) {
+
+    const crede = await esriId.getCredential(url);
+    const data: any = await this.http
+        .get(url, {
+          params: {
+            f: 'json',
+            token: crede.token
+          }
+        })
+        .toPromise();
+    return data;
+    } else {
+      console.warn('url is null', param);
+    }
+  }
   async fetchServersForPortal({ token, orgId }) {
     const url = `${
       this.portalUrl

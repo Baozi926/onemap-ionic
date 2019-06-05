@@ -14,12 +14,23 @@ import { SearchService } from '../../services/search.service';
 import { Storage } from '@ionic/storage';
 import esri = __esri; // Esri TypeScript Types
 import { loadModules } from 'esri-loader';
-import { debug } from 'util';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-layer-gallery',
   templateUrl: './layer-gallery.component.html',
-  styleUrls: ['./layer-gallery.component.scss']
+  styleUrls: ['./layer-gallery.component.scss'],
+  animations: [
+    trigger('items', [
+      transition(':enter', [
+        style({ transform: 'scale(0.8)', opacity: 0 }), // initial
+        animate(
+          '0.7s cubic-bezier(.8, -0.6, 0.2, 1.5)',
+          style({ transform: 'scale(1)', opacity: 1 })
+        ) // final
+      ])
+    ])
+  ]
 })
 export class LayerGalleryComponent implements OnInit {
   constructor(
@@ -39,6 +50,33 @@ export class LayerGalleryComponent implements OnInit {
 
   private layersMap = {};
 
+  private isFiltered = false;
+
+  mapTypes = [
+    {
+      name: '栅格服务',
+      value: 'Map Service',
+      isChecked: true
+    },
+    {
+      name: '矢量服务',
+      value: 'Feature Service',
+      isChecked: true
+    }
+  ];
+
+  hideMapService = false;
+  hideFeatureService = false;
+
+  onFilterChange(evt, item) {
+    // debugger;
+    if (item.value === 'Map Service') {
+      this.hideMapService = !item.isChecked;
+    } else if (item.value === 'Feature Service') {
+      this.hideFeatureService = !item.isChecked;
+    }
+  }
+
   dissModal() {
     this.modalCtrl.dismiss();
   }
@@ -57,11 +95,10 @@ export class LayerGalleryComponent implements OnInit {
     }
   }
   async ngOnInit() {
-    // await this.fetchLayers();
     await this.fetchCategory();
     this.category.forEach((v, k) => {
       // setTimeout(() => {
-        this.fetchLayers4Category(v);
+      this.fetchLayers4Category(v);
       // }, 0);
     });
   }
@@ -83,12 +120,8 @@ export class LayerGalleryComponent implements OnInit {
       token: this.portalService.getToken(),
       f: 'json'
     });
-    // .subscribe((val: any) => {
-    //   console.log('PUT call successful value returned in body', val);
-    //   param.layers = val.results;
-    // });
+
     param.layers = res.results;
-    // this.layersMap[code] =  res.results;
   }
 
   async onThumbnailClick(data, evt) {
@@ -100,9 +133,10 @@ export class LayerGalleryComponent implements OnInit {
       return;
     }
 
-    const [FeatureLayer, MapImageLayer] = await loadModules([
+    const [FeatureLayer, MapImageLayer,  IntegratedMeshLayer] = await loadModules([
       'esri/layers/FeatureLayer',
-      'esri/layers/MapImageLayer'
+      'esri/layers/MapImageLayer',
+      'esri/layers/IntegratedMeshLayer'
     ]);
     let layer;
 
@@ -123,7 +157,28 @@ export class LayerGalleryComponent implements OnInit {
             title: data.title
           });
           break;
+
+        case 'Scene Service':
+          const layerInfo = await this.portalService.fetchItemServiceInfo(
+            data
+          );
+          console.log(layerInfo);
+          const layerType = layerInfo.layers[0].layerType;
+
+          if (layerType === 'IntegratedMesh') {
+            layer = new IntegratedMeshLayer({
+              id: data.id,
+              url: data.url,
+              title: data.title
+            });
+
+          } else {
+            console.log(data);
+            alert('not implement');
+          }
+          break;
         default:
+          console.log(data);
           alert('not implement');
       }
       if (layer) {
@@ -157,26 +212,5 @@ export class LayerGalleryComponent implements OnInit {
       return v;
     });
     // this.category.forEac
-  }
-  async fetchLayers() {
-    const cacheLayer = await this.storage.get('layers');
-    if (cacheLayer) {
-      this.layers = cacheLayer;
-      return;
-    }
-
-    const q =
-      '(orgid:0123456789ABCDEF OR accountid:0123456789ABCDEF) AND tags:1000 AND NOT type:"Geoprocessing Service" AND NOT type:"Geometry Service" AND NOT owner:{esrh TO esri_zzzzz}';
-
-    const res = await this.portalService.search({
-      q,
-      num: 100,
-      sortField: 'modified',
-      token: this.portalService.getToken(),
-      f: 'json'
-    });
-
-    this.layers = res.results;
-    this.storage.set('layers', this.layers);
   }
 }

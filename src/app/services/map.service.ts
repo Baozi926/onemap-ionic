@@ -20,10 +20,20 @@ export class MapService {
     // 在地图二三维切换时同步地图质量
     this.syncQuality();
   }
+
   private view_: any;
+
+  mode = 'mix';
 
   initialExtent: any;
   quality = 'low';
+
+
+  //  当服务有featureServer和MapServer时，只取FeatureServer
+  mixItems(layers ) {
+
+    return layers;
+  }
 
   getInitialExtent() {
     return this.initialExtent;
@@ -57,6 +67,7 @@ export class MapService {
     if (this.view_) {
       this.view_.qualityProfile = this.quality;
     }
-
   }
+
+
 }

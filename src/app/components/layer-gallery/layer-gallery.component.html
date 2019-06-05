@@ -12,8 +12,10 @@
         okText="确定"
         cancelText="取消"
       >
-      <ion-select-option  value="">全部</ion-select-option>
-        <ion-select-option *ngFor="let v of category" [value]="v.code">{{v.name}}</ion-select-option>
+        <ion-select-option value="">全部</ion-select-option>
+        <ion-select-option *ngFor="let v of category" [value]="v.code">{{
+          v.name
+        }}</ion-select-option>
       </ion-select>
     </ion-title>
     <ion-buttons slot="end"> </ion-buttons>
@@ -21,21 +23,45 @@
 </ion-header>
 
 <ion-content #content color="half-transparent" class="widget-search-modal">
-  <div class="layer-container">
+  <div class="tool">
+    <!-- <ion-toggle [(ngModel)]="isFiltered"></ion-toggle> -->
+
+    <ion-list>
+      <ion-item *ngFor="let entry of mapTypes">
+        <ion-label>{{ entry.name }}</ion-label>
+        <ion-checkbox
+          slot="end"
+          (ionChange)="onFilterChange($event, entry)"
+          [(ngModel)]="entry.isChecked"
+        ></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div
+    [ngClass]="{
+      'hide-map-service': hideMapService,
+      'hide-feature-service': hideFeatureService
+    }"
+    class="layer-container"
+  >
     <div class="cate" *ngFor="let v of category">
       <div [id]="'title_' + v.code" class="title">{{ v.name }}</div>
       <div class="layers">
-        <div class="item"  *ngFor="let layer of v.layers" [ngClass]="{ active: isLayerExists(layer) }">
-          <!-- <img
+        <div
+          @items
+          class="item"
+          [class.feature-service]="layer.type === 'Feature Service'"
+          [class.map-service]="layer.type === 'Map Service'"
+          *ngFor="let layer of v.layers"
+          [ngClass]="{ active: isLayerExists(layer) }"
+        >
+          <img-loader
             class="thumbnail"
-            (click)="onThumbnailClick(layer, $event)"
             offset="100"
             defaultImage="assets/images/thumbnail.png"
             [lazyLoad]="getThumbnailUrl(layer)"
-          /> -->
-
-          <img-loader class="thumbnail"  (click)="onThumbnailClick(layer, $event)" [src]="getThumbnailUrl(layer)" useImg></img-loader>
-
+            (click)="onThumbnailClick(layer, $event)"
+          ></img-loader>
           <span class="title">{{ layer.title }}</span>
         </div>
       </div>

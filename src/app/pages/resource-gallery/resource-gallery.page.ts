@@ -36,7 +36,10 @@ export class ResourceGalleryPage implements OnInit {
     this.category = await this.searchService.fetchCategroy();
     if (this.category.length) {
       // this.subCate = this.category[0].children;
-      this.onFirstCategoryClick(null, this.category[0]);
+      setTimeout(() => {
+        this.onFirstCategoryClick(null, this.category[0]);
+      }, 100);
+
     }
   }
   ionViewDidEnter() {
@@ -46,10 +49,10 @@ export class ResourceGalleryPage implements OnInit {
     // }
     // console.log('subcate', this.subCate);
   }
-  stopElasticity(evt) {
-    evt.preventDefault();
-    console.log('stopElasticity');
-  }
+  // stopElasticity(evt) {
+  //   evt.preventDefault();
+  //   console.log('stopElasticity');
+  // }
 
   onFirstCategoryClick(evt, item) {
     this.subCate = item.children;

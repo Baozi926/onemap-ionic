@@ -40,10 +40,11 @@
       flex-direction: column;
       position: relative;
       & > .thumbnail {
-        // transition
-        // min-height: 20px;
+        background-repeat: no-repeat;
+        background-size: cover;
         display: flex;
-        max-height: 53px;
+        max-height: 56px;
+        min-height: 54px;
         margin: 0 10px 10px 15px;
         border-radius: 5px;
         -webkit-box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
