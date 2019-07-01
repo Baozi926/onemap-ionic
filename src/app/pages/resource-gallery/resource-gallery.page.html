@@ -45,8 +45,12 @@
             [lazyLoad]="getThumbnailUrl(item)"
           /> -->
 
-          <img-loader class="thumbnail"  offset="100"
-          defaultImage="assets/images/thumbnail.png"  [lazyLoad]="getThumbnailUrl(item)" ></img-loader>
+          <img-loader
+            class="thumbnail"
+            offset="100"
+            defaultImage="assets/images/thumbnail.png"
+            [lazyLoad]="getThumbnailUrl(item)"
+          ></img-loader>
           <span class="title">{{ item.title }}</span>
         </div>
 

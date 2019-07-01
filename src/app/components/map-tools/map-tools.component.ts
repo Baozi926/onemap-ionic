@@ -2,8 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { loadModules } from 'esri-loader';
 import esri = __esri; // Esri TypeScript Types
 import { MapService } from 'src/app/services/map.service';
-import { ModalController, Events, MenuController } from '@ionic/angular';
+import {
+  ModalController,
+  Events,
+  MenuController,
+  PopoverController
+} from '@ionic/angular';
 import { LayerControllerComponent } from '../layer-controller/layer-controller.component';
+import { MapLegendComponent } from '../map-legend/map-legend.component';
 
 import { myEnterAnimation } from '../../animations/my-enter. animations';
 import { myLeaveAnimation } from '../../animations/my-leave. animations';
@@ -14,6 +20,7 @@ import { myLeaveAnimation } from '../../animations/my-leave. animations';
 })
 export class MapToolsComponent implements OnInit {
   constructor(
+    private popoverController: PopoverController,
     private events: Events,
     private mapService: MapService,
     public modalController: ModalController
@@ -27,7 +34,9 @@ export class MapToolsComponent implements OnInit {
   ngOnInit() {
     this.mapTypeBtnText = '--';
     this.viewLoaded = this.viewLoaded.bind(this);
+    this.switchMapType = this.switchMapType.bind(this);
     this.events.subscribe('esriView:loaded', this.viewLoaded);
+    this.events.subscribe('esriView:changeType', this.switchMapType);
   }
   onMapClearAllBtnClick() {
     console.log('clear map');
@@ -53,6 +62,7 @@ export class MapToolsComponent implements OnInit {
     console.log('[map-tools]销毁时销毁监听事件');
     // this.events.unsubscribe('search:doSearch', this.doSearch);
     this.events.unsubscribe('esriView:loaded', this.viewLoaded);
+    this.events.unsubscribe('esriView:changeType', this.switchMapType);
   }
   async onMapGobackBtnClick() {
     console.log('map goback ');
@@ -70,8 +80,13 @@ export class MapToolsComponent implements OnInit {
       this.mapTypeBtnText = '3D';
     }
   }
-  async onMapTypeBtnClick() {
+
+  async switchMapType(type?) {
     console.log('23维切换');
+    if (type === this.mapService.view.type) {
+      return;
+    }
+
     const [EsriMap, EsriMapView, EsriSceneView] = await loadModules([
       'esri/Map',
       'esri/views/MapView',
@@ -129,7 +144,35 @@ export class MapToolsComponent implements OnInit {
 
     // tslint:disable-next-line
     // window.view = this.mapService.view;
+    this.mapService.view.when(evt => {
+
+      this.events.publish('esriView:typeHasChanged');
+    });
+
 
     this.checkMapType();
+  }
+  async onMapTypeBtnClick() {
+    this.switchMapType();
+  }
+
+  async onMeasureBtnClick(evt) {
+    alert('not implement');
+  }
+
+  async onLegendBtnClick(evt) {
+    console.log('show map legend', evt);
+    const popover = await this.popoverController.create({
+      component: MapLegendComponent,
+      event: evt,
+      // backdropDismiss: false,
+      componentProps: {
+        // serviceTypes: this.serviceTypes
+      },
+      translucent: false,
+      showBackdrop: false
+    });
+
+    return await popover.present();
   }
 }

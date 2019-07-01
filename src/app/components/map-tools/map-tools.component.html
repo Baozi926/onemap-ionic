@@ -1,6 +1,31 @@
 <!-- <button class="btn"><ion-icon class="icon"  name="document"></ion-icon></button> -->
 <!-- <button class="btn"> <ion-icon class="icon" name="notifications"></ion-icon></button> -->
-<button class="btn" (click)="onLayerBtnClick($event)"> <ion-icon class="icon" name="map"></ion-icon></button>
-<button class="btn"><ion-icon class="icon" (click)="onMapClearAllBtnClick($event)"  name="refresh"></ion-icon></button>
-<button class="btn"><ion-icon class="icon" (click)="onMapGobackBtnClick($event)"  name="globe"></ion-icon></button>
-<button (click)="onMapTypeBtnClick($event)" class="btn text"><p class="icon">{{mapTypeBtnText}}</p></button>
+<button class="btn" (click)="onLayerBtnClick($event)">
+  <ion-icon class="icon" name="map"></ion-icon>
+</button>
+<button (click)="onMapClearAllBtnClick($event)" class="btn">
+  <ion-icon class="icon" name="refresh"></ion-icon>
+</button>
+<button (click)="onMapGobackBtnClick($event)" class="btn">
+  <ion-icon class="icon" name="globe"></ion-icon>
+</button>
+
+<button (click)="onMapTypeBtnClick($event)" class="btn text">
+  <p class="icon">{{ mapTypeBtnText }}</p>
+</button>
+<button (click)="onLegendBtnClick($event)" class="btn">
+  图例
+</button>
+<ion-fab class="fab">
+  <ion-fab-button color="light" class="btn">
+    <ion-icon name="arrow-dropdown"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list class="fab-list" side="bottom">
+   
+    <ion-fab-button (click)="onMeasureBtnClick($event)">测量</ion-fab-button>
+    <ion-fab-button >功能1</ion-fab-button>
+    <ion-fab-button >功能2</ion-fab-button>
+
+    <ion-fab-button >功能3</ion-fab-button>
+  </ion-fab-list>
+</ion-fab>

@@ -27,8 +27,10 @@ import { LayerGalleryComponent } from '../../components/layer-gallery/layer-gall
 import { myEnterAnimation } from '../../animations/my-enter. animations';
 import { myLeaveAnimation } from '../../animations/my-leave. animations';
 import { MapService } from '../../services/map.service';
+import { SearchService } from '../../services/search.service';
 import { PortalService } from '../../services/portal.service';
 import { loadModules } from 'esri-loader';
+import appConfig from '../../configs/app';
 import esri = __esri; // Esri TypeScript Types
 
 @Component({
@@ -43,30 +45,21 @@ export class EsriMapComponent implements OnInit {
     private mapService: MapService,
     private events: Events,
     private activatedRoute: ActivatedRoute,
-    private portalService: PortalService
+    private portalService: PortalService,
+    private searchService: SearchService
   ) {
+    // this.initMapQuery = this.initMapQuery.bind(this);
 
+    this.events.subscribe(
+      'esriView:typeHasChanged',
+      this.initMapQuery.bind(this)
+    );
+
+    this.events.subscribe(
+      'esriView:displayDetails',
+      function(evt) {}.bind(this)
+    );
   }
-
-  @Output() mapLoadedEvent = new EventEmitter<boolean>();
-
-  // The <div> where we will place the map
-  @ViewChild('mapViewNode') private mapViewEl: ElementRef;
-
-  /**
-   * _zoom sets map zoom
-   * _center sets map center
-   * _basemap sets type of map
-   * _loaded provides map loaded status
-   */
-
-  // private layerGalleryModal: any;
-
-  private _zoom = 7;
-  private _center: Array<number> = [114.4015617529981, 36.1730084611679];
-  private _basemap = 'streets';
-  private _loaded = false;
-  private view: any;
 
   get mapLoaded(): boolean {
     return this._loaded;
@@ -98,6 +91,28 @@ export class EsriMapComponent implements OnInit {
   get basemap(): string {
     return this._basemap;
   }
+
+  @Output() mapLoadedEvent = new EventEmitter<boolean>();
+
+  // The <div> where we will place the map
+  @ViewChild('mapViewNode') private mapViewEl: ElementRef;
+
+  /**
+   * _zoom sets map zoom
+   * _center sets map center
+   * _basemap sets type of map
+   * _loaded provides map loaded status
+   */
+
+  // private layerGalleryModal: any;
+
+  private _zoom = 7;
+  private _center: Array<number> = [114.4015617529981, 36.1730084611679];
+  private _basemap = 'streets';
+  private _loaded = false;
+  private view: any;
+
+  mapClickEvent: any;
 
   ionViewDidEnter() {
     console.log('enter map page');
@@ -151,18 +166,39 @@ export class EsriMapComponent implements OnInit {
   async initializeMap() {
     try {
       // Load the modules for the ArcGIS API for JavaScript
-      const [EsriMap, EsriMapView, EsriSceneView] = await loadModules([
+      const [
+        EsriMap,
+        EsriMapView,
+        EsriSceneView,
+        WebScene,
+        WebMap,
+        EsriConfig
+      ] = await loadModules([
         'esri/Map',
         'esri/views/MapView',
-        'esri/views/SceneView'
+        'esri/views/SceneView',
+        'esri/WebScene',
+        'esri/WebMap',
+        'esri/config'
       ]);
 
-      // Configure the Map
-      const mapProperties: esri.MapProperties = {
-        basemap: this._basemap
-      };
+      EsriConfig.portalUrl = appConfig.portal.baseUrl;
 
-      const map: esri.Map = new EsriMap(mapProperties);
+      let map: esri.Map;
+
+      if (appConfig.map.type === '3d' && appConfig.map.webMapId) {
+        map = new WebScene({
+          portalItem: {
+            id: appConfig.map.webSceneId
+          }
+        });
+      } else {
+        const mapProperties: esri.MapProperties = {
+          basemap: this._basemap
+        };
+
+        map = new EsriMap(mapProperties);
+      }
 
       // Initialize the MapView
       const mapViewProperties: esri.MapViewProperties = {
@@ -181,7 +217,7 @@ export class EsriMapComponent implements OnInit {
       this.mapService.view.ui.remove('compass');
 
       // @ts-ignore
-      window.mapService =  this.mapService;
+      window.mapService = this.mapService;
 
       return view;
     } catch (error) {
@@ -196,12 +232,76 @@ export class EsriMapComponent implements OnInit {
       this._loaded = mapView.ready;
       this.mapLoadedEvent.emit(true);
       this.events.publish('esriView:loaded', mapView);
-      const itemId = this.activatedRoute.snapshot.queryParams.itemId;
+
       this.mapService.setInitialExtent(mapView.extent.clone());
+
+      this.initMapQuery();
+
+      const itemId = this.activatedRoute.snapshot.queryParams.itemId;
       if (itemId) {
         this.loadPortalItem({ id: itemId });
       }
     });
+  }
+
+  initMapQuery() {
+    if (this.mapClickEvent) {
+      this.mapClickEvent.remove();
+    }
+    this.mapClickEvent = this.mapService.view.on(
+      'click',
+      function(evt) {
+        this.mapService
+          .getView()
+          .hitTest(evt)
+          .then(async res => {
+            console.log(res);
+
+            // 有些结果里面没有graphic，需要排除
+            const mapClickResult = res.results.filter(v => {
+              return v.graphic;
+            });
+
+            if (mapClickResult.length > 0 && false) {
+              this.events.publish('esriView:displayDetails', mapClickResult);
+            } else {
+              const tolerance = 10;
+              const sreenPoint = evt;
+              const sideScreenPoint = {
+                x: evt.x,
+                y: evt.y + tolerance
+              };
+              const centerMapPoint = this.mapService.view.toMap(sreenPoint);
+
+              const sideMapPoint = this.mapService.view.toMap(sideScreenPoint);
+
+              const offset = centerMapPoint.distance(sideMapPoint);
+
+              const [Circle, webMercatorUtils] = await loadModules([
+                'esri/geometry/Circle',
+                'esri/geometry/support/webMercatorUtils'
+              ]);
+
+              let polygon = new Circle({
+                center: centerMapPoint,
+                radius: offset,
+                spatialReference: this.mapService.view.spatialReference
+              });
+
+              if (!this.mapService.view.spatialReference.isGeographic) {
+                polygon = webMercatorUtils.webMercatorToGeographic(polygon);
+              }
+
+              this.events.publish('search:searchByGeometry', {
+                geometry: polygon
+              });
+            }
+          })
+          .catch(err => {
+            console.warn(err);
+          });
+      }.bind(this)
+    );
   }
 
   async loadPortalItem({ id }) {
@@ -243,7 +343,7 @@ export class EsriMapComponent implements OnInit {
   whenLayerLoaded(layer) {
     const extent = layer.fullExtent.clone().expand(1.5);
     this.mapService.view.goTo(extent);
-    this.mapService.setInitialExtent(extent);
+    // this.mapService.setInitialExtent(extent);
   }
   ngOnInit() {
     // Initialize MapView and return an instance of MapView

@@ -36,18 +36,34 @@ export class SearchService {
     return res.data;
   }
 
+  async searchByGeometry({ geometry, start, rows, layers }) {
+    const url = appConfig.search.byGeometryUrl;
+
+    const params = {
+      layers: layers || '*',
+      geometryJson: JSON.stringify(geometry.toJSON()),
+      outField: '*',
+      geometryType: 'arcgis',
+      start,
+      rows,
+      facetField: 'LAYER'
+    };
+
+    const res = await axios.post(url, qs.stringify(params));
+
+    return res.data;
+  }
+
   getCategory() {
     return this.category;
   }
 
   async fetchCategroy() {
-    if  (this.category ) {
+    if (this.category) {
       return this.category;
     }
     const url = 'assets/configs/category.json';
-    const data: any = await this.http
-    .get(url)
-    .toPromise();
+    const data: any = await this.http.get(url).toPromise();
     // const res = await axios.get(url);
     // this.category = res.data;
     // console.log('分类字典已获取', data);
@@ -57,9 +73,7 @@ export class SearchService {
   async fetchDictionary() {
     const url = 'assets/configs/dictionary.json';
     // const res = await axios.get(url);
-    const data: any = await this.http
-    .get(url)
-    .toPromise();
+    const data: any = await this.http.get(url).toPromise();
     this.dict = data;
     // console.log('app 字典已获取', data);
   }
@@ -70,7 +84,5 @@ export class SearchService {
     } else {
       throw new Error('字典为空');
     }
-
-
   }
 }

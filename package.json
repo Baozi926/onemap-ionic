@@ -11,7 +11,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dev-ios": "ionic cordova run ios -l",
-    "prepare-ios": "ionic cordova prepare ios"
+    "prepare-ios": "ionic cordova prepare ios",
+    "prepare-andriod": "ionic cordova prepare android"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +39,7 @@
     "@types/arcgis-js-api": "^4.11.0",
     "animejs": "^3.0.1",
     "axios": "^0.18.0",
+    "cordova-android": "8.0.0",
     "cordova-ios": "^5.0.1",
     "cordova-plugin-file": "6.0.1",
     "core-js": "^2.5.4",
@@ -96,7 +98,8 @@
       "cordova-plugin-file": {}
     },
     "platforms": [
-      "ios"
+      "ios",
+      "android"
     ]
   }
 }

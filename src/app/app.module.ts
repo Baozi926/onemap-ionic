@@ -20,6 +20,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { loadScript } from 'esri-loader';
 import {httpInterceptorProviders} from './http-interceptors';
+
 // import { IonicImageLoader } from 'ionic-image-loader';
 // import 'hammerjs';
 

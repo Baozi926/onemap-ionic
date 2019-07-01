@@ -223,6 +223,38 @@ export class PortalService {
     return data;
   }
 
+  async fetchServiceInfo({url}) {
+    const token = await this.getServiceToken({url});
+
+    const data: any = await this.http
+    .get(url, {
+      params: {
+        f: 'json',
+        token
+      }
+    })
+    .toPromise().catch(err => {
+
+      console.warn(err);
+      throw new Error(err);
+    });
+
+    return data;
+
+
+  }
+
+  async getServiceToken({
+    url
+  }) {
+    const [esriId] = await esriLoader.loadModules([
+      'esri/identity/IdentityManager'
+    ]);
+    const crede = await esriId.getCredential(url);
+
+    return crede.token;
+  }
+
   async fetchItemServiceInfo(param) {
     const token = '';
 
@@ -233,7 +265,6 @@ export class PortalService {
 
     console.log('get service info', param);
     const url = param.url;
-    debugger;
     if (url) {
 
     const crede = await esriId.getCredential(url);
