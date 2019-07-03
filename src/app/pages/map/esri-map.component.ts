@@ -211,7 +211,7 @@ export class EsriMapComponent implements OnInit {
       const view = new EsriSceneView(mapViewProperties);
 
       view.ui.remove('zoom');
-
+      this.view = view;
       this.mapService.view = view;
       this.mapService.view.ui.remove('navigation-toggle');
       this.mapService.view.ui.remove('compass');
@@ -293,7 +293,9 @@ export class EsriMapComponent implements OnInit {
               }
 
               this.events.publish('search:searchByGeometry', {
-                geometry: polygon
+                geometry: polygon,
+                layers: this.getLayers4NsbdSpatial(),
+                defaultDisplayLayer: 'zx_channel_irrigationditch'
               });
             }
           })
@@ -302,6 +304,31 @@ export class EsriMapComponent implements OnInit {
           });
       }.bind(this)
     );
+  }
+
+  getLayers4NsbdSpatial() {
+    const layers = ['zx_channel_irrigationditch'];
+    // var
+    const dict = this.searchService.getDict().dict;
+
+    const layernames = dict.allLayers;
+
+    const currentLayers = this.mapService.getView().map.layers.items;
+
+    currentLayers.forEach(v => {
+      if (!!layernames && layernames[v.title]) {
+        layers.push(layernames[v.title]);
+      }
+    });
+
+    // 如果没有
+    if (layers.length === 1) {
+      return layers.concat(dict.buildingLayers);
+    }
+
+    return layers;
+
+    // if(currentLayer)
   }
 
   async loadPortalItem({ id }) {

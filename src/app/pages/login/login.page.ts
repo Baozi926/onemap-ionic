@@ -38,6 +38,7 @@ export class LoginPage implements OnInit {
       this.navCtrl.navigateForward('/map');
     } else {
       // todo show error
+       console.warn('login error');
     }
   }
   onConfigBtnClick() {

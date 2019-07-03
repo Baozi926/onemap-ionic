@@ -2,10 +2,17 @@
   <ion-list class="list">
     <ion-list-header>
       <ion-label>详情</ion-label>
+      <ion-button
+      
+        fill="clear"
+        (click)="onQudaoBtnClick($event)"
+        *ngIf="layerType === 'zx_channel_irrigationditch'"
+        >渠道信息</ion-button
+      >
     </ion-list-header>
     <ion-item lines="full" class="item" *ngFor="let item of attr">
-      <p class="title">{{ item.name }}</p>
-      <p class="value">{{ item.value }}</p>
+      <p slot="start" class="title">{{ item.name }}</p>
+      <p slot="end" class="value">{{ item.value }}</p>
     </ion-item>
   </ion-list>
 </ion-content>

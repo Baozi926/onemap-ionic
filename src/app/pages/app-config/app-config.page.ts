@@ -18,7 +18,7 @@ export class AppConfigPage implements OnInit {
     private alertController: AlertController,
     private router: Router
   ) {}
-  private portalUrl: string;
+  public portalUrl: string;
 
   @ViewChild('portalUrlInput') private portalUrlInput: IonInput;
   async ngOnInit() {

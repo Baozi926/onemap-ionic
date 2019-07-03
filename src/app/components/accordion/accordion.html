@@ -1,0 +1,15 @@
+<ion-card>
+  <ion-card-header (click)="toggleAccordion()">
+    <ion-list>
+      <ion-item color="primary">
+        {{ title }}
+        <span slot="end">
+          <ion-icon [name]="icon"></ion-icon>
+        </span>
+      </ion-item>
+    </ion-list>
+  </ion-card-header>
+  <ion-card-content #cc>
+    <ng-content></ng-content>
+  </ion-card-content>
+</ion-card>

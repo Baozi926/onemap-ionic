@@ -21,7 +21,7 @@ import esri = __esri; // Esri TypeScript Types
 import { loadModules } from 'esri-loader';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ServiceTypeFilterComponent } from '../../components/service-type-filter/service-type-filter.component';
-import { SearchPipe } from '../../pipes/search.pipe';
+// import { SearchPipe } from '../../pipes/search.pipe';
 import { Events } from '@ionic/angular';
 // import { debug } from 'util';
 // import { url } from 'inspector';
@@ -273,12 +273,12 @@ export class LayerGalleryComponent implements OnInit {
                 title: data.title
               });
             } else {
-             layer = new GroupLayer({
-               title: data.title,
+              layer = new GroupLayer({
+                title: data.title,
                 id: data.id
               });
 
-             layerInfo.layers.forEach(v => {
+              layerInfo.layers.forEach(v => {
                 if (v.geometryType && v.defaultVisibility) {
                   layer.layers.add(
                     new FeatureLayer({
@@ -288,7 +288,6 @@ export class LayerGalleryComponent implements OnInit {
                 }
               });
             }
-
           } else {
             layer = new MapImageLayer({
               id: data.id,
@@ -353,15 +352,23 @@ export class LayerGalleryComponent implements OnInit {
       }
       if (layer) {
         this.mapService.view.map.add(layer);
-        layer.when(
-          () => {
-            data.active = true;
-            this.mapService.view.goTo(layer.fullExtent);
-          },
-          err => {
-            console.warn('加载图层失败', err);
-          }
-        );
+        // 如果是grouplayer 则获取子图层的extent
+        if (layer.type === 'group') {
+          data.active = true;
+          layer.layers.items[0].when(sublayer => {
+            this.mapService.view.goTo(sublayer.fullExtent);
+          });
+        } else {
+          layer.when(
+            () => {
+              data.active = true;
+              this.mapService.view.goTo(layer.fullExtent);
+            },
+            err => {
+              console.warn('加载图层失败', err);
+            }
+          );
+        }
       }
     } else {
       console.warn('url is none');

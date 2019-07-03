@@ -11,8 +11,10 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "dev-ios": "ionic cordova run ios -l",
+    "dev-andriod": "ionic cordova run android -l --address 192.168.1.121",
     "prepare-ios": "ionic cordova prepare ios",
-    "prepare-andriod": "ionic cordova prepare android"
+    "prepare-andriod": "ionic cordova prepare android",
+    "build-andriod": "ionic cordova build android --release"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +32,7 @@
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/file": "^5.6.1",
     "@ionic-native/ionic-webview": "^5.6.1",
+    "@ionic-native/screen-orientation": "^5.9.0",
     "@ionic-native/splash-screen": "^5.0.0",
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.1.0",
@@ -42,12 +45,15 @@
     "cordova-android": "8.0.0",
     "cordova-ios": "^5.0.1",
     "cordova-plugin-file": "6.0.1",
+    "cordova-plugin-screen-orientation": "^3.0.2",
     "core-js": "^2.5.4",
+    "es6-promise-plugin": "^4.2.2",
     "esri-loader": "^2.9.2",
     "hammerjs": "^2.0.8",
     "ionic-image-loader": "^7.0.0-beta.2",
     "ng-lazyload-image": "^5.1.2",
     "ngx-cacheable": "^1.2.2",
+    "ngx-image-gallery": "^1.3.1",
     "node-sass": "^4.12.0",
     "qs": "^6.7.0",
     "rxjs": "~6.5.1",
@@ -95,7 +101,8 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-file": {}
+      "cordova-plugin-file": {},
+      "cordova-plugin-screen-orientation": {}
     },
     "platforms": [
       "ios",

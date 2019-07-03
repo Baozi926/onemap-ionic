@@ -78,9 +78,13 @@ export class SearchService {
     // console.log('app 字典已获取', data);
   }
 
+  getDict() {
+    return this.dict;
+  }
+
   getFieldDictForLayer(layer) {
     if (this.dict && this.dict.searchFieldDict) {
-      return this.dict.searchFieldDict[layer];
+      return this.dict.dict[layer];
     } else {
       throw new Error('字典为空');
     }

@@ -13,12 +13,12 @@
       [interfaceOptions]="cateInterfaceOptions"
       [ngModel]="subCateValue"
       interface="popover"
-      (ionChange)="onCategoryChange($event)"
+      (ionBlur)="onCategoryBlur($event)"
       class="cate-select"
       cancelText="取消"
       okText="筛选"
     >
-      <ion-select-option class="item" value="*"
+      <ion-select-option  class="item" value="*"
         >全部:{{ total }}</ion-select-option
       >
 

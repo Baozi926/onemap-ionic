@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="dissModal($event)" color="dark">返回</ion-button>
+    </ion-buttons>
+    <ion-title class="title">
+      渠道信息
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>桩号:{{ zhuanghao }}</ion-card-header>
+    <ion-card-content>
+      <img
+        class="quado-img"
+        src="https://nsbdgis.ysy.com.cn/geoplat/onemap/images/temp/btbw02_2000-1018_440-401_1034-432_1638-402_779-525_1031-562_1272-528_1003-650.png"
+      />
+      <canvas class="quado-img-parameters"></canvas>
+    </ion-card-content>
+  </ion-card>
+  <accordion title="渠道断面信息">
+    <ion-list>
+      <ion-item lines="full" class="item" *ngFor="let item of qudao.data">
+        <p slot="start" class="title">{{ item.name }}</p>
+        <p slot="end" class="value">{{ item.value }}</p>
+      </ion-item>
+    </ion-list>
+  </accordion>
+  <accordion title="衬砌防渗">
+    <ion-list>
+      <ion-item lines="full" class="item" *ngFor="let item of cunqie.data">
+        <p slot="start" class="title">{{ item.name }}</p>
+        <p slot="end" class="value">{{ item.value }}</p>
+      </ion-item>
+    </ion-list>
+  </accordion>
+  <accordion title="渠道排水">
+    <ion-list>
+      <ion-item lines="full" class="item" *ngFor="let item of paishui.data">
+        <p slot="start" class="title">{{ item.name }}</p>
+        <p slot="end" class="value">{{ item.value }}</p>
+      </ion-item>
+    </ion-list>
+  </accordion>
+
+  <accordion title="防洪措施">
+    <ion-list>
+      <ion-list-header>
+        <ion-label>防护提</ion-label>
+      </ion-list-header>
+      <ion-item lines="full" class="item" *ngFor="let item of fanghuti.data">
+        <p slot="start" class="title">{{ item.name }}</p>
+        <p slot="end" class="value">{{ item.value }}</p>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label>截流沟</ion-label>
+      </ion-list-header>
+      <ion-item lines="full" class="item" *ngFor="let item of jieliugou.data">
+        <p slot="start" class="title">{{ item.name }}</p>
+        <p slot="end" class="value">{{ item.value }}</p>
+      </ion-item>
+    </ion-list>
+  </accordion>
+
+  <accordion title="特殊地质处理">
+    <!-- <ion-segment (ionChange)="onSegementChanged($event)">
+      <ion-segment-button *ngFor="let item of teshudizhi" [value]="item.value">
+        <ion-label>{{ item.name }}</ion-label>
+      </ion-segment-button>
+    </ion-segment> -->
+    <ion-list>
+      <ion-list-header>
+        <ion-label>特殊地质类型</ion-label>
+      </ion-list-header>
+      <ion-radio-group>
+        <ion-item
+          (ionSelect)="onTeshudizhiClick($event, item)"
+          *ngFor="let item of teshudizhi"
+        >
+          <ion-label>{{ item.name }}</ion-label>
+          <ion-radio
+            [disabled]="!item.active"
+            slot="start"
+            [value]="item.value"
+          ></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
+
+    <ion-list>
+      <ion-list-header>
+        <ion-label>处理措施</ion-label>
+      </ion-list-header>
+      <ion-item
+        lines="full"
+        class="item"
+        *ngFor="let item of teshudizhi_active_data"
+      >
+        <p slot="start" class="title">{{ item.name }}</p>
+        <p slot="end" class="value">{{ item.value }}</p>
+      </ion-item>
+    </ion-list>
+  </accordion>
+
+  <accordion title="工程地质">
+    <ion-img
+      *ngIf="dizhigongcheng_imgUrls.length === 0"
+      [src]="gcdzImgUrl"
+    ></ion-img>
+    <div class="img-gallery" *ngFor="let item of dizhigongcheng_imgUrls">
+      <p class="title">{{ item.title }}</p>
+      <ion-img [src]="item.url" [alt]="item.altText"></ion-img>
+    </div>
+  </accordion>
+</ion-content>
+
+<!-- <ngx-image-gallery
+#ngxImageGallery
+[conf]="imageGalleryConf"
+[images]="dizhigongcheng_imgUrls"
+(onClose)="onDizhigongchenggalleryClosed()"
+></ngx-image-gallery> -->

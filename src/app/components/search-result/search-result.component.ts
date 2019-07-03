@@ -15,6 +15,7 @@ import anime from 'animejs';
 import { loadModules } from 'esri-loader';
 import { SearchService } from '../../services/search.service';
 import { MapService } from '../../services/map.service';
+
 import esri = __esri; // Esri TypeScript Types
 import {
   IonInfiniteScroll,
@@ -46,7 +47,6 @@ export class SearchResultComponent implements OnInit {
   @ViewChild('infiniteScroll') infiniteScroll: IonInfiniteScroll;
   @ViewChild('listContent') listContent: IonContent;
   @ViewChild('resultSlides') resultSlides: IonSlides;
-  loading: any;
 
   // @Input() view?: any;
   facet = [];
@@ -67,36 +67,17 @@ export class SearchResultComponent implements OnInit {
   cateInterfaceOptions = {
     // showBackdrop: false
   };
+  loadings = [];
   async ngOnInit() {
+
     this.total = 0;
     this.results = [];
     console.log('platform', this.platform);
     this.doSearch = this.doSearch.bind(this);
-    this.searchByGeometry = this.searchByGeometry.bind(this);
-    // this.viewLoaded = this.viewLoaded.bind(this);
-    // this.events.
+    this.doGeometrySearch = this.doGeometrySearch.bind(this);
+
     this.events.subscribe('search:doSearch', this.doSearch);
-    this.events.subscribe('search:searchByGeometry', this.searchByGeometry);
-    // this.events.subscribe('esriView:loaded', this.viewLoaded);
-    // const [watchUtils] = await loadModules([
-    //   'esri/core/watchUtils',
-    // ]);
-    // watchUtils.whenTrueOnce(
-    //   this.mapService.view,
-    //   'ready',
-    //   () => {
-    //     // this.tourConfig.spatialReference = this.view.spatialReference;
-    //     try {
-    //       debugger;
-    //       this.viewLoaded();
-    //       // _loadTour(this);
-    //     } catch (err) {
-    //       console.error(err);
-    //       // this.loadError = err;
-    //       return;
-    //     }
-    //   }
-    // );
+    this.events.subscribe('search:searchByGeometry', this.doGeometrySearch);
 
     this.listHeight = this.platform.height() / 2;
     this.listHeightString = this.listHeight + 'px';
@@ -116,18 +97,23 @@ export class SearchResultComponent implements OnInit {
     this.hide();
   }
 
-  onDetailClick(evt, data) {
+  onDetailClick(evt, data, notLocate = false) {
     // this.resultSlides.lockSwipeToNext;
-    evt.stopPropagation();
+    if (evt) {
+      evt.stopPropagation();
+    }
+
     console.log('show detail', data);
     this.resultSlides.lockSwipes(false);
     this.resultSlides.slideNext();
     this.detailData = data;
-    this.locateItem(data);
+    if (!notLocate) {
+      this.locateItem(data);
+    }
   }
 
   async onSearchStart() {
-    this.loading = await this.loadingController.create({
+    const loading = await this.loadingController.create({
       // spinner: null,
       spinner: 'crescent',
       // duration: 5000,
@@ -135,10 +121,11 @@ export class SearchResultComponent implements OnInit {
       translucent: true,
       cssClass: 'custom-class custom-loading'
     });
-    this.loading.present();
+    await loading.present();
+    this.loadings.push(loading);
   }
   async doSearch({ param, isNexPage /** 是否是滚动搜索 */ }) {
-    this.onSearchStart();
+    await this.onSearchStart();
     // this.loadingController.create();
     this.resultSlides.lockSwipes(true);
     if (isNexPage) {
@@ -161,18 +148,27 @@ export class SearchResultComponent implements OnInit {
   async ngOnDestroy() {
     console.log('组件被销毁时，一并销毁监听事件');
     this.events.unsubscribe('search:doSearch', this.doSearch);
-    this.events.unsubscribe('search:searchByGeometry', this.searchByGeometry);
+    this.events.unsubscribe('search:searchByGeometry', this.doGeometrySearch);
   }
-
   async onSearchEnd() {
     console.log('onSearchEnd', this);
 
     // 防止未生成loading时已经出发dismiss
-    setTimeout(() => {
-      if (this.loading) {
-        this.loading.dismiss();
+    // setTimeout(() => {
+    if (this.loadings) {
+      while (this.loadings.length > 0) {
+        this.loadings.pop().dismiss();
       }
-    }, 200);
+    }
+    // }, 200);
+
+    if (this.results.length === 1) {
+      this.onDetailClick(null, this.results[0], true);
+    } else {
+      this.resultSlides.lockSwipes(false);
+      this.resultSlides.slidePrev();
+      this.resultSlides.lockSwipes(true);
+    }
 
     // console.log('onSearchEnd', this);
     // console.log('onSearchEnd', data);
@@ -203,34 +199,49 @@ export class SearchResultComponent implements OnInit {
   }
 
   displayGraphicsResult() {}
-
-  async searchByGeometry({ geometry, isNexPage }) {
-    this.resultSlides.lockSwipes(true);
+  subCategroyClick() {}
+  async doGeometrySearch({
+    geometry,
+    layers = '*',
+    defaultDisplayLayer = '',
+    isNexPage
+  }) {
+    // this.resultSlides.lockSwipes(true);
     if (isNexPage) {
       this.searchParam.start = this.searchParam.start + this.searchParam.rows;
     } else {
       this.searchParam = {
         geometry,
         start: 0,
-        rows: 10
+        rows: 10,
+        layers
       };
 
-      this.resetCategory();
-      // this.listEle.
+      if (layers === '*') {
+        this.resetCategory();
+      }
       this.listContent.scrollToTop();
     }
     const data: any = await this.searchService.searchByGeometry(
       this.searchParam
     );
     if (data.docList.length > 0) {
+      await this.open();
       await this.setResult({ data, isNexPage });
       this.infiniteScroll.disabled = !(
         data.totalCount >
         data.start + data.rows
       );
-      await this.open();
-      await this.renderMap();
-      this.mapService.view.goTo(this.results);
+      if (defaultDisplayLayer) {
+        this.subCateValue = defaultDisplayLayer;
+        this.searchParam.layers = this.subCateValue;
+        this.doSubSearch({
+          isNexPage: false
+        });
+      } else {
+        await this.renderMap();
+        this.mapService.view.goTo(this.results);
+      }
     }
   }
 
@@ -279,14 +290,18 @@ export class SearchResultComponent implements OnInit {
   resetCategory() {
     this.subCateValue = '*';
   }
-  onCategoryChange(evt) {
+  onCategoryBlur(evt) {
+    this.resultSlides.slidePrev();
     if (this.isOpen) {
-      const layer = evt.detail.value;
-      this.doSubSearch({ layer, isNexPage: false });
+      // const layer = evt.detail.value;
+      setTimeout(() => {
+        this.searchParam.layers = evt.target.value;
+        this.doSubSearch({ isNexPage: false });
+      }, 200);
     }
   }
-  async doSubSearch({ layer, isNexPage }) {
-    this.onSearchStart();
+  async doSubSearch({ isNexPage }) {
+    await this.onSearchStart();
 
     const [EsriJsonUtils, EsriGraphic] = await loadModules([
       'esri/geometry/support/jsonUtils',
@@ -296,8 +311,6 @@ export class SearchResultComponent implements OnInit {
       this.searchParam.start = this.searchParam.start + this.searchParam.rows;
     } else {
       this.searchParam.start = 0;
-
-      this.searchParam.layers = layer;
       this.listContent.scrollToTop();
     }
     let data;
@@ -328,15 +341,13 @@ export class SearchResultComponent implements OnInit {
     }
 
     this.renderMap();
-    this.mapService.view.goTo(this.results);
+    this.mapService.view.goTo(this.results).then(() => {});
     this.onSearchEnd();
   }
   async loadMoreData(evt) {
     console.log('touch bottom');
-    if (this.searchParam.geometry) {
-      await this.searchByGeometry({ geometry: undefined, isNexPage: true });
-    } else if (this.searchParam.layers) {
-      await this.doSubSearch({ layer: null, isNexPage: true });
+    if (this.searchParam.layers) {
+      await this.doSubSearch({ isNexPage: true });
     } else {
       await this.doSearch({ param: null, isNexPage: true });
     }

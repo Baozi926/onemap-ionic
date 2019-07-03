@@ -7,12 +7,15 @@ import { RouterModule } from '@angular/router';
 import { EsriMapComponent } from './esri-map.component';
 import { SearchComponent } from '../../components/search/search.component';
 import { LayerGalleryComponent } from '../../components/layer-gallery/layer-gallery.component';
+import { QudaoDetailComponent } from '../../components/qudao-detail/qudao-detail.component';
 import { MapLegendComponent } from '../../components/map-legend/map-legend.component';
 import { LayerControllerComponent } from '../../components/layer-controller/layer-controller.component';
 import { SearchResultComponent } from '../../components/search-result/search-result.component';
 import { SearchResultDetailComponent } from '../../components/search-result-detail/search-result-detail.component';
 import { MapToolsComponent } from '../../components/map-tools/map-tools.component';
 import { ServiceTypeFilterComponent } from '../../components/service-type-filter/service-type-filter.component';
+import { AccordionComponent } from '../../components/accordion/accordion';
+import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import {
   LazyLoadImageModule,
   intersectionObserverPreset
@@ -34,22 +37,26 @@ import { PipesModule } from '../../pipes/pipe.module';
         component: EsriMapComponent
       }
     ]),
-    PipesModule
+    PipesModule,
+    NgxImageGalleryModule
   ],
   declarations: [
     EsriMapComponent,
     SearchComponent,
     LayerGalleryComponent,
+    QudaoDetailComponent,
     MapLegendComponent,
     LayerControllerComponent,
     SearchResultComponent,
     SearchResultDetailComponent,
     MapToolsComponent,
-    ServiceTypeFilterComponent
+    ServiceTypeFilterComponent,
+    AccordionComponent
   ],
   entryComponents: [
     SearchComponent,
     LayerGalleryComponent,
+    QudaoDetailComponent,
     LayerControllerComponent,
     ServiceTypeFilterComponent,
     MapLegendComponent

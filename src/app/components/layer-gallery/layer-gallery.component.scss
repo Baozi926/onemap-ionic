@@ -79,7 +79,7 @@
           // opacity: 0;
           display: flex;
           max-height: 56px;
-          min-height: 54px;
+          min-height: 20px;
           background-repeat: no-repeat;
           background-size: cover;
           overflow: hidden;
@@ -96,7 +96,7 @@
 
         .title {
           text-align: center;
-          text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
+          // text-shadow: 0 8px 9px #c4b59d, 0px -2px 1px #fff;
         }
       }
     }

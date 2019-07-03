@@ -1,5 +1,5 @@
 const portalUrl = 'https://nsbdgis.ysy.com.cn/arcgis';
-const searchEngineUrl = 'http://nsbdgis.ysy.com.cn/proxy/geosearch';
+const searchEngineUrl = 'https://nsbdgis.ysy.com.cn/proxy/geosearch';
 
 export default {
   portal: {

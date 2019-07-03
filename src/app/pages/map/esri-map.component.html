@@ -15,7 +15,7 @@
 </ion-header>
 
 <ion-content>
-  <div slot="fixed"  class="map-container" #mapViewNode></div>
+  <div slot="fixed" class="map-container" #mapViewNode></div>
 
   <ion-fab
     style="margin-bottom:10px"
@@ -23,21 +23,20 @@
     horizontal="center"
     slot="fixed"
   >
-    <ion-fab-button
-      (click)="onAddResourceClick($event)"
-      color="danger"
-    >
+    <ion-fab-button (click)="onAddResourceClick($event)" color="danger">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
   <map-tools slot="fixed"></map-tools>
 
-   <!-- fab placed in the center of the content with a list on each side -->
- 
+  <!-- fab placed in the center of the content with a list on each side -->
 
   <map-search-result slot="fixed"></map-search-result>
 
   <!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed"> -->
   <!-- </ion-fab> -->
 </ion-content>
+<!-- <div class="layer-gallery-cnt">
+  <app-layer-gallery></app-layer-gallery>
+</div> -->

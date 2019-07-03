@@ -18,15 +18,24 @@ import { CacheMapService } from './services/cache-map.service';
 import { Cache } from './services/cache';
 import { IonicStorageModule } from '@ionic/storage';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { loadScript } from 'esri-loader';
-import {httpInterceptorProviders} from './http-interceptors';
+import { loadScript, loadCss } from 'esri-loader';
+import { httpInterceptorProviders } from './http-interceptors';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+
+// import { ComponentsModule } from './components/components.module';
 
 // import { IonicImageLoader } from 'ionic-image-loader';
-// import 'hammerjs';
+import 'hammerjs';
+
+const apiUrl = 'https://nsbdgis.ysy.com.cn/esri/mobile/esri/esri/4.10';
 
 loadScript({
-  url: 'assets/esri/4.10/init.js'
+  // url: 'assets/esri/4.10/init.js'
+  // url: 'https://js.arcgis.com/4.10/'
+  url: apiUrl + '/init.js'
 });
+
+loadCss(apiUrl + '/esri/css/main.css');
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,9 +58,9 @@ loadScript({
     StatusBar,
     SplashScreen,
     PortalService,
+    ScreenOrientation,
     MapService,
     SearchService,
-    Storage,
     CacheMapService,
     { provide: Cache, useClass: CacheMapService },
     // SafeHtmlPipe,
