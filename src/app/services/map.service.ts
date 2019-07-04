@@ -26,10 +26,13 @@ export class MapService {
     this.view_ = view;
     // 在地图二三维切换时同步地图质量
     if (this.isSmartMode) {
-        // this.preprocessLayersForMapTypeChange();
+      // this.preprocessLayersForMapTypeChange();
     }
     this.syncQuality();
   }
+
+  mapView;
+  sceneView;
 
   private view_: any;
 
@@ -45,6 +48,35 @@ export class MapService {
 
   pointFeatureLayerMap = {};
 
+  noPointFeatureServiceCache = {};
+
+  addLayer(layer) {
+    console.log('add layer', layer);
+    if (
+      layer.type !== 'integrated-mesh' ||
+      layer.type !== 'scene' ||
+      layer.type !== 'building-scene'
+    ) {
+      this.mapView.map.add(layer);
+    }
+    this.sceneView.map.add(layer);
+  }
+
+  removeLayer(layer) {
+    console.log('remove layer', layer);
+    this.mapView.map.remove(layer);
+    this.sceneView.map.remove(layer);
+  }
+
+  setActiveView(view) {
+    this.view = view;
+  }
+  setMapView(mapView) {
+    this.mapView = mapView;
+  }
+  setSceneView(sceneView) {
+    this.sceneView = sceneView;
+  }
 
   // 对于有featureLayer
   // async preprocessLayersForMapTypeChange() {

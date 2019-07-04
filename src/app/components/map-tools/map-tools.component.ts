@@ -10,6 +10,7 @@ import {
 } from '@ionic/angular';
 import { LayerControllerComponent } from '../layer-controller/layer-controller.component';
 import { MapLegendComponent } from '../map-legend/map-legend.component';
+import { MaintenanceRecordComponent } from '../maintenance-record/maintenance-record.component';
 
 import { myEnterAnimation } from '../../animations/my-enter. animations';
 import { myLeaveAnimation } from '../../animations/my-leave. animations';
@@ -43,6 +44,21 @@ export class MapToolsComponent implements OnInit {
     this.mapService.view.graphics.removeAll();
     this.mapService.view.map.removeAll();
   }
+
+  async onShowMaintenanceRecordsBtnClick(evt) {
+    const modal = await this.modalController.create({
+      component: MaintenanceRecordComponent,
+      cssClass: 'transparent-modal',
+      enterAnimation: myEnterAnimation,
+      leaveAnimation: myLeaveAnimation,
+      showBackdrop: false,
+      componentProps: {
+        // view: this.mapService.view
+      }
+    });
+    // this.layerGalleryModal = modal;
+    return await modal.present();
+  }
   async onLayerBtnClick() {
     const modal = await this.modalController.create({
       component: LayerControllerComponent,
@@ -52,7 +68,7 @@ export class MapToolsComponent implements OnInit {
       leaveAnimation: myLeaveAnimation,
       showBackdrop: false,
       componentProps: {
-        view: this.mapService.view
+
       }
     });
     // this.layerGalleryModal = modal;
@@ -75,9 +91,9 @@ export class MapToolsComponent implements OnInit {
 
   checkMapType() {
     if (this.mapService.view.type === '3d') {
-      this.mapTypeBtnText = '2D';
-    } else {
       this.mapTypeBtnText = '3D';
+    } else {
+      this.mapTypeBtnText = '2D';
     }
   }
 
@@ -100,55 +116,23 @@ export class MapToolsComponent implements OnInit {
 
     this.mapService.view.container = null;
 
-    let newView;
-
     if (this.mapService.view.type === '3d') {
-      if (!this.mapView) {
-        newView = new EsriMapView({
-          container,
-          map
-        });
-        this.mapService.view = this.mapView = newView;
-        this.mapService.view.ui.remove('navigation-toggle');
-        this.mapService.view.ui.remove('compass');
-        this.mapService.view.ui.remove('zoom');
-        newView.when(view => {
-          view.viewpoint = viewpoint;
-        });
-      } else {
-        this.mapView.container = container;
-        this.mapView.viewpoint = viewpoint;
-        this.mapService.view = this.mapView;
-      }
+      const mapView = this.mapService.mapView;
+      mapView.container = container;
+      mapView.viewpoint = viewpoint;
+      this.mapService.setActiveView(mapView);
     } else {
-      if (!this.sceneView) {
-        newView = new EsriSceneView({
-          container,
-          map
-        });
-        this.mapService.view = this.sceneView = newView;
-        // this.mapService.view = sceneView;
-        this.mapService.view.ui.remove('navigation-toggle');
-        this.mapService.view.ui.remove('compass');
-        this.mapService.view.ui.remove('zoom');
-        newView.when(view => {
-          view.viewpoint = viewpoint;
-          // MapService
-        });
-      } else {
-        this.sceneView.container = container;
-        this.sceneView.viewpoint = viewpoint;
-        this.mapService.view = this.sceneView;
-      }
+      const sceneView = this.mapService.sceneView;
+      sceneView.container = container;
+      sceneView.viewpoint = viewpoint;
+      this.mapService.setActiveView(sceneView);
     }
 
     // tslint:disable-next-line
     // window.view = this.mapService.view;
-    this.mapService.view.when(evt => {
-
-      this.events.publish('esriView:typeHasChanged');
+    this.mapService.view.when(view => {
+      this.events.publish('esriView:typeHasChanged', view);
     });
-
 
     this.checkMapType();
   }

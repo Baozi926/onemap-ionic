@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { MapService } from '../../services/map.service';
+import { PortalService } from '../../services/portal.service';
 import { loadModules } from 'esri-loader';
 
 import { Events } from '@ionic/angular';
@@ -14,6 +15,7 @@ export class LayerControllerComponent implements OnInit {
     public modalController: ModalController,
     private mapService: MapService,
     private events: Events,
+    private portalService: PortalService
   ) {}
 
   mapQuality = 1;
@@ -22,28 +24,18 @@ export class LayerControllerComponent implements OnInit {
   activeBasemapId = '';
   basemaps = [];
   async ngOnInit() {
-
-    // let onViewLoaded = function() {
-    //   console.log('初始化地图质量');
-
-    //   this.events.unsubscribe('esriView:loaded', onViewLoaded);
-
-    // };
-
-    // onViewLoaded = onViewLoaded.bind(this);
-
-    // this.events.subscribe('esriView:loaded', onViewLoaded);
     console.log('[layer-controller] init');
+
+    this.basemaps = await this.portalService.fetchBaseMaps();
 
     const mapQuality = this.mapService.view.qualityProfile;
     if (mapQuality === 'low') {
-        this.mapQuality = 0;
-      } else if (mapQuality === 'medium') {
-        this.mapQuality = 1;
-      } else {
-        this.mapQuality = 2;
-      }
-
+      this.mapQuality = 0;
+    } else if (mapQuality === 'medium') {
+      this.mapQuality = 1;
+    } else {
+      this.mapQuality = 2;
+    }
 
     if (this.mapService.view) {
       const layers = this.mapService.view.map.layers.items;
@@ -55,15 +47,12 @@ export class LayerControllerComponent implements OnInit {
       this.activeBasemapId = this.mapService.view.map.basemap.id;
     }
 
-    const [EsriBasemap] = await loadModules(['esri/Basemap']);
-
-    EsriBasemap.fromId('topo');
-    this.basemaps = [
-      EsriBasemap.fromId('topo'),
-      EsriBasemap.fromId('streets-night-vector')
-    ];
   }
-  getBasemapThumbnail() {
+  getBasemapThumbnail(basemap) {
+    if (basemap) {
+      return basemap.thumbnailUrl;
+    }
+
     return 'assets/images/map-thumbnail.jpg';
   }
   onDeleteBtnClick(evt, layer) {
@@ -78,21 +67,19 @@ export class LayerControllerComponent implements OnInit {
     this.mapService.view.map.basemap = basemap;
   }
 
+  onLocateBtnClick(evt, layer) {
+    this.mapService.getView().goTo(layer.fullExtent);
+  }
 
   onMapQualityChange(evt) {
     const value = evt.detail.value;
     if (value === 0) {
-      this.mapService.setQuality('low') ;
+      this.mapService.setQuality('low');
     } else if (value === 1) {
-      this.mapService.setQuality('medium') ;
-
+      this.mapService.setQuality('medium');
     } else {
-      this.mapService.setQuality('high') ;
-
+      this.mapService.setQuality('high');
     }
-
-    // if(evt.)
-    // console.log(evt);
   }
   dissModal() {
     this.modalController.dismiss();

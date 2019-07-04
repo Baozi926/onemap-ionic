@@ -21,11 +21,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { loadScript, loadCss } from 'esri-loader';
 import { httpInterceptorProviders } from './http-interceptors';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-
-// import { ComponentsModule } from './components/components.module';
+// import { MatIconRegistry, MatIconModule } from '@angular/material';
+// import { DomSanitizer } from '@angular/platform-browser';
 
 // import { IonicImageLoader } from 'ionic-image-loader';
-import 'hammerjs';
+// import 'hammerjs';
 
 const apiUrl = 'https://nsbdgis.ysy.com.cn/esri/mobile/esri/esri/4.10';
 
@@ -68,4 +68,10 @@ loadCss(apiUrl + '/esri/css/main.css');
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  // constructor(matIconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+  //   matIconRegistry.addSvgIconSet(
+  //     domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg')
+  //   ); // Or whatever path you placed mdi.svg at
+  // }
+}

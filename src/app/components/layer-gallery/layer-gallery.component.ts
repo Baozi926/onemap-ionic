@@ -169,12 +169,12 @@ export class LayerGalleryComponent implements OnInit {
   async ngOnInit() {
     await this.fetchCategory();
     this.category.forEach(async (v, k) => {
-      // setTimeout(() => {
-      await this.fetchLayers4Category(v);
-      v.layers.forEach(layer => {
-        layer.active = this.isLayerExists(layer);
-      });
-      // }, 0);
+      setTimeout(async () => {
+        await this.fetchLayers4Category(v);
+        v.layers.forEach(layer => {
+          layer.active = this.isLayerExists(layer);
+        });
+      }, 300 + k * 200);
     });
 
     // await Promise.all(promises);
@@ -232,7 +232,7 @@ export class LayerGalleryComponent implements OnInit {
     console.log('img-click', data);
     // 如果存在，删除图层
     if (data.active) {
-      this.mapService.view.map.remove(
+      this.mapService.removeLayer(
         this.mapService.view.map.findLayerById(data.id)
       );
       data.active = false;
@@ -244,13 +244,15 @@ export class LayerGalleryComponent implements OnInit {
       MapImageLayer,
       IntegratedMeshLayer,
       SceneLayer,
-      GroupLayer
+      GroupLayer,
+      BuildingSceneLayer
     ] = await loadModules([
       'esri/layers/FeatureLayer',
       'esri/layers/MapImageLayer',
       'esri/layers/IntegratedMeshLayer',
       'esri/layers/SceneLayer',
-      'esri/layers/GroupLayer'
+      'esri/layers/GroupLayer',
+      'esri/layers/BuildingSceneLayer'
     ]);
     let layer;
 
@@ -341,6 +343,16 @@ export class LayerGalleryComponent implements OnInit {
               url: data.url,
               title: data.title
             });
+          } else if (
+            data.typeKeywords.some(v => {
+              return v === 'Building';
+            })
+          ) {
+            layer = new BuildingSceneLayer({
+              id: data.id,
+              url: data.url,
+              title: data.title
+            });
           } else {
             console.log(data);
             alert('not implement');
@@ -351,12 +363,14 @@ export class LayerGalleryComponent implements OnInit {
           alert('not implement');
       }
       if (layer) {
-        this.mapService.view.map.add(layer);
+        this.mapService.addLayer(layer);
+
         // 如果是grouplayer 则获取子图层的extent
         if (layer.type === 'group') {
           data.active = true;
           layer.layers.items[0].when(sublayer => {
             this.mapService.view.goTo(sublayer.fullExtent);
+            layer.fullExtent = sublayer;
           });
         } else {
           layer.when(

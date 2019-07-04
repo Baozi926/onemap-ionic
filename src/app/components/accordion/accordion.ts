@@ -8,7 +8,8 @@ import { Component, ViewChild, OnInit, Renderer, Input } from '@angular/core';
  */
 @Component({
   selector: 'accordion',
-  templateUrl: 'accordion.html'
+  templateUrl: 'accordion.html',
+  styleUrls: ['./accordion.scss']
 })
 export class AccordionComponent implements OnInit {
 

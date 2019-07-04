@@ -15,18 +15,21 @@
       <ion-label>底图切换</ion-label>
     </ion-list-header>
     <ion-item lines="full">
-        <section class="card basemap">
-            <div
-            [ngClass]="{ active: basemap && basemap.id === activeBasemapId }"
-            (click)="onBasemapClick($event, basemap)"
-            *ngFor="let basemap of basemaps"
-            class="card--content item"
+      <section class="card basemap">
+        <div
+          [ngClass]="{ active: basemap && basemap.id === activeBasemapId }"
+          (click)="onBasemapClick($event, basemap)"
+          *ngFor="let basemap of basemaps"
+          class="card--content item"
+        >
+          <ion-img
+            [alt]="basemap.title"
+            [src]="getBasemapThumbnail(basemap)"
+            class="thumbnail"
           >
-            <img [alt]="basemap.title" [src]="getBasemapThumbnail(basemap)" class="thumbnail"> 
-          </div>
-        </section>
-
-
+          </ion-img>
+        </div>
+      </section>
     </ion-item>
   </ion-list>
   <ion-list class="pane">
@@ -34,11 +37,15 @@
       <ion-label>图层控制</ion-label>
     </ion-list-header>
     <ion-item-sliding *ngFor="let layer of layers">
-      <ion-item  lines="full">
+      <ion-item lines="full">
         <ion-label>
           {{ layer.title }}
         </ion-label>
-        <ion-icon name="information-circle" size="large" slot="end"></ion-icon>
+        <div slot="end">
+          <ion-button fill="clear" (click)="onLocateBtnClick($event, layer)">
+            <ion-icon name="locate" size="large"></ion-icon>
+          </ion-button>
+        </div>
       </ion-item>
       <ion-item-options>
         <ion-item-option
@@ -50,7 +57,7 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-    <ion-item class="no-layers"  lines="full" *ngIf="layers.length === 0">
+    <ion-item class="no-layers" lines="full" *ngIf="layers.length === 0">
       <ion-label>
         未加载任何图层
       </ion-label></ion-item
@@ -58,17 +65,21 @@
   </ion-list>
 
   <ion-list>
-
     <ion-list-header class="header">
-      <ion-label>地图渲染质量</ion-label>
+      <ion-label>地图渲染质量(三维)</ion-label>
     </ion-list-header>
     <ion-item lines="full">
-      <ion-range [value]="mapQuality" (ionChange)="onMapQualityChange($event)" snaps="true" min="0" max="2" step="1">
+      <ion-range
+        [value]="mapQuality"
+        (ionChange)="onMapQualityChange($event)"
+        snaps="true"
+        min="0"
+        max="2"
+        step="1"
+      >
         <ion-label slot="start">低</ion-label>
         <ion-label slot="end">高</ion-label>
       </ion-range>
-
-
     </ion-item>
   </ion-list>
 </ion-content>

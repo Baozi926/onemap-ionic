@@ -1,19 +1,27 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, Events, MenuController } from '@ionic/angular';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {
+  ModalController,
+  Events,
+  MenuController,
+  IonContent
+} from '@ionic/angular';
 import { SearchService } from '../../services/search.service';
-import {QudaoDetailComponent} from '../../components/qudao-detail/qudao-detail.component';
+import { QudaoDetailComponent } from '../../components/qudao-detail/qudao-detail.component';
 @Component({
   selector: 'app-search-result-detail',
   templateUrl: './search-result-detail.component.html',
   styleUrls: ['./search-result-detail.component.scss']
 })
 export class SearchResultDetailComponent implements OnInit {
-  constructor(private searchService: SearchService,    public modalController: ModalController) {
-
-  }
+  constructor(
+    private searchService: SearchService,
+    public modalController: ModalController
+  ) {}
   @Input() data?: any;
   layerType = '';
   attr = [];
+
+  @ViewChild('ionContent') private ionContent: IonContent;
   // data: any;
   ngOnInit() {
     // this.data = {
@@ -21,9 +29,7 @@ export class SearchResultDetailComponent implements OnInit {
     //   a: 1, b: 1, c: 1, d: 1, e: 1, f: 1, qwq: 1, aaa: 1, sadad: 1, asdasd: 1
     // };
   }
-
-
- async onQudaoBtnClick() {
+  async onQudaoBtnClick() {
     const modal = await this.modalController.create({
       component: QudaoDetailComponent,
       cssClass: 'search-modal',
@@ -38,19 +44,18 @@ export class SearchResultDetailComponent implements OnInit {
     });
 
     modal.present();
-
-
-
   }
   ngOnChanges() {
-    console.log(this.data);
+    console.log('详情', this.data);
+    // this.ionList
+    this.ionContent.scrollToTop();
     if (this.data && this.data.attributes) {
       const layer = this.data.attributes.LAYER;
       // if (layer === 'zx_channel_irrigationditch') {
 
       // }
       this.layerType = layer;
-      const dict =  this.searchService.getFieldDictForLayer(layer);
+      const dict = this.searchService.getFieldDictForLayer(layer);
       if (dict) {
         const attrMap = this.data.attributes;
         // const tmpAttr = [];
@@ -65,9 +70,8 @@ export class SearchResultDetailComponent implements OnInit {
         this.attr = [];
       }
 
-    // this.load
+      // this.load
       // this.attr = this.data.attributes;
     }
   }
-
 }

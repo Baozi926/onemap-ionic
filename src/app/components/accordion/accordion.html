@@ -1,7 +1,13 @@
 <ion-card>
-  <ion-card-header (click)="toggleAccordion()">
+  <ion-card-header  (click)="toggleAccordion()">
+    <!-- <div class="card-header">
+      <span class="title"> {{ title }}</span>
+      <span class="end">
+        <ion-icon [name]="icon"></ion-icon>
+      </span>
+    </div> -->
     <ion-list>
-      <ion-item color="primary">
+      <ion-item class="title" color="primary">
         {{ title }}
         <span slot="end">
           <ion-icon [name]="icon"></ion-icon>

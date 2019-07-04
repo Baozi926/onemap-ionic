@@ -69,15 +69,17 @@ export class SearchResultComponent implements OnInit {
   };
   loadings = [];
   async ngOnInit() {
-
     this.total = 0;
     this.results = [];
-    console.log('platform', this.platform);
+
     this.doSearch = this.doSearch.bind(this);
     this.doGeometrySearch = this.doGeometrySearch.bind(this);
 
+    this.checkGraphicsLayer = this.checkGraphicsLayer.bind(this);
+
     this.events.subscribe('search:doSearch', this.doSearch);
     this.events.subscribe('search:searchByGeometry', this.doGeometrySearch);
+    this.events.subscribe('esriView:typeHasChanged', this.checkGraphicsLayer);
 
     this.listHeight = this.platform.height() / 2;
     this.listHeightString = this.listHeight + 'px';
@@ -146,9 +148,10 @@ export class SearchResultComponent implements OnInit {
     this.onSearchEnd();
   }
   async ngOnDestroy() {
-    console.log('组件被销毁时，一并销毁监听事件');
+
     this.events.unsubscribe('search:doSearch', this.doSearch);
     this.events.unsubscribe('search:searchByGeometry', this.doGeometrySearch);
+    this.events.unsubscribe('esriView:typeHasChanged', this.checkGraphicsLayer);
   }
   async onSearchEnd() {
     console.log('onSearchEnd', this);
@@ -186,7 +189,11 @@ export class SearchResultComponent implements OnInit {
   }
   async checkGraphicsLayer() {
     const id = 'search-layer';
-    if (!this.mapService.getView().map.findLayerById(id)) {
+    if (this.graphicsLayer) {
+      if (!this.mapService.getView().map.findLayerById(id)) {
+        this.mapService.getView().map.add(this.graphicsLayer);
+      }
+    } else {
       const [EsriGraphicsLayer] = await loadModules([
         'esri/layers/GraphicsLayer'
       ]);
@@ -196,10 +203,10 @@ export class SearchResultComponent implements OnInit {
       this.graphicsLayer = graphicsLayer;
       this.mapService.view.map.add(graphicsLayer);
     }
+
   }
 
-  displayGraphicsResult() {}
-  subCategroyClick() {}
+
   async doGeometrySearch({
     geometry,
     layers = '*',

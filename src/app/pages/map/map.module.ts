@@ -15,6 +15,7 @@ import { SearchResultDetailComponent } from '../../components/search-result-deta
 import { MapToolsComponent } from '../../components/map-tools/map-tools.component';
 import { ServiceTypeFilterComponent } from '../../components/service-type-filter/service-type-filter.component';
 import { AccordionComponent } from '../../components/accordion/accordion';
+import { MaintenanceRecordComponent } from '../../components/maintenance-record/maintenance-record.component';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import {
   LazyLoadImageModule,
@@ -51,7 +52,8 @@ import { PipesModule } from '../../pipes/pipe.module';
     SearchResultDetailComponent,
     MapToolsComponent,
     ServiceTypeFilterComponent,
-    AccordionComponent
+    AccordionComponent,
+    MaintenanceRecordComponent
   ],
   entryComponents: [
     SearchComponent,
@@ -59,7 +61,8 @@ import { PipesModule } from '../../pipes/pipe.module';
     QudaoDetailComponent,
     LayerControllerComponent,
     ServiceTypeFilterComponent,
-    MapLegendComponent
+    MapLegendComponent,
+    MaintenanceRecordComponent
   ]
 })
 export class EsriMapModule {}

@@ -19,7 +19,13 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { ModalController, Events, MenuController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import {
+  ModalController,
+  Events,
+  MenuController,
+  LoadingController
+} from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { SearchComponent } from '../../components/search/search.component';
 import { LayerGalleryComponent } from '../../components/layer-gallery/layer-gallery.component';
@@ -46,19 +52,14 @@ export class EsriMapComponent implements OnInit {
     private events: Events,
     private activatedRoute: ActivatedRoute,
     private portalService: PortalService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    public router: Router,
+    public loadingController: LoadingController
   ) {
-    // this.initMapQuery = this.initMapQuery.bind(this);
-
-    this.events.subscribe(
-      'esriView:typeHasChanged',
-      this.initMapQuery.bind(this)
-    );
-
-    this.events.subscribe(
-      'esriView:displayDetails',
-      function(evt) {}.bind(this)
-    );
+    this.initMapQuery = this.initMapQuery.bind(this);
+    this.onLogin = this.onLogin.bind(this);
+    this.events.subscribe('esriView:typeHasChanged', this.initMapQuery);
+    // this.events.subscribe('auth:logined', this.onLogin);
   }
 
   get mapLoaded(): boolean {
@@ -113,6 +114,12 @@ export class EsriMapComponent implements OnInit {
   private view: any;
 
   mapClickEvent: any;
+  loading;
+
+  async ngOnDestroy() {
+    this.events.unsubscribe('esriView:typeHasChanged', this.initMapQuery);
+    // this.events.unsubscribe('auth:logined', this.onLogin);
+  }
 
   ionViewDidEnter() {
     console.log('enter map page');
@@ -185,11 +192,24 @@ export class EsriMapComponent implements OnInit {
       EsriConfig.portalUrl = appConfig.portal.baseUrl;
 
       let map: esri.Map;
+      const is3D = appConfig.map.type === '3d';
 
-      if (appConfig.map.type === '3d' && appConfig.map.webMapId) {
-        map = new WebScene({
+      let map2d;
+      let map3d;
+
+      if (appConfig.map.webSceneId) {
+        console.log('三维地图初始化');
+        map3d = new WebScene({
           portalItem: {
             id: appConfig.map.webSceneId
+          }
+        });
+      }
+      if (appConfig.map.webMapId) {
+        console.log('二维地图初始化');
+        map2d = new WebMap({
+          portalItem: {
+            id: appConfig.map.webMapId
           }
         });
       } else {
@@ -199,22 +219,44 @@ export class EsriMapComponent implements OnInit {
 
         map = new EsriMap(mapProperties);
       }
+      let view;
 
-      // Initialize the MapView
-      const mapViewProperties: esri.MapViewProperties = {
-        container: this.mapViewEl.nativeElement,
+      const mapView = new EsriMapView({
+        container: is3D ? null : this.mapViewEl.nativeElement,
         center: this._center,
         zoom: this._zoom,
-        map
-      };
+        map: map2d,
+        popup: null
+      });
 
-      const view = new EsriSceneView(mapViewProperties);
+      mapView.when(v => {
+        v.map.basemap.id = appConfig.map.webMapBaseMapId;
+      });
 
-      view.ui.remove('zoom');
+      const sceneView = new EsriSceneView({
+        container: is3D ? this.mapViewEl.nativeElement : null,
+        center: this._center,
+        zoom: this._zoom,
+        map: map3d,
+        popup: null
+      });
+
+      sceneView.when(v => {
+        v.map.basemap.id = appConfig.map.webScenceBaseMapId;
+      });
+
+      this.mapService.setMapView(mapView);
+      this.mapService.setSceneView(sceneView);
+
+      view = is3D ? sceneView : mapView;
       this.view = view;
-      this.mapService.view = view;
-      this.mapService.view.ui.remove('navigation-toggle');
-      this.mapService.view.ui.remove('compass');
+      this.mapService.setActiveView(view);
+
+      sceneView.ui.remove('zoom');
+      sceneView.ui.remove('navigation-toggle');
+      sceneView.ui.remove('compass');
+
+      mapView.ui.remove('zoom');
 
       // @ts-ignore
       window.mapService = this.mapService;
@@ -370,12 +412,45 @@ export class EsriMapComponent implements OnInit {
   whenLayerLoaded(layer) {
     const extent = layer.fullExtent.clone().expand(1.5);
     this.mapService.view.goTo(extent);
-    // this.mapService.setInitialExtent(extent);
   }
-  ngOnInit() {
-    // Initialize MapView and return an instance of MapView
-    this.initializeMap().then(mapView => {
-      this.houseKeeping(mapView);
+
+  onLogin() {
+    this.initializeMap()
+      .then(mapView => {
+        if (this.loading) {
+          setTimeout(() => {
+            this.loading.dismiss();
+          }, 500);
+
+        }
+
+        this.houseKeeping(mapView);
+      })
+      .catch(err => {
+        if (this.loading) {
+          this.loading.dismiss();
+        }
+      });
+  }
+  async ngOnInit() {
+    this.loading = await this.loadingController.create({
+      // spinner: null,
+      spinner: 'crescent',
+      // duration: 5000,
+      message: '加载中...',
+      translucent: true,
+      cssClass: 'custom-class custom-loading'
     });
+    await this.loading.present();
+    const islogin = await this.portalService.islogin();
+    if (islogin) {
+      //  注册server
+      await this.portalService.registerServer();
+      this.onLogin();
+    } else {
+      await this.router.navigateByUrl('login');
+    }
+
+    // Initialize MapView and return an instance of MapView
   }
 }

@@ -1,11 +1,26 @@
 accordion {
-
-    .card-header{
-        background-color: map-get($colors, primary);
-        color: #fff;
+  .card-header {
+    // background-color: map-get($colors, primary);
+    color: #fff;
+    .item-native {
+      border-radius: 5px;
     }
-    .card-content {
-        padding: 0px 16px; 
-        max-height: 0px;
-    }
+  }
+  .card-content {
+    padding: 0px 16px;
+    max-height: 0px;
+  }
 }
+
+ion-item{
+    --border-radius: 5px;
+}
+// .card-header {
+//   min-height: 46px;
+//   display: flex;
+//   font-size: 19px;
+//   background-color: var(--ion-color-primary, #3880ff);
+//   padding: 10px 20px;
+//   color: #fff;
+//   border-radius: 5px;
+// }

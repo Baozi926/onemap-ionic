@@ -1,16 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  Platform,
-  MenuController,
-  IonMenu,
-  ActionSheetController
-} from '@ionic/angular';
+import { ModalController, Events, MenuController } from '@ionic/angular';
+
+import { Platform, IonMenu, ActionSheetController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { PortalService } from './services/portal.service';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
-import { async } from 'q';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +22,8 @@ export class AppComponent {
     private menuController: MenuController,
     private portalService: PortalService,
     private actionSheetController: ActionSheetController,
-    public screenOrientation: ScreenOrientation
+    public screenOrientation: ScreenOrientation,
+    public events: Events
   ) {
     this.initializeApp();
     // this.menuController.swipeEnable(false);
@@ -69,14 +66,22 @@ export class AppComponent {
 
   async initializeApp() {
     this.platform.ready().then(async () => {
-      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+      if (!this.platform.is('mobileweb')) {
+        this.screenOrientation.lock(
+          this.screenOrientation.ORIENTATIONS.PORTRAIT
+        );
+      }
 
-      const loginInfo = await this.portalService.getUserFromStorage();
-      this.portalService.setUser(loginInfo);
-      const res = await this.portalService.login();
+      // 关闭滑动
+      this.menuController.get('main').then((menu: HTMLIonMenuElement) => {
+        menu.swipeGesture = true;
+      });
+
+      const islogin = await this.portalService.islogin();
 
       console.log('check login');
-      if (res.success) {
+      if (islogin) {
+        // this.events.publish('auth:logined');
         // await this.router.navigateByUrl('map');
       } else {
         await this.router.navigateByUrl('login');

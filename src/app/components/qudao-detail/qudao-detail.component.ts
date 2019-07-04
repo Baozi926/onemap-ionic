@@ -41,11 +41,17 @@ export class QudaoDetailComponent implements OnInit {
   @Input() data?: any;
   @ViewChild(NgxImageGalleryComponent)
   ngxImageGallery: NgxImageGalleryComponent;
+
+  @ViewChild('qudaoCanvas') private qudaoCanvasEl: ElementRef;
   gcdzImgUrl =
     'https://nsbdgis.ysy.com.cn/geoplat/onemap/images/temp/nopic.png';
   zhuanghao = '--';
   teshudizhi_active_data = [];
   dizhigongcheng_imgUrls = [];
+  zhuanghaoImgUrl =
+    'https://nsbdgis.ysy.com.cn/geoplat/onemap/images/temp/btbw02_2000-1018_440-401_1034-432_1638-402_779-525_1031-562_1272-528_1003-650.png';
+
+  qudaoImgBaseUrl = 'https://nsbdgis.ysy.com.cn/geoplat/onemap/';
   imageGalleryConf = {
     imageOffset: '0px',
     showDeleteControl: false,
@@ -253,6 +259,86 @@ export class QudaoDetailComponent implements OnInit {
   ngOnInit() {
     this.initData();
   }
+
+  generateQudaoParameters() {
+    const attr = this.data.attributes;
+    const attrSelected = this.data.attributes;
+    let imagePath =
+      'images/temp/btbw01_2000-1018_431-448_997-482_1562-451_685-583_994-645_1238-597_962-759.png';
+    if (attr.TYPECODE === '2.0' || !attr.TYPECODE) {
+      imagePath =
+        'images/temp/btbw02_2000-1018_440-401_1034-432_1638-402_779-525_1031-562_1272-528_1003-650.png';
+    } else if (attr.TYPECODE === '3.0') {
+      imagePath =
+        'images/temp/btbw03_2000-1018_535-421_1007-444_1482-419_744-534_1005-574_1273-531_976-655.png';
+    } else if (attr.TYPECODE === '4.0') {
+      imagePath =
+        'images/temp/btbw04_2000-1018_660-617_1043-629_1416-615_862-688_1041-700_1192-691_1008-767.png';
+    }
+
+    imagePath = this.qudaoImgBaseUrl + imagePath;
+
+    this.zhuanghaoImgUrl = imagePath;
+    const ratio = 1;
+
+    const STARTLEFTHORSEROADELEVATION = attrSelected.STARTLEFTHORSEROADELEVATION
+      ? (attrSelected.ENDLEFTHORSEROADELEVATION
+          ? parseFloat(attrSelected.STARTLEFTHORSEROADELEVATION) +
+            ratio *
+              (attrSelected.ENDLEFTHORSEROADELEVATION -
+                attrSelected.STARTLEFTHORSEROADELEVATION)
+          : parseFloat(attrSelected.STARTLEFTHORSEROADELEVATION)
+        ).toFixed(2)
+      : '';
+    const STARTDESIGNLEVEL = attrSelected.STARTDESIGNLEVEL
+      ? (attrSelected.ENDDESIGNLEVEL
+          ? parseFloat(attrSelected.STARTDESIGNLEVEL) +
+            ratio *
+              (attrSelected.ENDDESIGNLEVEL - attrSelected.STARTDESIGNLEVEL)
+          : parseFloat(attrSelected.STARTDESIGNLEVEL)
+        ).toFixed(2)
+      : '';
+    const STARTRIGHTHORSEROADELEVATION = attrSelected.STARTRIGHTHORSEROADELEVATION
+      ? (attrSelected.ENDRIGHTHORSEROADELEVATION
+          ? parseFloat(attrSelected.STARTRIGHTHORSEROADELEVATION) +
+            ratio *
+              (attrSelected.ENDRIGHTHORSEROADELEVATION -
+                attrSelected.STARTRIGHTHORSEROADELEVATION)
+          : parseFloat(attrSelected.STARTRIGHTHORSEROADELEVATION)
+        ).toFixed(2)
+      : '';
+    const STARTBOTTOMELEVATION = attrSelected.STARTBOTTOMELEVATION
+      ? (attrSelected.ENDBOTTOMELEVATION
+          ? parseFloat(attrSelected.STARTBOTTOMELEVATION) +
+            ratio *
+              (attrSelected.ENDBOTTOMELEVATION -
+                attrSelected.STARTBOTTOMELEVATION)
+          : parseFloat(attrSelected.STARTBOTTOMELEVATION)
+        ).toFixed(2)
+      : '';
+    const arr = [
+      STARTLEFTHORSEROADELEVATION,
+      STARTDESIGNLEVEL,
+      STARTRIGHTHORSEROADELEVATION,
+      attrSelected.INNERSLOPEROTIO || '',
+      STARTBOTTOMELEVATION,
+      attrSelected.INNERSLOPEROTIO || '',
+      attrSelected.BOTTOMWIDTH || ''
+    ];
+
+    const width = this.qudaoCanvasEl.nativeElement.width;
+    const pratio = width / parseInt(imagePath.split('_')[1].split('-')[0]);
+    const ctx = this.qudaoCanvasEl.nativeElement.getContext('2d');
+    ctx.fillStyle = 'black';
+    arr.forEach((v, i) => {
+      ctx.font = '10px DIN';
+      ctx.fillText(
+        arr[i],
+        parseInt(imagePath.split('_')[i + 2].split('-')[0]) * pratio,
+        parseInt(imagePath.split('_')[i + 2].split('-')[1]) * pratio + 10
+      );
+    });
+  }
   async initData() {
     const geometry = this.data.geometry;
     if (!geometry) {
@@ -264,6 +350,12 @@ export class QudaoDetailComponent implements OnInit {
       this.data.attributes.STARTSTAKENUMBER ||
       this.data.attributes.STAKENUMBER ||
       '--';
+
+    try {
+      this.generateQudaoParameters();
+    } catch (err) {
+      console.warn(err);
+    }
 
     const [GeometryEngine, WebMercatorUtils] = await loadModules([
       'esri/geometry/geometryEngine',
@@ -422,9 +514,10 @@ export class QudaoDetailComponent implements OnInit {
   onDizhigongchengImgClick() {
     if (this.dizhigongcheng_imgUrls.length > 0) {
       this.ngxImageGallery.open(0);
-      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
+      this.screenOrientation.lock(
+        this.screenOrientation.ORIENTATIONS.LANDSCAPE
+      );
     }
-
   }
 
   onDizhigongchenggalleryClosed() {

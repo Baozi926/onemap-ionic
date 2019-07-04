@@ -13,11 +13,13 @@
   <ion-card>
     <ion-card-header>桩号:{{ zhuanghao }}</ion-card-header>
     <ion-card-content>
-      <img
-        class="quado-img"
-        src="https://nsbdgis.ysy.com.cn/geoplat/onemap/images/temp/btbw02_2000-1018_440-401_1034-432_1638-402_779-525_1031-562_1272-528_1003-650.png"
-      />
-      <canvas class="quado-img-parameters"></canvas>
+      <div class="quado-img-wrapper">
+        <img
+          class="quado-img"
+          [src]="zhuanghaoImgUrl"
+        />
+        <canvas #qudaoCanvas class="quado-img-parameters"></canvas>
+      </div>
     </ion-card-content>
   </ion-card>
   <accordion title="渠道断面信息">
