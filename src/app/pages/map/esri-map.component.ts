@@ -116,6 +116,8 @@ export class EsriMapComponent implements OnInit {
   mapClickEvent: any;
   loading;
 
+  nsbdMapQueryMode = true;
+
   async ngOnDestroy() {
     this.events.unsubscribe('esriView:typeHasChanged', this.initMapQuery);
     // this.events.unsubscribe('auth:logined', this.onLogin);
@@ -334,11 +336,77 @@ export class EsriMapComponent implements OnInit {
                 polygon = webMercatorUtils.webMercatorToGeographic(polygon);
               }
 
-              this.events.publish('search:searchByGeometry', {
-                geometry: polygon,
-                layers: this.getLayers4NsbdSpatial(),
-                defaultDisplayLayer: 'zx_channel_irrigationditch'
-              });
+              // 只获取最近的渠道
+              if (this.nsbdMapQueryMode) {
+
+                // 水利要素服务
+                const url =
+                  'https://nsbdgis.ysy.com.cn/arcgis/rest/services/zhuanti/feature_nsbd_CHANNEL_IrrigationDitch/MapServer';
+
+                const [
+                  GeometryEngine,
+                  WebMercatorUtils,
+                  IdentifyTask,
+                  IdentifyParameters
+                ] = await loadModules([
+                  'esri/geometry/geometryEngine',
+                  'esri/geometry/support/webMercatorUtils',
+                  'esri/tasks/IdentifyTask',
+                  'esri/tasks/support/IdentifyParameters'
+                ]);
+                const queryTask = new IdentifyTask({
+                  url
+                });
+                const query = new IdentifyParameters();
+                query.returnGeometry = true;
+                query.outFields = [];
+                query.tolerance = 10;
+                query.geometry = evt.mapPoint;
+                query.outSpatialReference = this.mapService.getView().spatialReference;
+                query.mapExtent = this.mapService.getView().extent;
+                let distance = Infinity;
+                let nearestLine;
+                queryTask.execute(query).then(res => {
+                  // 寻找里点击点最近的渠道
+                  res.results.forEach(v => {
+                    const d = GeometryEngine.distance(
+                      v.feature.geometry,
+                      evt.mapPoint
+                    );
+                    if (d < distance) {
+                      distance = d;
+                      nearestLine = v.feature.geometry;
+                    }
+                  });
+
+                  if (nearestLine) {
+                    let nearestPoint = nearestLine.getPoint(
+                      0,
+                      Math.floor(nearestLine.paths[0].length / 2)
+                    );
+
+                    if (!nearestPoint.spatialReference.isGeographic) {
+                      nearestPoint = webMercatorUtils.webMercatorToGeographic(nearestPoint);
+                    }
+                    this.events.publish('search:searchByGeometry', {
+                      geometry: nearestPoint,
+                      layers: this.getLayers4NsbdSpatial(),
+                      defaultDisplayLayer: 'zx_channel_irrigationditch'
+                    });
+                  } else {
+                    this.events.publish('search:searchByGeometry', {
+                      geometry: polygon,
+                      layers: this.getLayers4NsbdSpatial(),
+                      defaultDisplayLayer: 'zx_channel_irrigationditch'
+                    });
+                  }
+                });
+              } else {
+                this.events.publish('search:searchByGeometry', {
+                  geometry: polygon,
+                  layers: '*'
+                });
+              }
             }
           })
           .catch(err => {
@@ -421,7 +489,6 @@ export class EsriMapComponent implements OnInit {
           setTimeout(() => {
             this.loading.dismiss();
           }, 500);
-
         }
 
         this.houseKeeping(mapView);

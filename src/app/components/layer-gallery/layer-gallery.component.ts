@@ -166,17 +166,22 @@ export class LayerGalleryComponent implements OnInit {
       return !!this.mapService.view.map.findLayerById(layer.id);
     }
   }
-  async ngOnInit() {
-    await this.fetchCategory();
+  async ionViewDidEnter() {
+    if (this.category.length === 0) {
+      await this.fetchCategory();
+    }
+
     this.category.forEach(async (v, k) => {
       setTimeout(async () => {
         await this.fetchLayers4Category(v);
         v.layers.forEach(layer => {
           layer.active = this.isLayerExists(layer);
         });
-      }, 300 + k * 200);
+      }, 0);
     });
-
+  }
+  async ngOnInit() {
+    await this.fetchCategory();
     // await Promise.all(promises);
   }
 
