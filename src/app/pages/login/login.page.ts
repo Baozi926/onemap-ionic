@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { PortalService } from '../../services/portal.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,8 @@ export class LoginPage implements OnInit {
   password = 'nsbdgis123';
   constructor(
     public navCtrl: NavController,
-    private portalService: PortalService
+    private portalService: PortalService,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {}
@@ -33,12 +35,19 @@ export class LoginPage implements OnInit {
         password: this.password
       })
       .login();
-
     if (res.success) {
       this.navCtrl.navigateForward('/map');
     } else {
       // todo show error
-       console.warn('login error');
+      const toast = await this.toastController.create({
+        color: 'dark',
+        message: `登录失败[${res.error}]`,
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+      console.warn('login error');
+      //  this.
     }
   }
   onConfigBtnClick() {

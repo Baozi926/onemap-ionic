@@ -71,7 +71,7 @@ export class SearchResultComponent implements OnInit {
   async ngOnInit() {
     this.total = 0;
     this.results = [];
-
+    this.hide = this.hide.bind(this);
     this.doSearch = this.doSearch.bind(this);
     this.doGeometrySearch = this.doGeometrySearch.bind(this);
 
@@ -80,6 +80,9 @@ export class SearchResultComponent implements OnInit {
     this.events.subscribe('search:doSearch', this.doSearch);
     this.events.subscribe('search:searchByGeometry', this.doGeometrySearch);
     this.events.subscribe('esriView:typeHasChanged', this.checkGraphicsLayer);
+    this.events.subscribe('esriView:clearGraphics', this.hide);
+
+
 
     this.listHeight = this.platform.height() / 2;
     this.listHeightString = this.listHeight + 'px';
@@ -119,6 +122,7 @@ export class SearchResultComponent implements OnInit {
       // spinner: null,
       spinner: 'crescent',
       // duration: 5000,
+      backdropDismiss: true,
       message: '正在搜索',
       translucent: true,
       cssClass: 'custom-class custom-loading'
@@ -152,6 +156,7 @@ export class SearchResultComponent implements OnInit {
     this.events.unsubscribe('search:doSearch', this.doSearch);
     this.events.unsubscribe('search:searchByGeometry', this.doGeometrySearch);
     this.events.unsubscribe('esriView:typeHasChanged', this.checkGraphicsLayer);
+    this.events.unsubscribe('esriView:clearGraphics', this.hide);
   }
   async onSearchEnd() {
     console.log('onSearchEnd', this);

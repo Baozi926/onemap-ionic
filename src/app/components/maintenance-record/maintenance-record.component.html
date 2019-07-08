@@ -4,7 +4,7 @@
       <ion-button (click)="dissModal($event)" color="dark">返回</ion-button>
     </ion-buttons>
     <ion-title class="title">
-      维修记录（共{{total}}条）
+      维修记录（共{{total===undefined?'--':total}}条）
     </ion-title>
   </ion-toolbar>
 </ion-header>

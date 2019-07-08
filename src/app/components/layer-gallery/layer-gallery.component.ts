@@ -323,7 +323,7 @@ export class LayerGalleryComponent implements OnInit {
             const toast = await this.toastController.create({
               color: 'dark',
               message: '自动切换到三维地图',
-              duration: 2000,
+              duration: 4000,
               position: 'top'
             });
             toast.present();
@@ -386,7 +386,7 @@ export class LayerGalleryComponent implements OnInit {
             err => {
               console.warn('加载图层失败', err);
             }
-          );
+          )
         }
       }
     } else {

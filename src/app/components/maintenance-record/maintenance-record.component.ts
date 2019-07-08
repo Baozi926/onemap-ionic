@@ -22,9 +22,9 @@ export class MaintenanceRecordComponent implements OnInit {
   ) {}
 
   features = [];
-  total = 0;
+  total = undefined;
 
-  graphics = [];
+
 
   async ngOnInit() {
     const url =
@@ -54,9 +54,9 @@ export class MaintenanceRecordComponent implements OnInit {
     // this.features = res.features;
   }
   onLocateBtnClick(evt, graphic) {
-    this.mapService.getView().graphics.removeMany(this.graphics);
+    this.mapService.getView().graphics.removeAll();
 
-    this.graphics = [];
+
 
     console.log('地图显示', graphic);
     // const graphic = item.graphic;
@@ -69,7 +69,7 @@ export class MaintenanceRecordComponent implements OnInit {
         width: 2
       }
     };
-    this.graphics.push(graphic);
+
     this.mapService
       .getView()
       .goTo(graphic)

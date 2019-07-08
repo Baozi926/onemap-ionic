@@ -143,31 +143,43 @@ export class PortalService {
     const password = this.config.password;
 
     const generateTokenUrl = `${this.portalUrl}/sharing/generateToken`;
-    const res = await axios.post(
-      generateTokenUrl,
-      qs.stringify({
-        username,
-        password,
-        ip: '',
-        referer: '',
-        client: 'requestip',
-        expiration: 3600,
-        f: 'json'
-      })
-    );
+    try {
+      const res = await axios.post(
+        generateTokenUrl,
+        qs.stringify({
+          username,
+          password,
+          ip: '',
+          referer: '',
+          client: 'requestip',
+          expiration: 3600,
+          f: 'json'
+        })
+      );
+      const data = res.data;
+      if (data.error) {
+        return {
+          success: false,
+          error: data.error.details
+        };
+      }
 
-    const data = res.data;
+      if (data.token) {
+        const token = data.token;
+        // await this.registerServer();
+        this.config.token = data.token;
+        this.config.expires = data.expires;
+        await this.storage.set('loginInfo', this.config);
 
-    if (data.token) {
-      const token = data.token;
-      await this.registerServer();
-      this.config.token = data.token;
-      this.config.expires = data.expires;
-      await this.storage.set('loginInfo', this.config);
-
+        return {
+          success: true,
+          token: data.token
+        };
+      }
+    } catch (err) {
       return {
-        success: true,
-        token: data.token
+        success: false,
+        error: err
       };
     }
 
@@ -184,6 +196,8 @@ export class PortalService {
       expires: 0,
       profile: {}
     };
+
+    this.storage.set('loginInfo', this.config);
   }
   async fetchServerTokenByPortalToken({ serverUrl, token }) {
     const url = `${this.portalUrl}/sharing/generateToken`;

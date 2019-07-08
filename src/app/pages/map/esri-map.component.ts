@@ -42,7 +42,7 @@ import esri = __esri; // Esri TypeScript Types
 @Component({
   selector: 'app-esri-map',
   templateUrl: './esri-map.component.html',
-  styleUrls: ['./esri-map.component.css']
+  styleUrls: ['./esri-map.component.scss']
 })
 export class EsriMapComponent implements OnInit {
   constructor(
@@ -222,26 +222,31 @@ export class EsriMapComponent implements OnInit {
         map = new EsriMap(mapProperties);
       }
       let view;
+      let mapView;
 
-      const mapView = new EsriMapView({
-        container: is3D ? null : this.mapViewEl.nativeElement,
-        center: this._center,
-        zoom: this._zoom,
-        map: map2d,
-        popup: null
-      });
+      mapView =
+        this.mapService.mapView ||
+        new EsriMapView({
+          container: null,
+          center: this._center,
+          zoom: this._zoom,
+          map: map2d,
+          popup: null
+        });
 
       mapView.when(v => {
         v.map.basemap.id = appConfig.map.webMapBaseMapId;
       });
 
-      const sceneView = new EsriSceneView({
-        container: is3D ? this.mapViewEl.nativeElement : null,
-        center: this._center,
-        zoom: this._zoom,
-        map: map3d,
-        popup: null
-      });
+      const sceneView =
+        this.mapService.sceneView ||
+        new EsriSceneView({
+          container: null,
+          center: this._center,
+          zoom: this._zoom,
+          map: map3d,
+          popup: null
+        });
 
       sceneView.when(v => {
         v.map.basemap.id = appConfig.map.webScenceBaseMapId;
@@ -251,6 +256,12 @@ export class EsriMapComponent implements OnInit {
       this.mapService.setSceneView(sceneView);
 
       view = is3D ? sceneView : mapView;
+
+      if (is3D) {
+        sceneView.container = this.mapViewEl.nativeElement;
+      } else {
+        mapView.container = this.mapViewEl.nativeElement;
+      }
       this.view = view;
       this.mapService.setActiveView(view);
 
@@ -338,7 +349,6 @@ export class EsriMapComponent implements OnInit {
 
               // 只获取最近的渠道
               if (this.nsbdMapQueryMode) {
-
                 // 水利要素服务
                 const url =
                   'https://nsbdgis.ysy.com.cn/arcgis/rest/services/zhuanti/feature_nsbd_CHANNEL_IrrigationDitch/MapServer';
@@ -386,7 +396,9 @@ export class EsriMapComponent implements OnInit {
                     );
 
                     if (!nearestPoint.spatialReference.isGeographic) {
-                      nearestPoint = webMercatorUtils.webMercatorToGeographic(nearestPoint);
+                      nearestPoint = webMercatorUtils.webMercatorToGeographic(
+                        nearestPoint
+                      );
                     }
                     this.events.publish('search:searchByGeometry', {
                       geometry: nearestPoint,
@@ -502,9 +514,9 @@ export class EsriMapComponent implements OnInit {
   async ngOnInit() {
     this.loading = await this.loadingController.create({
       // spinner: null,
-      spinner: 'crescent',
+      spinner: 'lines',
       // duration: 5000,
-      message: '加载中...',
+      // message: '加载中...',
       translucent: true,
       cssClass: 'custom-class custom-loading'
     });

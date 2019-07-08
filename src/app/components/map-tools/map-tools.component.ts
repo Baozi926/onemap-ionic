@@ -41,8 +41,14 @@ export class MapToolsComponent implements OnInit {
   }
   onMapClearAllBtnClick() {
     console.log('clear map');
+    this.events.publish('esriView:clearGraphics');
     this.mapService.view.graphics.removeAll();
-    this.mapService.view.map.removeAll();
+    this.mapService.view.map.layers.forEach(v => {
+      if (v.type === 'graphics') {
+        v.removeAll();
+      }
+
+    });
   }
 
   async onShowMaintenanceRecordsBtnClick(evt) {

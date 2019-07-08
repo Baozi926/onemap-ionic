@@ -23,7 +23,16 @@ export class MapService {
     return this.view_;
   }
   set view(view) {
+    console.log('set view', view);
+    if (this.view_) {
+      this.view_.map.removeMany(this.busilayers);
+    }
+
     this.view_ = view;
+    this.view.when(() => {
+      this.syncLayers();
+    });
+
     // 在地图二三维切换时同步地图质量
     if (this.isSmartMode) {
       // this.preprocessLayersForMapTypeChange();
@@ -50,22 +59,81 @@ export class MapService {
 
   noPointFeatureServiceCache = {};
 
+  busilayers = [];
+
+  async syncLayers() {
+    const [
+      FeatureLayer,
+      MapImageLayer,
+      IntegratedMeshLayer,
+      SceneLayer,
+      GroupLayer,
+      BuildingSceneLayer
+    ] = await loadModules([
+      'esri/layers/FeatureLayer',
+      'esri/layers/MapImageLayer',
+      'esri/layers/IntegratedMeshLayer',
+      'esri/layers/SceneLayer',
+      'esri/layers/GroupLayer',
+      'esri/layers/BuildingSceneLayer'
+    ]);
+
+    this.busilayers.forEach(v => {
+      if (v) {
+        if (v.type === 'group') {
+          const newlayer = new GroupLayer({
+            title: v.title,
+            id: v.id
+          });
+
+          v.layers.items.forEach(vv => {
+            if (vv.type === 'feature') {
+              newlayer.layers.add(
+                new FeatureLayer({
+                  url: vv.url + '/' + vv.layerId
+                })
+              );
+            } else {
+              alert('not implmented');
+            }
+          });
+
+          this.view.map.add(newlayer);
+        } else {
+          this.view.map.add(v);
+        }
+      }
+    });
+  }
+
   addLayer(layer) {
     console.log('add layer', layer);
     if (
-      layer.type !== 'integrated-mesh' ||
-      layer.type !== 'scene' ||
-      layer.type !== 'building-scene'
+      layer.type === 'integrated-mesh' ||
+      layer.type === 'scene' ||
+      layer.type === 'building-scene'
     ) {
-      this.mapView.map.add(layer);
+      if (this.view.type === '3d') {
+        this.view.map.add(layer);
+      }
+    } else {
+      this.view.map.add(layer);
     }
-    this.sceneView.map.add(layer);
+
+    this.busilayers.push(layer);
   }
 
   removeLayer(layer) {
     console.log('remove layer', layer);
-    this.mapView.map.remove(layer);
-    this.sceneView.map.remove(layer);
+    this.view.map.remove(layer);
+
+    for (let i = 0; i < this.busilayers.length; i++) {
+      const l = this.busilayers[i];
+      if (l === layer) {
+        this.busilayers.splice(i, 1);
+        break;
+      }
+    }
   }
 
   setActiveView(view) {
