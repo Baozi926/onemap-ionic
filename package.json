@@ -44,7 +44,7 @@
     "@mdi/font": "^3.6.95",
     "@types/arcgis-js-api": "^4.11.0",
     "animejs": "^3.0.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "cordova-android": "8.0.0",
     "cordova-ios": "^5.0.1",
     "cordova-plugin-file": "6.0.1",
